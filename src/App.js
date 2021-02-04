@@ -387,10 +387,10 @@ const App = () => {
     //console.log(updatedlocation.res8neighbors);
     updateLocation(updatedlocation);
     const res6hexes = kRing(updatedlocation.res6hex, 1);
-    const res7hexes = kRing(updatedlocation.res7hex, 1);
-    const res8hexes = kRing(updatedlocation.res8hex, 5);
-    const res9hexes = kRing(updatedlocation.res9hex, 8);
-    const res10hexes = kRing(updatedlocation.res10hex, 10);
+    const res7hexes = kRing(updatedlocation.res7hex, 4);
+    const res8hexes = kRing(updatedlocation.res8hex, 12);
+    const res9hexes = kRing(updatedlocation.res9hex, 24);
+    const res10hexes = kRing(updatedlocation.res10hex, 48);
     const nearbyHotspots = [];
     var n;
     for (n = 0; n < res8hexes.length; n++) {
