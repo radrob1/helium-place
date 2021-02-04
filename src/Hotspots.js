@@ -1,39 +1,26 @@
 import * as React from "react";
-import { PureComponent } from "react";
-import { Popup } from "react-map-gl";
-import HotspotInfo from "./HotspotInfo";
+import mapboxgl from "mapbox-gl"; 
+import {
+  Source,
+  Layer,
+} from "react-map-gl";
 
-// Important for perf: the markers never change, avoid rerender when the map viewport changes
-export default class Hotspots extends PureComponent {
-  onClick(hotspot) {
-    console.log("marker click: ", hotspot);
-    this.setState({ popupname: hotspot });
-  }
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
-  render() {
-    const { data } = this.props;
-    const state = {
-      popupname: null,
-    };
-    console.log(data);
-    return data.map((hotspot, index) => (
-      <div
-        className={hotspot.properties.name}
-        onClick={this.onClick(hotspot.properties.name)}
-      >
-        {this.state.popupname != null && (
-          <Popup
-            tipSize={8}
-            anchor="top"
-            longitude={hotspot.properties.longitude}
-            latitude={hotspot.properties.latitude}
-            closeButton={true}
-            closeOnClick={true}
-          >
-            <HotspotInfo info={hotspot} />
-          </Popup>
-        )}
-      </div>
-    ));
-  }
-}
+const hotspotPaint = {
+  "fill-color": "#001f3f",
+  "fill-opacity": 1,
+  //'background': 'purple'
+};
+
+const Hotspots = ({geojsondata}) => {
+  console.log("Hotspots.js geojsondata:", geojsondata);
+  return (
+    <Source type="geojson" data={geojsondata}>
+      <Layer type="fill" paint={hotspotPaint} />
+    </Source>
+  );
+};
+
+export default Hotspots;
