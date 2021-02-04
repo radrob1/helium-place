@@ -148,6 +148,7 @@ const App = () => {
     (newViewport) => setViewport(newViewport),
     []
   );
+  const [res6Data, setRes6Data] = useState();
   const [res7Data, setRes7Data] = useState();
   const [res8Data, setRes8Data] = useState();
   const [res9Data, setRes9Data] = useState();
@@ -159,6 +160,7 @@ const App = () => {
   const [hoveredFeature, setHoveredFeature] = useState();
   const [x, setX] = useState();
   const [y, setY] = useState();
+  const [res6toggle, setRes6Toggle] = useState(false);
   const [res8toggle, setRes8Toggle] = useState(false);
   const [res7toggle, setRes7Toggle] = useState(false);
   const [res9toggle, setRes9Toggle] = useState(false);
@@ -254,6 +256,12 @@ const App = () => {
     }
   };
 
+  const updateRes6Data = (value) => {
+    if (typeof value != "undefined") {
+      setRes6Data(value);
+    }
+  };
+
   const updateRes7Data = (value) => {
     if (typeof value != "undefined") {
       setRes7Data(value);
@@ -277,6 +285,7 @@ const App = () => {
     //console.log(geoToH3(location.result.geometry.coordinates[1], location.result.geometry.coordinates[0], 8))
     let newlatitude = 0;
     let newlongitude = 0;
+    let res6hex = null;
     let res7hex = null;
     let res8hex = null;
     let res9hex = null;
@@ -286,6 +295,11 @@ const App = () => {
     try {
       newlatitude = newlocation.result.geometry.coordinates[0];
       newlongitude = newlocation.result.geometry.coordinates[1];
+      res6hex = geoToH3(
+        newlocation.result.geometry.coordinates[1],
+        newlocation.result.geometry.coordinates[0],
+        6
+      );
       res7hex = geoToH3(
         newlocation.result.geometry.coordinates[1],
         newlocation.result.geometry.coordinates[0],
@@ -320,6 +334,11 @@ const App = () => {
       console.log("handleOnResult: Geolocate");
       newlatitude = newlocation.coords.latitude;
       newlongitude = newlocation.coords.longitude;
+      res6hex = geoToH3(
+        newlocation.coords.latitude,
+        newlocation.coords.longitude,
+        6
+      );
       res7hex = geoToH3(
         newlocation.coords.latitude,
         newlocation.coords.longitude,
@@ -357,6 +376,7 @@ const App = () => {
       latitude: newlatitude,
       longitude: newlongitude,
       res8hex: res8hex,
+      res6hex: res6hex,
       res12hex: res12hex,
       res11hex: res11hex,
       res7hex: res7hex,
@@ -366,6 +386,7 @@ const App = () => {
     };
     //console.log(updatedlocation.res8neighbors);
     updateLocation(updatedlocation);
+    const res6hexes = kRing(updatedlocation.res6hex, 1);
     const res7hexes = kRing(updatedlocation.res7hex, 1);
     const res8hexes = kRing(updatedlocation.res8hex, 5);
     const res9hexes = kRing(updatedlocation.res9hex, 8);
@@ -427,7 +448,38 @@ const App = () => {
     res11safehexes.push(hexRing(updatedlocation.res11hex, 9));
     res11safehexes.push(hexRing(updatedlocation.res11hex, 10));
     res11safehexes.push(hexRing(updatedlocation.res11hex, 11));
+// Get res 6  booundaries
+    if (typeof res6hexes !== "undefined" && res6hexes.length > 0) {
+      let res6hexboundaries = [];
+      var i;
+      for (i = 0; i < res8hexes.length; i++) {
+        let hexBoundary = h3ToGeoBoundary(res6hexes[i]);
+        hexBoundary.push(hexBoundary[0]);
 
+        let arr = [];
+        for (const i of hexBoundary) {
+          arr.push([i[1], i[0]]);
+        }
+        res6hexboundaries.push(arr);
+      }
+
+      var i;
+      var features = [];
+      for (i = 0; i < res6hexboundaries.length; i++) {
+        features.push({
+          type: "Feature",
+          geometry: {
+            type: "Polygon",
+            coordinates: [res6hexboundaries[i]],
+          },
+        });
+      }
+      const geojson = {
+        type: "FeatureCollection",
+        features: features,
+      };
+      updateRes6Data(geojson);
+    }
     // Get all  res 7 neighbor boundaries
     if (typeof res7hexes !== "undefined" && res7hexes.length > 0) {
       let res7hexboundaries = [];
@@ -714,218 +766,13 @@ const App = () => {
     }
   };
 
-  /*
-  const handleOnGeolocate = useCallback(
-    (newlocation) => {
-      console.log(newlocation);
-      //console.log(geoToH3(location.result.geometry.coordinates[1], location.result.geometry.coordinates[0], 8))
-      const newlatitude = newlocation.coords.latitude;
-      const newlongitude = newlocation.coords.longitude;
-      const res8hex = geoToH3(newlocation.coords.latitude, newlocation.coords.longitude, 8);
-      const res12hex = geoToH3(newlocation.coords.latitude, newlocation.coords.longitude, 12);
-      const res11hex = geoToH3(newlocation.coords.latitude, newlocation.coords.longitude, 11);
-      //const res8neighbors = kRing(res8hex,1);
-      //console.log(res8neighbors);
-      const updatedlocation = {
-        latitude: newlatitude,
-        longitude: newlongitude,
-        res8hex: res8hex,
-        res12hex: res12hex,
-        res11hex: res11hex,
-        //res8neighbors: res8neighbors
-      };
-      //console.log(updatedlocation.res8neighbors);
-      updateLocation(updatedlocation);
-      const res8hexes = kRing(updatedlocation.res8hex, 1);
-      const nearbyHotspots = [];
-      var n;
-      for (n=0; n < res8hexes.length;n++){
-        var res8 = res8hexes[n];
-        for (var i in hotspots){
-          if (hotspots[i].res8_location === res8){
-            nearbyHotspots.push({
-              location: hotspots[i].location,
-              name: hotspots[i].name,
-              longitude: hotspots[i].longitude,
-              latitude: hotspots[i].latitude,
-              address: hotspots[i].address,
-              rewardScale: hotspots[i].reward_scale
-            })
-          }
-        }
-      }
-      console.log("nearbyHotspots: ", nearbyHotspots);
-      var i;
-      var features = []
-      for (i = 0; i < nearbyHotspots.length; i++) {
-        let hexBoundary = h3ToGeoBoundary(nearbyHotspots[i].location)
-        hexBoundary.push(hexBoundary[0])
-
-        let arr = []
-        for (const i of hexBoundary) {
-          arr.push([i[1], i[0]])
-        }
-        features.push({
-          type: 'Feature',
-          properties: {
-            title: nearbyHotspots[i].name,
-            name: nearbyHotspots[i].name,
-            longitude: nearbyHotspots[i].longitude,
-            latitude: nearbyHotspots[i].latitude,
-            address: nearbyHotspots[i].address
-          },
-          geometry: {
-            type: "Polygon",
-            coordinates: [arr]
-          }
-        })
-      }
-      const nearbygeojson = {
-        type: 'FeatureCollection',
-        features: features
-      };
-      updateNearbyHotspots(nearbygeojson);
-      const res11closehexes = kRing(updatedlocation.res11hex, 7);
-      const res11safehexes = []
-      res11safehexes.push(hexRing(updatedlocation.res11hex, 8));
-      res11safehexes.push(hexRing(updatedlocation.res11hex, 9));
-      res11safehexes.push(hexRing(updatedlocation.res11hex, 10));
-      //console.log(res8hexes);
-      if (typeof res8hexes !== 'undefined' && res8hexes.length > 0) {
-        let res8hexboundaries = [];
-        var i;
-        for (i = 0; i < res8hexes.length; i++) {
-          let hexBoundary = h3ToGeoBoundary(res8hexes[i])
-          hexBoundary.push(hexBoundary[0])
-
-          let arr = []
-          for (const i of hexBoundary) {
-            arr.push([i[1], i[0]])
-          }
-          res8hexboundaries.push(arr)
-        }
-
-        var i;
-        var features = []
-        for (i = 0; i < res8hexboundaries.length; i++) {
-          features.push({
-            type: 'Feature',
-            geometry: {
-              type: "Polygon",
-              coordinates: [res8hexboundaries[i]]
-            }
-          })
-        }
-        const geojson = {
-          type: 'FeatureCollection',
-          features: features
-        };
-        updateRes8Data(geojson);
-      }
-
-      if (typeof res11closehexes !== 'undefined' && res11closehexes.length > 0) {
-        let res11hexboundaries = [];
-        var i;
-        for (i = 0; i < res11closehexes.length; i++) {
-          let hexBoundary = h3ToGeoBoundary(res11closehexes[i])
-          hexBoundary.push(hexBoundary[0])
-
-          let arr = []
-          for (const i of hexBoundary) {
-            arr.push([i[1], i[0]])
-          }
-          res11hexboundaries.push(arr)
-        }
-
-        var i;
-        var features = []
-        for (i = 0; i < res11hexboundaries.length; i++) {
-          features.push({
-            type: 'Feature',
-            properties: {
-              name: "Too Close",
-              title:  "Too Close",
-              longitude: res11hexboundaries[i][0][0],
-              latitude: res11hexboundaries[i][0][1]
-            },
-            geometry: {
-              type: "Polygon",
-              coordinates: [res11hexboundaries[i]]
-            }
-          })
-        }
-        const geojson = {
-          type: 'FeatureCollection',
-          features: features
-        };
-        updateRes11TooClose(geojson);
-      }
-
-      if (typeof res11safehexes !== 'undefined' && res11safehexes.length > 0) {
-        let res11hexboundaries = [];
-        var j;
-        for (j = 0; j < res11safehexes.length; j++) {
-          var i;
-          for (i = 0; i < res11safehexes[j].length; i++) {
-            let hexBoundary = h3ToGeoBoundary(res11safehexes[j][i])
-            hexBoundary.push(hexBoundary[0])
-
-            let arr = []
-            for (const i of hexBoundary) {
-              arr.push([i[1], i[0]])
-            }
-            res11hexboundaries.push(arr)
-          }
-        }
-
-        var i;
-        var features = []
-        for (i = 0; i < res11hexboundaries.length; i++) {
-          features.push({
-            type: 'Feature',
-            properties: {
-              title: "Safe distance",
-              name: "Safe distance",
-              longitude: res11hexboundaries[i][0][0],
-              latitude: res11hexboundaries[i][0][1]
-            },
-            geometry: {
-              type: "Polygon",
-              coordinates: [res11hexboundaries[i]]
-            }
-          })
-        }
-        const geojson = {
-          type: 'FeatureCollection',
-          features: features
-        };
-        updateRes11SafeRing(geojson);
-      }
-
-      let hexBoundary = h3ToGeoBoundary(res12hex)
-      hexBoundary.push(hexBoundary[0])
-
-      let arr = []
-      for (const i of hexBoundary) {
-        arr.push([i[1], i[0]])
-      }
-      //console.log(arr);
-      const geojson = {
-        type: 'Feature',
-        properties: {
-            title: "Searched Location",
-            name: "Searched Location"
-        },
-        geometry: {
-          type: "Polygon",
-          coordinates: [arr]
-        }        
-      };
-      updateRes12Location(geojson);
+  
+  const handleRes6Toggle = useCallback(
+    (checked) => {
+      setRes6Toggle(checked);
     },
-    [location]
+    [res6toggle]
   );
-  */
 
   const handleRes7Toggle = useCallback(
     (checked) => {
@@ -1047,6 +894,12 @@ const App = () => {
           </Source>
         )}
 
+        {res6Data && res6toggle && (
+          <Source type="geojson" data={res6Data}>
+            <Layer type="line" paint={polygonPaint} />
+          </Source>
+        )}
+
         {res7Data && res7toggle && (
           <Source type="geojson" data={res7Data}>
             <Layer type="line" paint={polygonPaint} />
@@ -1132,7 +985,7 @@ const App = () => {
             trackUserLocation={false}
             onViewportChange={handleGeolocateViewportChange}
             onGeolocate={handleOnResult}
-            //auto
+          //auto
           />
         </div>
         <div className="nav" style={navStyle}>
@@ -1145,6 +998,26 @@ const App = () => {
         containerRef={toggleswitchContainerRef}
       >
         <h4>Hex Resolution Toggle</h4>
+        <div>
+          <span>res 6</span>
+          <label htmlFor="material-switch">
+            <Switch
+              checked={res6toggle}
+              onChange={handleRes6Toggle}
+              onColor="#86d3ff"
+              onHandleColor="#2693e6"
+              handleDiameter={10}
+              uncheckedIcon={false}
+              checkedIcon={false}
+              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+              height={12}
+              width={30}
+              className="react-switch"
+              id="material-switch"
+            />
+          </label>
+        </div>
         <div>
           <span>res 7</span>
           <label htmlFor="material-switch">
