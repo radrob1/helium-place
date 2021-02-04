@@ -64,6 +64,7 @@ const Map = (props) => {
         res8hex: "",
         res12hex: "",
     });
+    const [res6Data, setRes6Data] = useState();
     const [res7Data, setRes7Data] = useState();
     const [res8Data, setRes8Data] = useState();
     const [res9Data, setRes9Data] = useState();
@@ -113,6 +114,12 @@ const Map = (props) => {
         console.log("res8Data:", value);
         if (typeof value != "undefined") {
             setRes8Data(value);
+        }
+    };
+
+    const updateRes6Data = (value) => {
+        if (typeof value != "undefined") {
+            setRes6Data(value);
         }
     };
 
@@ -177,6 +184,7 @@ const Map = (props) => {
         //console.log(geoToH3(location.result.geometry.coordinates[1], location.result.geometry.coordinates[0], 8))
         let newlatitude = 0;
         let newlongitude = 0;
+        let res6hex = null;
         let res7hex = null;
         let res8hex = null;
         let res9hex = null;
@@ -186,6 +194,11 @@ const Map = (props) => {
         try {
             newlatitude = newlocation.result.geometry.coordinates[0];
             newlongitude = newlocation.result.geometry.coordinates[1];
+            res6hex = geoToH3(
+                newlocation.result.geometry.coordinates[1],
+                newlocation.result.geometry.coordinates[0],
+                6
+            );
             res7hex = geoToH3(
                 newlocation.result.geometry.coordinates[1],
                 newlocation.result.geometry.coordinates[0],
@@ -220,6 +233,11 @@ const Map = (props) => {
             console.log("handleOnResult: Geolocate");
             newlatitude = newlocation.coords.latitude;
             newlongitude = newlocation.coords.longitude;
+            res6hex = geoToH3(
+                newlocation.coords.latitude,
+                newlocation.coords.longitude,
+                6
+            );
             res7hex = geoToH3(
                 newlocation.coords.latitude,
                 newlocation.coords.longitude,
@@ -259,6 +277,7 @@ const Map = (props) => {
             res8hex: res8hex,
             res12hex: res12hex,
             res11hex: res11hex,
+            res6hex: res6hex,
             res7hex: res7hex,
             res9hex: res9hex,
             res10hex: res10hex,
@@ -266,10 +285,11 @@ const Map = (props) => {
         };
         //console.log(updatedlocation.res8neighbors);
         updateLocation(updatedlocation);
-        const res7hexes = kRing(updatedlocation.res7hex, 1);
-        const res8hexes = kRing(updatedlocation.res8hex, 5);
-        const res9hexes = kRing(updatedlocation.res9hex, 8);
-        const res10hexes = kRing(updatedlocation.res10hex, 10);
+        const res6hexes = kRing(updatedlocation.res6hex, 2);
+        const res7hexes = kRing(updatedlocation.res7hex, 2);
+        const res8hexes = kRing(updatedlocation.res8hex, 8);
+        const res9hexes = kRing(updatedlocation.res9hex, 12);
+        const res10hexes = kRing(updatedlocation.res10hex, 15);
         const nearbyHotspots = [];
         var n;
         for (n = 0; n < res8hexes.length; n++) {
@@ -328,11 +348,44 @@ const Map = (props) => {
         res11safehexes.push(hexRing(updatedlocation.res11hex, 10));
         res11safehexes.push(hexRing(updatedlocation.res11hex, 11));
 
+        // Get all  res 6 neighbor boundaries
+        if (typeof res6hexes !== "undefined" && res6hexes.length > 0) {
+            let res6hexboundaries = [];
+            var i;
+            for (i = 0; i < res6hexes.length; i++) {
+                let hexBoundary = h3ToGeoBoundary(res6hexes[i]);
+                hexBoundary.push(hexBoundary[0]);
+
+                let arr = [];
+                for (const i of hexBoundary) {
+                    arr.push([i[1], i[0]]);
+                }
+                res6hexboundaries.push(arr);
+            }
+
+            var i;
+            var features = [];
+            for (i = 0; i < res6hexboundaries.length; i++) {
+                features.push({
+                    type: "Feature",
+                    geometry: {
+                        type: "Polygon",
+                        coordinates: [res6hexboundaries[i]],
+                    },
+                });
+            }
+            const geojson = {
+                type: "FeatureCollection",
+                features: features,
+            };
+            updateRes6Data(geojson);
+        }
+
         // Get all  res 7 neighbor boundaries
         if (typeof res7hexes !== "undefined" && res7hexes.length > 0) {
             let res7hexboundaries = [];
             var i;
-            for (i = 0; i < res8hexes.length; i++) {
+            for (i = 0; i < res7hexes.length; i++) {
                 let hexBoundary = h3ToGeoBoundary(res7hexes[i]);
                 hexBoundary.push(hexBoundary[0]);
 
