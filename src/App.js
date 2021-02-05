@@ -63,6 +63,34 @@ const App = () => {
     [res6toggle]
   );
 
+  const handleRes7Toggle = useCallback(
+    (checked) => {
+      setRes7Toggle(checked);
+    },
+    [res7toggle]
+  );
+
+  const handleRes8Toggle = useCallback(
+    (checked) => {
+      setRes8Toggle(checked);
+    },
+    [res8toggle]
+  );
+
+  const handleRes9Toggle = useCallback(
+    (checked) => {
+      setRes9Toggle(checked);
+    },
+    [res9toggle]
+  );
+
+  const handleRes10Toggle = useCallback(
+    (checked) => {
+      setRes10Toggle(checked);
+    },
+    [res10toggle]
+  );
+
   const handleMapStyle = useCallback(
     (value) => {
       console.log(value);
@@ -73,16 +101,24 @@ const App = () => {
 
   return (
     <div className="App" id="outer-container">
-      <Sidebar 
-              pageWrapId={'page-wrap'} 
-              outerContainerId={'outer-container'} 
-              sweetspotToggle={sweetspotToggle}
-              handleSweetspotToggle={handleSweetspotToggle}
-              res6toggle={res6toggle}
-              handleRes6Toggle={handleRes6Toggle}
-              handleMapStyle={handleMapStyle}
-              mapstyles={mapstyles}
-      />
+        <Sidebar 
+                pageWrapId={'page-wrap'} 
+                outerContainerId={'outer-container'} 
+                sweetspotToggle={sweetspotToggle}
+                handleSweetspotToggle={handleSweetspotToggle}
+                res6toggle={res6toggle}
+                handleRes6Toggle={handleRes6Toggle}
+                res7toggle={res7toggle}
+                handleRes7Toggle={handleRes7Toggle}
+                res8toggle={res8toggle}
+                handleRes8Toggle={handleRes8Toggle}
+                res9toggle={res9toggle}
+                handleRes9Toggle={handleRes9Toggle}
+                res10toggle={res10toggle}
+                handleRes10Toggle={handleRes10Toggle}
+                handleMapStyle={handleMapStyle}
+                mapstyles={mapstyles}
+        />
       <div id="page-wrap">
         <div
           ref={toggleswitchContainerRef}
@@ -91,6 +127,10 @@ const App = () => {
         <Map 
           sweetspotToggle={sweetspotToggle}
           res6toggle={res6toggle}
+          res7toggle={res7toggle}
+          res8toggle={res8toggle}
+          res9toggle={res9toggle}
+          res10toggle={res10toggle}
           mapstyle={mapstyle}
         />
         <div id="hex-legend" class="legend">

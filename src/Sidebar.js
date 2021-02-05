@@ -69,6 +69,86 @@ export default props => {
                         />
                     </label>
                 </div>
+                <div style={{ textAlign: 'right' }}>
+                    <span>Res 7 </span>
+                    <label htmlFor="material-switch">
+                        <Switch
+                            checked={props.res7toggle}
+                            onChange={props.handleRes7Toggle}
+                            onColor="#86d3ff"
+                            onHandleColor="#2693e6"
+                            handleDiameter={12}
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                            height={12}
+                            width={30}
+                            className="react-switch"
+                            id="material-switch"
+                        />
+                    </label>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                    <span>Res 8 </span>
+                    <label htmlFor="material-switch">
+                        <Switch
+                            checked={props.res8toggle}
+                            onChange={props.handleRes8Toggle}
+                            onColor="#86d3ff"
+                            onHandleColor="#2693e6"
+                            handleDiameter={12}
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                            height={12}
+                            width={30}
+                            className="react-switch"
+                            id="material-switch"
+                        />
+                    </label>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                    <span>Res 9 </span>
+                    <label htmlFor="material-switch">
+                        <Switch
+                            checked={props.res9toggle}
+                            onChange={props.handleRes9Toggle}
+                            onColor="#86d3ff"
+                            onHandleColor="#2693e6"
+                            handleDiameter={12}
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                            height={12}
+                            width={30}
+                            className="react-switch"
+                            id="material-switch"
+                        />
+                    </label>
+                </div>
+                <div style={{ textAlign: 'right' }}>
+                    <span>Res 10 </span>
+                    <label htmlFor="material-switch">
+                        <Switch
+                            checked={props.res10toggle}
+                            onChange={props.handleRes10Toggle}
+                            onColor="#86d3ff"
+                            onHandleColor="#2693e6"
+                            handleDiameter={12}
+                            uncheckedIcon={false}
+                            checkedIcon={false}
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                            height={12}
+                            width={30}
+                            className="react-switch"
+                            id="material-switch"
+                        />
+                    </label>
+                </div>
             </div>
         </Menu>
     );
