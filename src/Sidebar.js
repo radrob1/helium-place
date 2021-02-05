@@ -1,8 +1,15 @@
 import React from 'react';
 import { push as Menu } from 'react-burger-menu';
 import Switch from "react-switch";
+import QRCode from "react-qr-code";
+import "react-responsive-modal/styles.css";
+import { Modal } from "react-responsive-modal";
 
-
+const copyAddr = () => {
+    navigator.clipboard.writeText(
+        "139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp"
+    );
+};
 
 export default props => {
     return (
@@ -149,6 +156,23 @@ export default props => {
                         />
                     </label>
                 </div>
+            </div>
+            <div style={{ position: 'absolute', bottom: "30%" }}>
+                Help support this site
+                <p>
+                    <QRCode size={60} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" />
+                    <p>
+                    <button
+                        onClick={() => {
+                            navigator.clipboard.writeText(
+                                "139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp"
+                            );
+                        }}
+                    >
+                        Copy addr
+                    </button>
+                    </p>
+                </p>
             </div>
         </Menu>
     );
