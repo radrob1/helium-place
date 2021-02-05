@@ -1,5 +1,5 @@
 import React from 'react';
-import { scaleDown as Menu } from 'react-burger-menu';
+import { push as Menu } from 'react-burger-menu';
 import Switch from "react-switch";
 
 

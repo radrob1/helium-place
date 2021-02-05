@@ -22,9 +22,6 @@ import { kRing, hexRing } from "h3-js";
 
 // Local imports
 import HotSpotInfo from "./HotspotInfo";
-import mapstyles from "./mapstyles.json";
-import Hotspots from "./Hotspots";
-import { getHotspotsGeojson, getHotspots } from "./data";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
@@ -65,8 +62,8 @@ const polygonPaint = {
   };
   
   const nearbyPaint = {
-    "fill-color": "#A984FF",
     //"fill-color": "#afd275",
+    "fill-color": "black",
     "fill-opacity": 1,
     //'background': 'purple'
   };
@@ -141,7 +138,7 @@ const Map = (props) => {
         zoom: 4,
     });
     const mapRef = useRef();
-    const geocoderContainerRef = useRef();
+    //const geocoderContainerRef = useRef();
     const handleViewportChange = useCallback(
         (newViewport) => setViewport(newViewport),
         []
@@ -815,11 +812,7 @@ const Map = (props) => {
     }, []);
 
     return (
-        <div style={{ height: "95vh" }}>
-            <div
-                ref={geocoderContainerRef}
-                style={{ position: "absolute", top: 70, right: 20, zIndex: 1 }}
-            />
+        <div style={{ height: "90vh" }}>
             <MapGL
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 ref={mapRef}
@@ -836,7 +829,7 @@ const Map = (props) => {
                 {hotspots && (
                     <Geocoder
                         mapRef={mapRef}
-                        containerRef={geocoderContainerRef}
+                        containerRef={props.geocoderContainerRef}
                         onViewportChange={handleGeocoderViewportChange}
                         mapboxApiAccessToken={MAPBOX_TOKEN}
                         position="top-right"

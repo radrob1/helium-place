@@ -46,6 +46,7 @@ const App = () => {
   const [res10toggle, setRes10Toggle] = useState(false);
   const [sweetspotToggle, setSweetSpotToggle] = useState(false);
   const [mapstyle, setMapstyle] = useState(mapstyles.light);
+  const geocoderContainerRef = useRef();
   const toggleswitchContainerRef = useRef();
 
   const handleSweetspotToggle = useCallback(
@@ -101,30 +102,28 @@ const App = () => {
 
   return (
     <div className="App" id="outer-container">
-        <Sidebar 
-                pageWrapId={'page-wrap'} 
-                outerContainerId={'outer-container'} 
-                sweetspotToggle={sweetspotToggle}
-                handleSweetspotToggle={handleSweetspotToggle}
-                res6toggle={res6toggle}
-                handleRes6Toggle={handleRes6Toggle}
-                res7toggle={res7toggle}
-                handleRes7Toggle={handleRes7Toggle}
-                res8toggle={res8toggle}
-                handleRes8Toggle={handleRes8Toggle}
-                res9toggle={res9toggle}
-                handleRes9Toggle={handleRes9Toggle}
-                res10toggle={res10toggle}
-                handleRes10Toggle={handleRes10Toggle}
-                handleMapStyle={handleMapStyle}
-                mapstyles={mapstyles}
-        />
       <div id="page-wrap">
-        <div
-          ref={toggleswitchContainerRef}
-          style={{ position: "absolute", bottom: 400, left: 20, zIndex: 1 }}
+        <Header geocoderContainerRef={geocoderContainerRef} >
+        </Header>
+        <Sidebar
+          pageWrapId={'page-wrap'}
+          outerContainerId={'outer-container'}
+          sweetspotToggle={sweetspotToggle}
+          handleSweetspotToggle={handleSweetspotToggle}
+          res6toggle={res6toggle}
+          handleRes6Toggle={handleRes6Toggle}
+          res7toggle={res7toggle}
+          handleRes7Toggle={handleRes7Toggle}
+          res8toggle={res8toggle}
+          handleRes8Toggle={handleRes8Toggle}
+          res9toggle={res9toggle}
+          handleRes9Toggle={handleRes9Toggle}
+          res10toggle={res10toggle}
+          handleRes10Toggle={handleRes10Toggle}
+          handleMapStyle={handleMapStyle}
+          mapstyles={mapstyles}
         />
-        <Map 
+        <Map
           sweetspotToggle={sweetspotToggle}
           res6toggle={res6toggle}
           res7toggle={res7toggle}
@@ -132,6 +131,7 @@ const App = () => {
           res9toggle={res9toggle}
           res10toggle={res10toggle}
           mapstyle={mapstyle}
+          geocoderContainerRef={geocoderContainerRef}
         />
         <div id="hex-legend" class="legend">
           <h4>Hex Color Legend</h4>

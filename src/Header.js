@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 
-const Header = () => {
+const Header = (props) => {
   return (
     <div className="header">
-      Search by address, GPS coordinates, hotspot name, or click on the map to
-      see the minimum witness distance of a given location.
+        <div
+                ref={props.geocoderContainerRef}
+                style={{position: 'absolute', left: '50%', zIndex: 1}}
+        />
+        {props.children}
     </div>
   );
 };
