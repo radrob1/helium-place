@@ -14,11 +14,11 @@ const hotspotPaint = {
   //'background': 'purple'
 };
 
-const Hotspots = ({geojsondata}) => {
-  console.log("Hotspots.js geojsondata:", geojsondata);
+const Hotspots = ({geojson, style}) => {
+  console.log("Hotspots.js geojsondata:", geojson);
   return (
-    <Source type="geojson" data={geojsondata}>
-      <Layer type="fill" paint={hotspotPaint} />
+    <Source type="geojson" data={geojson}>
+      <Layer type="fill" paint={style} />
     </Source>
   );
 };

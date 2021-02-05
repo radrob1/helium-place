@@ -10,6 +10,7 @@
     "immutable": "^4.0.0-rc.12",
     "node-notifier": "^8.0.1",
     "react": "^17.0.1",
+    "react-burger-menu": "^3.0.3",
     "react-dom": "^17.0.1",
     "react-map-gl": "5.2.11",
     "react-map-gl-geocoder": "^2.1",

@@ -12,6 +12,15 @@ code {
     monospace;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+#page-wrap {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
 .footer {
   margin-top: 1rem;
   padding: 1rem;

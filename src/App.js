@@ -1,10 +1,12 @@
 //import "mapbox-gl/dist/mapbox-gl.css";
 //import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
-import React, { useRef } from "react";
+import React, { useRef, useState, useCallback } from "react";
 
 import Header from "./Header";
 import Map from "./Map";
-import ResToggle from "./ResToggle";
+import Sidebar from './Sidebar';
+import './Sidebar.css';
+let mapstyles = require('./mapstyles.json');
 
 
 const polygonPaint = {
@@ -35,31 +37,76 @@ const nearbyPaint = {
   //'background': 'purple'
 };
 
-
 const App = () => {
+
+  const [res6toggle, setRes6Toggle] = useState(false);
+  const [res7toggle, setRes7Toggle] = useState(false);
+  const [res8toggle, setRes8Toggle] = useState(false);
+  const [res9toggle, setRes9Toggle] = useState(false);
+  const [res10toggle, setRes10Toggle] = useState(false);
+  const [sweetspotToggle, setSweetSpotToggle] = useState(false);
+  const [mapstyle, setMapstyle] = useState(mapstyles.light);
   const toggleswitchContainerRef = useRef();
+
+  const handleSweetspotToggle = useCallback(
+    (checked) => {
+      setSweetSpotToggle(checked);
+      console.log(sweetspotToggle)
+    },
+    [sweetspotToggle]
+  );
+
+  const handleRes6Toggle = useCallback(
+    (checked) => {
+      setRes6Toggle(checked);
+    },
+    [res6toggle]
+  );
+
+  const handleMapStyle = useCallback(
+    (value) => {
+      console.log(value);
+      setMapstyle(value.target.value);
+    },
+    [mapstyle]
+  );
+
   return (
-    <div>
-      <div
-        ref={toggleswitchContainerRef}
-        style={{ position: "absolute", bottom: 400, left: 20, zIndex: 1 }}
+    <div className="App" id="outer-container">
+      <Sidebar 
+              pageWrapId={'page-wrap'} 
+              outerContainerId={'outer-container'} 
+              sweetspotToggle={sweetspotToggle}
+              handleSweetspotToggle={handleSweetspotToggle}
+              res6toggle={res6toggle}
+              handleRes6Toggle={handleRes6Toggle}
+              handleMapStyle={handleMapStyle}
+              mapstyles={mapstyles}
       />
-      <Header />
-      <Map />
-      <div id="hex-legend" class="legend">
-        <h4>Hex Color Legend</h4>
-        <div>
-          <span style={{ background: "#0074D9" }}></span>Searched Location
+      <div id="page-wrap">
+        <div
+          ref={toggleswitchContainerRef}
+          style={{ position: "absolute", bottom: 400, left: 20, zIndex: 1 }}
+        />
+        <Map 
+          sweetspotToggle={sweetspotToggle}
+          res6toggle={res6toggle}
+          mapstyle={mapstyle}
+        />
+        <div id="hex-legend" class="legend">
+          <h4>Hex Color Legend</h4>
+          <div>
+            <span style={{ background: "#0074D9" }}></span>Searched Location
           </div>
-        <div>
-          <span style={{ background: "#001f3f" }}></span>Helium Hotspot
+          <div>
+            <span style={{ background: "#001f3f" }}></span>Helium Hotspot
           </div>
-        <div>
-          <span style={{ background: "#FF4136" }}></span>Too close to witness
+          <div>
+            <span style={{ background: "#FF4136" }}></span>Too close to witness
           </div>
-        {/*<div><span style={{background: 'green'}}></span>Sweet spot</div>*/}
+          {/*<div><span style={{background: 'green'}}></span>Sweet spot</div>*/}
+        </div>
       </div>
-      <ResToggle ref={toggleswitchContainerRef}/>
     </div>
   );
 };
