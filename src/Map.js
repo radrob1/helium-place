@@ -813,7 +813,7 @@ const Map = (props) => {
     }, []);
 
     return (
-        <div style={{ height: "90vh" }}>
+        <div style={{ height: "94vh" }}>
             <MapGL
                 mapboxApiAccessToken={MAPBOX_TOKEN}
                 ref={mapRef}
@@ -851,7 +851,8 @@ const Map = (props) => {
                         right: 0,
                         bottom: 0,
                         margin: 10,
-                        marginBottom: 96,
+                        bottom: "50px",
+                        justifyContent: "flex-end"
                     }}
                     trackUserLocation={false}
                     onViewportChange={handleGeolocateViewportChange}

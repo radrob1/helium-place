@@ -21,8 +21,8 @@ div {
 }
 
 #page-wrap {
-  padding-bottom: 10px;
-  padding-top: 10px;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
 
 .footer {
@@ -56,7 +56,7 @@ div {
   color: white;
   padding: 12px;
   position: absolute;
-  bottom: 0; 
+  bottom: 50px; 
   justify-content: "flex-end";
   left: 10px;
   z-index: 1;

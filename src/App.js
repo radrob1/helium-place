@@ -5,7 +5,9 @@ import React, { useRef, useState, useCallback } from "react";
 import Header from "./Header";
 import Map from "./Map";
 import Sidebar from './Sidebar';
+import Legend from "./Legend";
 import './Sidebar.css';
+
 let mapstyles = require('./mapstyles.json');
 
 
@@ -133,19 +135,7 @@ const App = () => {
           mapstyle={mapstyle}
           geocoderContainerRef={geocoderContainerRef}
         />
-        <div id="hex-legend" class="legend">
-          <h4>Hex Color Legend</h4>
-          <div>
-            <span style={{ background: "#0074D9" }}></span>Searched Location
-          </div>
-          <div>
-            <span style={{ background: "black" }}></span>Helium Hotspot
-          </div>
-          <div>
-            <span style={{ background: "#F66F67" }}></span>Too close to witness
-          </div>
-          {/*<div><span style={{background: 'green'}}></span>Sweet spot</div>*/}
-        </div>
+        <Legend />
       </div>
     </div>
   );
