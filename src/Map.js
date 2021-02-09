@@ -847,12 +847,11 @@ const Map = (props) => {
                 <GeolocateControl
                     positionOptions={positionOptions}
                     style={{
-                        position: "absolute",
-                        right: 0,
-                        bottom: 0,
-                        margin: 10,
-                        bottom: "50px",
-                        justifyContent: "flex-end"
+                        flex: 1,
+                        right:0,
+                        margin:30,
+                        bottom:0,
+                        position:'absolute'
                     }}
                     trackUserLocation={false}
                     onViewportChange={handleGeolocateViewportChange}
