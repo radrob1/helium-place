@@ -5,7 +5,7 @@ const Header = (props) => {
     <div className="header">
         <div
                 ref={props.geocoderContainerRef}
-                style={{position: 'absolute', left: '50%', zIndex: 1}}
+                style={{display: 'flex',  justifyContent:'center', alignItems:'center'}}
         />
         {props.children}
     </div>

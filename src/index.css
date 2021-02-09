@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+div {
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -37,21 +41,23 @@ code {
   box-sizing: border-box;
   width: 100%;
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: baseline;
-  padding: 2em; 
-  background-color: #0074D9;;
+  padding: 1em; 
+  background-color: #162646;;
   color: white;
 }
 
 .legend {
-  background-color: #fff;
+  background-color: #162646;
   border-radius: 3px;
-  bottom: 200px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color: white;
   padding: 12px;
   position: absolute;
+  bottom: 0; 
+  justify-content: "flex-end";
   left: 10px;
   z-index: 1;
 }

@@ -44,14 +44,15 @@ const polygonPaint = {
   
   const tooClosePaint = {
     //"fill-color": "#FF4136",
-    "fill-color": "#FC4445",
-    "fill-opacity": 0.4,
+    //"fill-color": "#FC4445",
+    "fill-color": "#F66F67",
+    "fill-opacity": 0.8,
     //'background': 'red'
   };
   
   const safeRingPaint = {
-    "fill-color": "#97caef",
-    "fill-opacity": 0.5,
+    "fill-color": "#A8C686",
+    "fill-opacity": 0.6,
     //'background': 'green'
   };
   
@@ -894,13 +895,13 @@ const Map = (props) => {
 
                 {res11SafeRing && props.sweetspotToggle && (
                     <Source type="geojson" data={res11SafeRing}>
-                        <Layer id="safedistance" type="fill" paint={safeRingPaint} />
+                        <Layer id="safedistance" type="fill" paint={safeRingPaint} beforeId={"hotspots"}/>
                     </Source>
                 )}
 
                 {res11TooClose && (
                     <Source type="geojson" data={res11TooClose}>
-                        <Layer id="tooclose" type="fill" paint={tooClosePaint} />
+                        <Layer id="tooclose" type="fill" paint={tooClosePaint} beforeId={"hotspots"}/>
                     </Source>
                 )}
 
