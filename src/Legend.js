@@ -13,9 +13,11 @@ const Legend = (props) => {
             <div>
                 <span style={{ background: "#F66F67" }}></span>Too close to witness
             </div>
-            <div>
-                <span style={{ background: '#A8C686' }}></span>Sweet spot
-            </div>
+            {props.sweetspotToggle && (
+                <div>
+                    <span style={{ background: '#A8C686' }}></span>Sweet spot
+                </div>
+            )}
         </div>
     );
 };

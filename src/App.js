@@ -147,7 +147,7 @@ const App = () => {
           geocoderContainerRef={geocoderContainerRef}
           trackuserToggle={trackuserToggle}
         />
-        <Legend />
+        <Legend sweetspotToggle={sweetspotToggle} />
       </div>
     </div>
   );
