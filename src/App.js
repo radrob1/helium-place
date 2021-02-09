@@ -48,6 +48,7 @@ const App = () => {
   const [res10toggle, setRes10Toggle] = useState(false);
   const [sweetspotToggle, setSweetSpotToggle] = useState(false);
   const [mapstyle, setMapstyle] = useState(mapstyles.light);
+  const [trackuserToggle, setTrackuserToggle] = useState(false);
   const geocoderContainerRef = useRef();
   const toggleswitchContainerRef = useRef();
 
@@ -102,6 +103,14 @@ const App = () => {
     [mapstyle]
   );
 
+  const handleTrackuserToggle = useCallback(
+    (checked) => {
+      console.log(checked);
+      setTrackuserToggle(checked);
+    },
+    [trackuserToggle]
+  );
+
   return (
     <div className="App" id="outer-container">
       <div id="page-wrap">
@@ -124,6 +133,8 @@ const App = () => {
           handleRes10Toggle={handleRes10Toggle}
           handleMapStyle={handleMapStyle}
           mapstyles={mapstyles}
+          trackuserToggle={trackuserToggle}
+          handleTrackuserToggle={handleTrackuserToggle}
         />
         <Map
           sweetspotToggle={sweetspotToggle}
@@ -134,6 +145,7 @@ const App = () => {
           res10toggle={res10toggle}
           mapstyle={mapstyle}
           geocoderContainerRef={geocoderContainerRef}
+          trackuserToggle={trackuserToggle}
         />
         <Legend />
       </div>

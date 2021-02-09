@@ -844,19 +844,21 @@ const Map = (props) => {
                         clearAndBlurOnEsc={true}
                     />
                 )}
+                <div ref={props.geocoderContainerRef}>
                 <GeolocateControl
                     positionOptions={positionOptions}
                     style={{
                         flex: 1,
                         right:0,
-                        margin:30,
-                        bottom:0,
+                        margin:15,
+                        top:0,
                         position:'absolute'
                     }}
-                    trackUserLocation={false}
+                    trackUserLocation={props.trackuserToggle}
                     onViewportChange={handleGeolocateViewportChange}
                     onGeolocate={handleOnResult}
                 />
+                </div>
                 {res12location && (
                     <Source type="geojson" data={res12location}>
                         <Layer type="fill" paint={locationPaint} />

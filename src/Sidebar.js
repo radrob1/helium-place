@@ -15,23 +15,6 @@ export default props => {
     return (
         <Menu>
             <div>
-                Map Style
-                <div onChange={props.handleMapStyle}>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="radio" value={props.mapstyles.light} name="mapstyle" /> Light
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="radio" value={props.mapstyles.satellite} name="mapstyle" /> Satellite
-                            </td>
-                        </tr>
-                    </tbody>
-                </div>
-            </div>
-            <div>
                 <span>Sweetspot Area </span>
                 <label htmlFor="material-switch">
                     <Switch
@@ -50,6 +33,28 @@ export default props => {
                         id="material-switch"
                     />
                 </label>
+            </div>
+            <div>
+                Map Style
+                <div onChange={props.handleMapStyle}>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input type="radio" value={props.mapstyles.light} name="mapstyle" /> Light
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" value={props.mapstyles.satellite} name="mapstyle" /> Satellite
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="radio" value={props.mapstyles.dark} name="mapstyle" /> Dark
+                            </td>
+                        </tr>
+                    </tbody>
+                </div>
             </div>
             <div style={{ textAlign: 'center' }}>
                 <p>
@@ -155,7 +160,7 @@ export default props => {
                             id="material-switch"
                         />
                     </label>
-                </div>
+                </div>  
             </div>
             <div style={{ position: 'absolute', bottom: 55, justifyContent:'flex-end', flex:1, textAlign: 'center' }}>
                 Help support this site
