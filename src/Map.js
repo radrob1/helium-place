@@ -40,34 +40,65 @@ const hashtagLocation = window.location.hash.substr(1);
 
 const polygonPaint = {
     "line-color": "black",
-  };
-  
-  const tooClosePaint = {
+};
+
+const tooClosePaint = {
     //"fill-color": "#FF4136",
     //"fill-color": "#FC4445",
     "fill-color": "#F66F67",
     "fill-opacity": 0.8,
     //'background': 'red'
-  };
-  
-  const safeRingPaint = {
+};
+
+const safeRingPaint = {
     "fill-color": "#A8C686",
-    "fill-opacity": 0.6,
+    "fill-opacity": [
+        'interpolate',
+        ['linear'],
+        ['get', 'ring'],
+        1,
+        0.9,
+        2,
+        0.9,
+        3,
+        0.7,
+        4,
+        0.5,
+        5,
+        0.3,
+        6,
+        0.1
+    ],
     //'background': 'green'
-  };
-  
-  const locationPaint = {
+};
+
+const mapperPaint = {
+    'fill-color': [
+        'interpolate',
+        ['linear'],
+        ['get', 'rssi'],
+        -120,
+        '#2a79f7',
+        -100,
+        '#26fbe9',
+        -80,
+        '#26fbca'
+    ],
+    'fill-opacity': 0.3
+};
+
+const locationPaint = {
     "fill-color": "#0074D9",
     "fill-opacity": 1,
     //'background': 'blue'
-  };
-  
-  const nearbyPaint = {
+};
+
+const nearbyPaint = {
     //"fill-color": "#afd275",
     "fill-color": "black",
     "fill-opacity": 1,
     //'background': 'purple'
-  };
+};
 
 // Load hotspots and create geojson object
 const createHotspotsGeojson = (hotspots) => {
@@ -429,10 +460,12 @@ const Map = (props) => {
 
         const res11closehexes = kRing(updatedlocation.res11hex, 7);
         const res11safehexes = [];
-        res11safehexes.push(hexRing(updatedlocation.res11hex, 8));
-        res11safehexes.push(hexRing(updatedlocation.res11hex, 9));
-        res11safehexes.push(hexRing(updatedlocation.res11hex, 10));
-        res11safehexes.push(hexRing(updatedlocation.res11hex, 11));
+        res11safehexes.push({ ring: 1, hexes: hexRing(updatedlocation.res11hex, 8) });
+        res11safehexes.push({ ring: 2, hexes: hexRing(updatedlocation.res11hex, 9) });
+        res11safehexes.push({ ring: 3, hexes: hexRing(updatedlocation.res11hex, 10) });
+        res11safehexes.push({ ring: 4, hexes: hexRing(updatedlocation.res11hex, 11) });
+        res11safehexes.push({ ring: 5, hexes: hexRing(updatedlocation.res11hex, 12) });
+        res11safehexes.push({ ring: 6, hexes: hexRing(updatedlocation.res11hex, 13) });
 
         // Get all  res 6 neighbor boundaries
         if (typeof res6hexes !== "undefined" && res6hexes.length > 0) {
@@ -674,16 +707,18 @@ const Map = (props) => {
             let res11hexboundaries = [];
             var j;
             for (j = 0; j < res11safehexes.length; j++) {
-                var i;
-                for (i = 0; i < res11safehexes[j].length; i++) {
-                    let hexBoundary = h3ToGeoBoundary(res11safehexes[j][i]);
+                var i
+                for (i = 0; i < res11safehexes[j].hexes.length; i++) {
+                    console.log("res11safehexes[j].hexes[i]: ", res11safehexes[j].hexes[i]);
+                    let hexBoundary = h3ToGeoBoundary(res11safehexes[j].hexes[i]);
                     hexBoundary.push(hexBoundary[0]);
 
                     let arr = [];
                     for (const i of hexBoundary) {
                         arr.push([i[1], i[0]]);
                     }
-                    res11hexboundaries.push(arr);
+                    console.log(res11safehexes[j].ring);
+                    res11hexboundaries.push({ ring: res11safehexes[j].ring, boundaries: arr });
                 }
             }
 
@@ -695,12 +730,13 @@ const Map = (props) => {
                     properties: {
                         title: "Safe distance",
                         name: "Safe distance",
-                        longitude: res11hexboundaries[i][0][0],
-                        latitude: res11hexboundaries[i][0][1],
+                        longitude: res11hexboundaries[i].boundaries[0][0],
+                        latitude: res11hexboundaries[i].boundaries[0][1],
+                        ring: res11hexboundaries[i].ring
                     },
                     geometry: {
                         type: "Polygon",
-                        coordinates: [res11hexboundaries[i]],
+                        coordinates: [res11hexboundaries[i].boundaries],
                     },
                 });
             }
@@ -845,19 +881,19 @@ const Map = (props) => {
                     />
                 )}
                 <div ref={props.geocoderContainerRef}>
-                <GeolocateControl
-                    positionOptions={positionOptions}
-                    style={{
-                        flex: 1,
-                        right:0,
-                        margin:15,
-                        top:0,
-                        position:'absolute'
-                    }}
-                    trackUserLocation={props.trackuserToggle}
-                    onViewportChange={handleGeolocateViewportChange}
-                    onGeolocate={handleOnResult}
-                />
+                    <GeolocateControl
+                        positionOptions={positionOptions}
+                        style={{
+                            flex: 1,
+                            right: 0,
+                            margin: 15,
+                            top: 0,
+                            position: 'absolute'
+                        }}
+                        trackUserLocation={props.trackuserToggle}
+                        onViewportChange={handleGeolocateViewportChange}
+                        onGeolocate={handleOnResult}
+                    />
                 </div>
                 {res12location && (
                     <Source type="geojson" data={res12location}>
@@ -897,13 +933,13 @@ const Map = (props) => {
 
                 {res11SafeRing && props.sweetspotToggle && (
                     <Source type="geojson" data={res11SafeRing}>
-                        <Layer id="safedistance" type="fill" paint={safeRingPaint} beforeId={"hotspots"}/>
+                        <Layer id="safedistance" type="fill" paint={safeRingPaint} beforeId={"hotspots"} />
                     </Source>
                 )}
 
                 {res11TooClose && (
                     <Source type="geojson" data={res11TooClose}>
-                        <Layer id="tooclose" type="fill" paint={tooClosePaint} beforeId={"hotspots"}/>
+                        <Layer id="tooclose" type="fill" paint={tooClosePaint} beforeId={"hotspots"} />
                     </Source>
                 )}
 
