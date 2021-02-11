@@ -4,6 +4,8 @@ import React, {
     useCallback,
     useEffect,
 } from "react";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import Loader from "react-loader-spinner";
 
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import MapGL from "react-map-gl";
@@ -72,36 +74,72 @@ const safeRingPaint = {
     //'background': 'green'
 };
 
-const mapperPaint = {
-    'fill-color': [
-        'interpolate',
-        ['linear'],
-        ['get', 'rssi'],
-        -120,
-        '#2a79f7',
-        -100,
-        '#26fbe9',
-        -80,
-        '#26fbca'
-    ],
-    'fill-opacity': 0.3
-};
-
 const locationPaint = {
-    "fill-color": "#0074D9",
+    "fill-color": "black",
     "fill-opacity": 1,
     //'background': 'blue'
 };
 
 const nearbyPaint = {
     //"fill-color": "#afd275",
-    "fill-color": "black",
+    "fill-color": "#0074D9",
     "fill-opacity": 1,
     //'background': 'purple'
 };
 
 // Load hotspots and create geojson object
 const createHotspotsGeojson = (hotspots) => {
+    const features = [];
+    var i;
+    for (i = 0; i < hotspots.length; i++) {
+        let hexBoundary = h3ToGeoBoundary(hotspots[i].location);
+        hexBoundary.push(hexBoundary[0]);
+
+        let arr = [];
+        for (const i of hexBoundary) {
+            arr.push([i[1], i[0]]);
+        }
+        features.push({
+            type: "Feature",
+            properties: {
+                title: hotspots[i].name,
+                name: hotspots[i].name,
+                latitude: hotspots[i].latitude,
+                longitude: hotspots[i].longitude,
+                address: hotspots[i].address,
+                rewardScale: hotspots[i].reward_scale,
+                coordinates: [hotspots[i].longitude, hotspots[i].latitude],
+            },
+            geometry: {
+                type: "Polygon",
+                coordinates: [arr],
+            },
+        });
+        //console.log(hotspots[i]);
+        /*
+        features.push({
+            type: "Feature",
+            properties: {
+                title: hotspots[i].name,
+                name: hotspots[i].name,
+                coordinates: [hotspots[i].longitude, hotspots[i].latitude],
+            },
+            geometry: {
+                type: "Point",
+                coordinates: [hotspots[i].longitude, hotspots[i].latitude],
+            },
+        });*/
+    }
+
+    const geojson = {
+        type: "FeatureCollection",
+        features: features,
+    };
+    //console.log(geojson);
+    return geojson;
+};
+
+const createSearchHotspotsGeojson = (hotspots) => {
     const features = [];
     var i;
     for (i = 0; i < hotspots.length; i++) {
@@ -127,8 +165,28 @@ const createHotspotsGeojson = (hotspots) => {
     return geojson;
 };
 
+/*
+const getHexDensities = (hotspots, resolution) => {
+    var n, i;
+    var densities = {};
+    for (n = 6; n < 11; n++) {
+        for (i = 0; i < hotspots.length; i++) {
+            var res = h3ToParent(hotspots[i].location, n);
+            if (typeof densities[res] === "undefined") {
+                densities[res] = 0;
+            }
+            else {
+                densities[res] += 1;
+            }
+        }
+    }
+    return densities;
+};*/
+
 let hotspots = [];
+let hotspotsSearchGeojson = [];
 let hotspotsGeojson = [];
+//let hotspotDensities = {};
 /**
  *  Main map component
  */
@@ -141,7 +199,10 @@ const Map = (props) => {
             .then((hotspots_data) => {
                 //console.log("First hotspot: ", hotspots[0]);
                 hotspots = hotspots_data;
+                hotspotsSearchGeojson = createSearchHotspotsGeojson(hotspots);
                 hotspotsGeojson = createHotspotsGeojson(hotspots);
+                //hotspotDensities = getHexDensities(hotspots);
+                //console.log(hotspotDensities);
                 if (hashtagLocation) {
                     console.log(hashtagLocation);
                     console.log(hotspots);
@@ -161,6 +222,7 @@ const Map = (props) => {
                         zoom: 15,
                     });
                 }
+                setDataloading(false);
             });
     }, []);
 
@@ -169,6 +231,7 @@ const Map = (props) => {
         longitude: -98.84343917535838,
         zoom: 4,
     });
+    const [dataLoading, setDataloading] = useState(true);
     const mapRef = useRef();
     //const geocoderContainerRef = useRef();
     const handleViewportChange = useCallback(
@@ -309,8 +372,8 @@ const Map = (props) => {
         let res12hex = null;
         let res11hex = null;
         try {
-            newlatitude = newlocation.result.geometry.coordinates[0];
-            newlongitude = newlocation.result.geometry.coordinates[1];
+            newlatitude = newlocation.result.geometry.coordinates[1];
+            newlongitude = newlocation.result.geometry.coordinates[0];
             res6hex = geoToH3(
                 newlocation.result.geometry.coordinates[1],
                 newlocation.result.geometry.coordinates[0],
@@ -456,6 +519,7 @@ const Map = (props) => {
             type: "FeatureCollection",
             features: features,
         };
+        console.log(nearbygeojson);
         updateNearbyHotspots(nearbygeojson);
 
         const res11closehexes = kRing(updatedlocation.res11hex, 7);
@@ -709,7 +773,7 @@ const Map = (props) => {
             for (j = 0; j < res11safehexes.length; j++) {
                 var i
                 for (i = 0; i < res11safehexes[j].hexes.length; i++) {
-                    console.log("res11safehexes[j].hexes[i]: ", res11safehexes[j].hexes[i]);
+                    //console.log("res11safehexes[j].hexes[i]: ", res11safehexes[j].hexes[i]);
                     let hexBoundary = h3ToGeoBoundary(res11safehexes[j].hexes[i]);
                     hexBoundary.push(hexBoundary[0]);
 
@@ -828,9 +892,9 @@ const Map = (props) => {
     */
     const searchHotspots = useCallback((query) => {
         var matchingFeatures = [];
-        console.log(hotspotsGeojson);
-        for (var i = 0; i < hotspotsGeojson.features.length; i++) {
-            var feature = hotspotsGeojson.features[i];
+        console.log(hotspotsSearchGeojson);
+        for (var i = 0; i < hotspotsSearchGeojson.features.length; i++) {
+            var feature = hotspotsSearchGeojson.features[i];
             //console.log(feature);
             // handle queries with different capitalization than the source data by calling toLowerCase()
             if (
@@ -848,110 +912,123 @@ const Map = (props) => {
         return matchingFeatures;
     }, []);
 
-    return (
-        <div style={{ height: "94vh" }}>
-            <MapGL
-                mapboxApiAccessToken={MAPBOX_TOKEN}
-                ref={mapRef}
-                {...viewport}
-                width="100%"
-                height="100%"
-                onViewportChange={setViewport}
-                mapStyle={props.mapstyle}
-                onHover={_onHover}
-                onClick={mapClick}
-            >
-                {_renderTooltip()}
+    if (dataLoading) {
+        return (
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}>
+                <Loader type="ThreeDots" color="#162646" height={120} width={120} />
+            </div>
+        )
+    }
+    else {
+        return (
+            <div style={{ height: "94vh" }}>
+                <MapGL
+                    mapboxApiAccessToken={MAPBOX_TOKEN}
+                    ref={mapRef}
+                    {...viewport}
+                    width="100%"
+                    height="100%"
+                    onViewportChange={setViewport}
+                    mapStyle={props.mapstyle}
+                    onHover={_onHover}
+                    onClick={mapClick}
+                >
+                    {_renderTooltip()}
 
-                {hotspots && (
-                    <Geocoder
-                        mapRef={mapRef}
-                        containerRef={props.geocoderContainerRef}
-                        onViewportChange={handleGeocoderViewportChange}
-                        mapboxApiAccessToken={MAPBOX_TOKEN}
-                        position="top-right"
-                        marker={false}
-                        //countries={"US,CA"}
-                        onResult={handleOnResult}
-                        reverseGeocode
-                        placeholder="Search for an address, GPS coords, or hotspot name"
-                        localGeocoder={searchHotspots}
-                        clearOnBlur={true}
-                        clearAndBlurOnEsc={true}
-                    />
-                )}
-                <div ref={props.geocoderContainerRef}>
-                    <GeolocateControl
-                        positionOptions={positionOptions}
-                        style={{
-                            flex: 1,
-                            right: 0,
-                            margin: 15,
-                            top: 0,
-                            position: 'absolute'
-                        }}
-                        trackUserLocation={props.trackuserToggle}
-                        onViewportChange={handleGeolocateViewportChange}
-                        onGeolocate={handleOnResult}
-                    />
-                </div>
-                {res12location && (
-                    <Source type="geojson" data={res12location}>
-                        <Layer type="fill" paint={locationPaint} />
-                    </Source>
-                )}
+                    {hotspots && (
+                        <Geocoder
+                            mapRef={mapRef}
+                            containerRef={props.geocoderContainerRef}
+                            onViewportChange={handleGeocoderViewportChange}
+                            mapboxApiAccessToken={MAPBOX_TOKEN}
+                            position="top-right"
+                            marker={false}
+                            //countries={"US,CA"}
+                            onResult={handleOnResult}
+                            reverseGeocode
+                            placeholder="Search for an address, GPS coords, or hotspot name"
+                            localGeocoder={searchHotspots}
+                            clearOnBlur={true}
+                            clearAndBlurOnEsc={true}
+                        />
+                    )}
+                    <div ref={props.geocoderContainerRef}>
+                        <GeolocateControl
+                            positionOptions={positionOptions}
+                            style={{
+                                flex: 1,
+                                right: 0,
+                                margin: 15,
+                                top: 0,
+                                position: 'absolute'
+                            }}
+                            trackUserLocation={props.trackuserToggle}
+                            onViewportChange={handleGeolocateViewportChange}
+                            onGeolocate={handleOnResult}
+                        />
+                    </div>
+                    {res12location && (
+                        <Source type="geojson" data={res12location}>
+                            <Layer type="fill" paint={locationPaint} />
+                        </Source>
+                    )}
 
-                {res6Data && props.res6toggle && (
-                    <Source type="geojson" data={res6Data}>
-                        <Layer type="line" paint={polygonPaint} />
-                    </Source>
-                )}
+                    {res6Data && props.res6toggle && (
+                        <Source type="geojson" data={res6Data}>
+                            <Layer type="line" paint={polygonPaint} />
+                        </Source>
+                    )}
 
-                {res7Data && props.res7toggle && (
-                    <Source type="geojson" data={res7Data}>
-                        <Layer type="line" paint={polygonPaint} />
-                    </Source>
-                )}
+                    {res7Data && props.res7toggle && (
+                        <Source type="geojson" data={res7Data}>
+                            <Layer type="line" paint={polygonPaint} />
+                        </Source>
+                    )}
 
-                {res8Data && props.res8toggle && (
-                    <Source type="geojson" data={res8Data}>
-                        <Layer type="line" paint={polygonPaint} />
-                    </Source>
-                )}
+                    {res8Data && props.res8toggle && (
+                        <Source type="geojson" data={res8Data}>
+                            <Layer type="line" paint={polygonPaint} />
+                        </Source>
+                    )}
 
-                {res9Data && props.res9toggle && (
-                    <Source type="geojson" data={res9Data}>
-                        <Layer type="line" paint={polygonPaint} />
-                    </Source>
-                )}
+                    {res9Data && props.res9toggle && (
+                        <Source type="geojson" data={res9Data}>
+                            <Layer type="line" paint={polygonPaint} />
+                        </Source>
+                    )}
 
-                {res10Data && props.res10toggle && (
-                    <Source type="geojson" data={res10Data}>
-                        <Layer type="line" paint={polygonPaint} />
-                    </Source>
-                )}
+                    {res10Data && props.res10toggle && (
+                        <Source type="geojson" data={res10Data}>
+                            <Layer type="line" paint={polygonPaint} />
+                        </Source>
+                    )}
 
-                {res11SafeRing && props.sweetspotToggle && (
-                    <Source type="geojson" data={res11SafeRing}>
-                        <Layer id="safedistance" type="fill" paint={safeRingPaint} beforeId={"hotspots"} />
-                    </Source>
-                )}
+                    {res11SafeRing && props.sweetspotToggle && (
+                        <Source type="geojson" data={res11SafeRing}>
+                            <Layer id="safedistance" type="fill" paint={safeRingPaint} beforeId={"hotspots"} />
+                        </Source>
+                    )}
 
-                {res11TooClose && (
-                    <Source type="geojson" data={res11TooClose}>
-                        <Layer id="tooclose" type="fill" paint={tooClosePaint} beforeId={"hotspots"} />
-                    </Source>
-                )}
+                    {res11TooClose && (
+                        <Source type="geojson" data={res11TooClose}>
+                            <Layer id="tooclose" type="fill" paint={tooClosePaint} beforeId={"hotspots"} />
+                        </Source>
+                    )}
 
-                {nearbyHotspots && (
-                    <Source type="geojson" data={nearbyHotspots}>
-                        <Layer id="hotspots" type="fill" paint={nearbyPaint} />
-                    </Source>
-                )}
+                    {hotspotsGeojson && (
+                        <Source type="geojson" data={hotspotsGeojson}>
+                            <Layer id="hotspots" type="fill" paint={nearbyPaint} />
+                        </Source>
+                    )}
 
-            </MapGL>
-        </div>
-    );
+                </MapGL>
+            </div>
+        );
+    }
 };
 
 export default Map;

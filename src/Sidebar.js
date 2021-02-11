@@ -3,13 +3,6 @@ import { push as Menu } from 'react-burger-menu';
 import Switch from "react-switch";
 import QRCode from "react-qr-code";
 import "react-responsive-modal/styles.css";
-import { Modal } from "react-responsive-modal";
-
-const copyAddr = () => {
-    navigator.clipboard.writeText(
-        "139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp"
-    );
-};
 
 export default props => {
     return (

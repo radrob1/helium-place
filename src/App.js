@@ -10,35 +10,6 @@ import './Sidebar.css';
 
 let mapstyles = require('./mapstyles.json');
 
-
-const polygonPaint = {
-  "line-color": "black",
-};
-
-const tooClosePaint = {
-  "fill-color": "#FF4136",
-  "fill-opacity": 0.4,
-  //'background': 'red'
-};
-
-const safeRingPaint = {
-  "fill-color": "green",
-  "fill-opacity": 0.7,
-  //'background': 'green'
-};
-
-const locationPaint = {
-  "fill-color": "#0074D9",
-  "fill-opacity": 1,
-  //'background': 'blue'
-};
-
-const nearbyPaint = {
-  "fill-color": "#001f3f",
-  "fill-opacity": 1,
-  //'background': 'purple'
-};
-
 const App = () => {
 
   const [res6toggle, setRes6Toggle] = useState(false);
@@ -50,7 +21,6 @@ const App = () => {
   const [mapstyle, setMapstyle] = useState(mapstyles.light);
   const [trackuserToggle, setTrackuserToggle] = useState(false);
   const geocoderContainerRef = useRef();
-  const toggleswitchContainerRef = useRef();
 
   const handleSweetspotToggle = useCallback(
     (checked) => {
@@ -64,35 +34,35 @@ const App = () => {
     (checked) => {
       setRes6Toggle(checked);
     },
-    [res6toggle]
+    []
   );
 
   const handleRes7Toggle = useCallback(
     (checked) => {
       setRes7Toggle(checked);
     },
-    [res7toggle]
+    []
   );
 
   const handleRes8Toggle = useCallback(
     (checked) => {
       setRes8Toggle(checked);
     },
-    [res8toggle]
+    []
   );
 
   const handleRes9Toggle = useCallback(
     (checked) => {
       setRes9Toggle(checked);
     },
-    [res9toggle]
+    []
   );
 
   const handleRes10Toggle = useCallback(
     (checked) => {
       setRes10Toggle(checked);
     },
-    [res10toggle]
+    []
   );
 
   const handleMapStyle = useCallback(
@@ -100,7 +70,7 @@ const App = () => {
       console.log(value);
       setMapstyle(value.target.value);
     },
-    [mapstyle]
+    []
   );
 
   const handleTrackuserToggle = useCallback(
@@ -108,7 +78,7 @@ const App = () => {
       console.log(checked);
       setTrackuserToggle(checked);
     },
-    [trackuserToggle]
+    []
   );
 
   return (

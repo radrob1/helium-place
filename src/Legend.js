@@ -5,10 +5,10 @@ const Legend = (props) => {
         <div id="hex-legend" class="legend">
             <h4>Hex Color Legend</h4>
             <div>
-                <span style={{ background: "#0074D9" }}></span>Searched Location
+                <span style={{ background: "black" }}></span>Searched Location
             </div>
             <div>
-                <span style={{ background: "black" }}></span>Helium Hotspot
+                <span style={{ background: "#0074D9" }}></span>Helium Hotspot
             </div>
             <div>
                 <span style={{ background: "#F66F67" }}></span>Too close to witness
