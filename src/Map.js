@@ -210,7 +210,7 @@ const Map = (props) => {
                     console.log(hashtagLocation);
                     console.log(hotspots);
                     var hotspot = hotspots.find(function (element) {
-                        return element.name === hashtagLocation;
+                        return (element.name === hashtagLocation || element.address === hashtagLocation);
                     });
                     //console.log(hotspot);
                     handleOnResult({
