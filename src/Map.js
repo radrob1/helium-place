@@ -207,23 +207,25 @@ const Map = (props) => {
                 //hotspotDensities = getHexDensities(hotspots);
                 //console.log(hotspotDensities);
                 if (hashtagLocation) {
-                    console.log(hashtagLocation);
-                    console.log(hotspots);
+                    console.log("hashtaglocation: ", hashtagLocation);
+                    //console.log(hotspots);
                     var hotspot = hotspots.find(function (element) {
-                        return element.name === hashtagLocation;
+                        return (element.name === hashtagLocation || element.address === hashtagLocation);
                     });
-                    //console.log(hotspot);
-                    handleOnResult({
-                        coords: {
+                    console.log(hotspot);
+                    if (typeof hotspot != "undefined") {
+                        handleOnResult({
+                            coords: {
+                                longitude: hotspot.longitude,
+                                latitude: hotspot.latitude,
+                            },
+                        });
+                        setViewport({
                             longitude: hotspot.longitude,
                             latitude: hotspot.latitude,
-                        },
-                    });
-                    setViewport({
-                        longitude: hotspot.longitude,
-                        latitude: hotspot.latitude,
-                        zoom: 15,
-                    });
+                            zoom: 15,
+                        });
+                    }
                 }
                 setDataloading(false);
             });
@@ -331,7 +333,7 @@ const Map = (props) => {
         } = event;
         const hotspotFeature =
             features && features.find((f) => f.layer.id === "hotspots");
-        const nearbyFeature = 
+        const nearbyFeature =
             features && features.find((f) => f.layer.id === "nearbyhotspots");
 
         let hoveredFeature = null;
@@ -341,7 +343,7 @@ const Map = (props) => {
             setHoveredFeature(hoveredFeature);
             console.log(hoveredFeature);
         }
-        else if (typeof hotspotFeature != "undefined"){
+        else if (typeof hotspotFeature != "undefined") {
             hoveredFeature = hotspotFeature;
             setHoveredFeature(hoveredFeature);
             console.log(hoveredFeature);
@@ -511,7 +513,7 @@ const Map = (props) => {
             const from = turfPoint([
                 updatedlocation.longitude,
                 updatedlocation.latitude,
-              ])
+            ])
             const to = turfPoint([h3ToGeo(nearbyHotspots[i].location)[1], h3ToGeo(nearbyHotspots[i].location)[0]])
             let distance = turfDistance(from, to, { units: 'meters' })
             console.log("distance: ", distance)
