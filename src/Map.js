@@ -63,13 +63,15 @@ const safeRingPaint = {
         2,
         0.9,
         3,
-        0.7,
+        0.8,
         4,
-        0.5,
+        0.7,
         5,
-        0.3,
+        0.6,
         6,
-        0.1
+        0.4,
+        7,
+        0.2
     ],
     //'background': 'green'
 };
@@ -328,8 +330,6 @@ const Map = (props) => {
         } = event;
         const hotspotFeature =
             features && features.find((f) => f.layer.id === "hotspots");
-        //const hexFeatureTooClose = features && features.find(f => f.layer.id === 'tooclose');
-        //const hexFeatureSafe = features && features.find(f => f.layer.id === 'safedistance');
 
         let hoveredFeature = null;
         if (typeof hotspotFeature != "undefined") {
@@ -346,12 +346,12 @@ const Map = (props) => {
         return (
             hoveredFeature && (
                 <Popup
-                    tipSize={8}
-                    anchor="top"
+                    tipSize={12}
+                    anchor="bottom"
                     longitude={hoveredFeature.properties.longitude}
                     latitude={hoveredFeature.properties.latitude}
-                    closeButton={true}
-                    closeOnClick={true}
+                    //closeButton={true}
+                    //closeOnClick={true}
                 >
                     <HotSpotInfo info={hoveredFeature} />
                 </Popup>
@@ -530,6 +530,7 @@ const Map = (props) => {
         res11safehexes.push({ ring: 4, hexes: hexRing(updatedlocation.res11hex, 11) });
         res11safehexes.push({ ring: 5, hexes: hexRing(updatedlocation.res11hex, 12) });
         res11safehexes.push({ ring: 6, hexes: hexRing(updatedlocation.res11hex, 13) });
+        res11safehexes.push({ ring: 7, hexes: hexRing(updatedlocation.res11hex, 14) });
 
         // Get all  res 6 neighbor boundaries
         if (typeof res6hexes !== "undefined" && res6hexes.length > 0) {

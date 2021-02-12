@@ -52,13 +52,12 @@
   /* Wrapper for item list */
   .bm-item-list {
     color: #b8b7ad;
-    padding: 0.8em;
   }
   
 /* Individual item */
 .bm-item {
-    display: inline-block;
-    color: #d1d1d1;
+    
+    color: white;
     margin-bottom: 10px;
     text-align: left;
     text-decoration: none;

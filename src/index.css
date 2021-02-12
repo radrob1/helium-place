@@ -146,5 +146,9 @@ div {
 }
 
 .hotspot-info {
-  font-size: 10px
+  background-color: white;
+  border-radius: 5px;
+  font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  color: #162646;
+  padding: 1px;
 }

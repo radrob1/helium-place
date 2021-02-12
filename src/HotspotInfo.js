@@ -7,12 +7,10 @@ export default class HotSpotInfo extends PureComponent {
     const displayName = `${info.properties.name}`;
     const rewardScale = `${info.properties.rewardScale}`;
     return (
-      <div>
         <div className="hotspot-info">
           <h4>{displayName}</h4>
           Reward Scale: {rewardScale}
         </div>
-      </div>
     );
   }
 }
