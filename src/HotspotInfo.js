@@ -7,10 +7,12 @@ export default class HotSpotInfo extends PureComponent {
     const displayName = `${info.properties.name}`;
     const rewardScale = `${info.properties.rewardScale}`;
     const hotspotLink = `https://explorer.helium.com/hotspots/${info.properties.address}`;
+    const distance = `${info.properties.distance}`;
     return (
         <div className="hotspot-info">
           <h4><a href={hotspotLink} target="_blank">{displayName}</a></h4>
-          Reward Scale: {rewardScale}
+          <b>Reward Scale:</b> {rewardScale}
+          <br /><b>Distance:</b> {distance}m
         </div>
     );
   }

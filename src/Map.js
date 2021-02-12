@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
+import { distance as turfDistance, point as turfPoint } from '@turf/turf'
 
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import MapGL from "react-map-gl";
@@ -19,7 +20,7 @@ import {
 import Geocoder from "react-map-gl-geocoder";
 
 // H3 geo hex map used to create hex shapes and locations
-import { geoToH3, h3ToGeoBoundary } from "h3-js";
+import { geoToH3, h3ToGeoBoundary, h3ToGeo } from "h3-js";
 import { kRing, hexRing } from "h3-js";
 
 // Local imports
@@ -330,14 +331,22 @@ const Map = (props) => {
         } = event;
         const hotspotFeature =
             features && features.find((f) => f.layer.id === "hotspots");
+        const nearbyFeature = 
+            features && features.find((f) => f.layer.id === "nearbyhotspots");
 
         let hoveredFeature = null;
-        if (typeof hotspotFeature != "undefined") {
+        if (typeof hotspotFeature != "undefined" && typeof nearbyFeature != "undefined") {
             //console.log(hotspotFeature);
+            hoveredFeature = nearbyFeature;
+            setHoveredFeature(hoveredFeature);
+            console.log(hoveredFeature);
+        }
+        else if (typeof hotspotFeature != "undefined"){
             hoveredFeature = hotspotFeature;
             setHoveredFeature(hoveredFeature);
             console.log(hoveredFeature);
-        } else {
+        }
+        else {
             console.log("Null feature");
         }
     });
@@ -499,6 +508,13 @@ const Map = (props) => {
             for (const i of hexBoundary) {
                 arr.push([i[1], i[0]]);
             }
+            const from = turfPoint([
+                updatedlocation.longitude,
+                updatedlocation.latitude,
+              ])
+            const to = turfPoint([h3ToGeo(nearbyHotspots[i].location)[1], h3ToGeo(nearbyHotspots[i].location)[0]])
+            let distance = turfDistance(from, to, { units: 'meters' })
+            console.log("distance: ", distance)
             console.log(nearbyHotspots[i]);
             features.push({
                 type: "Feature",
@@ -509,6 +525,7 @@ const Map = (props) => {
                     longitude: nearbyHotspots[i].longitude,
                     address: nearbyHotspots[i].address,
                     rewardScale: nearbyHotspots[i].rewardScale,
+                    distance: Math.round(distance)
                 },
                 geometry: {
                     type: "Polygon",
@@ -1024,6 +1041,12 @@ const Map = (props) => {
                     {hotspotsGeojson && (
                         <Source type="geojson" data={hotspotsGeojson}>
                             <Layer id="hotspots" type="fill" paint={nearbyPaint} />
+                        </Source>
+                    )}
+
+                    {nearbyHotspots && (
+                        <Source type="geojson" data={nearbyHotspots}>
+                            <Layer id="nearbyhotspots" type="fill" paint={nearbyPaint} />
                         </Source>
                     )}
 
