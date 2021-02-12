@@ -338,7 +338,7 @@ const Map = (props) => {
             setHoveredFeature(hoveredFeature);
             console.log(hoveredFeature);
         } else {
-            setHoveredFeature(null);
+            console.log("Null feature");
         }
     });
 
@@ -350,8 +350,9 @@ const Map = (props) => {
                     anchor="bottom"
                     longitude={hoveredFeature.properties.longitude}
                     latitude={hoveredFeature.properties.latitude}
-                    //closeButton={true}
-                    //closeOnClick={true}
+                    closeButton={true}
+                    closeOnClick={false}
+                    onClose={() => setHoveredFeature(null)}
                 >
                     <HotSpotInfo info={hoveredFeature} />
                 </Popup>
