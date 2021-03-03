@@ -50,6 +50,7 @@ const tooClosePaint = {
     //"fill-color": "#FC4445",
     "fill-color": "#F66F67",
     "fill-opacity": 0.8,
+    "fill-outline-color": "#8b0000"
     //'background': 'red'
 };
 
