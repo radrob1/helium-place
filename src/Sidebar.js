@@ -14,7 +14,7 @@ export default props => {
                     <tbody>
                         <tr>
                             <td>
-                                <input type="radio" value={props.mapstyles.streets} name="mapstyle" checked/> Streets
+                                <input type="radio" value={props.mapstyles.streets} name="mapstyle" /> Streets
                             </td>
                         </tr>
                         <tr>
