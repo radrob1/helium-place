@@ -37,9 +37,9 @@ export default props => {
                     </tbody>
                 </div>
                 <p></p>
-                <div data-tip data-for="greenzoneTip" data-event="click">
+                <div >
                     <span>Sweetspot Area </span>
-                    <label htmlFor="material-switch" >
+                    <label htmlFor="material-switch" data-tip data-for="greenzoneTip">
                         <Switch
                             checked={props.sweetspotToggle}
                             onChange={props.handleSweetspotToggle}
@@ -56,14 +56,13 @@ export default props => {
                             id="material-switch"
                         />
                     </label>
-                    &nbsp;&nbsp;<MdInfo />
-                    <ReactTooltip id="greenzoneTip" place="top" type="light" effect="solid">
+                    <ReactTooltip id="greenzoneTip" place="top" type="light" effect="solid" clickable={true}>
                         Anything in this area should have a high percentage chance of being witnessed with stock setups.
                     </ReactTooltip>
                 </div>
-                <div data-tip data-for="toocloseTip" data-event="click">
+                <div>
                     <span>Location Red Zone </span>
-                    <label htmlFor="material-switch">
+                    <label htmlFor="material-switch" data-tip data-for="toocloseTip">
                         <Switch
                             checked={props.locationRedzoneToggle}
                             onChange={props.handleLocationRedzoneToggle}
@@ -80,12 +79,11 @@ export default props => {
                             id="material-switch"
                         />
                     </label>
-                    &nbsp;&nbsp;<MdInfo />
                     <ReactTooltip id="toocloseTip" place="top" type="light" effect="solid" clickable={true}>
                         Anything in this area is too close to witness and cannot participate in POC.
                     </ReactTooltip>
                 </div>
-                <div data-tip data-for="redzoneTip" data-event="click">
+                <div>
                     <span>All Red Zones </span>
                     <label htmlFor="material-switch" data-tip data-for="redzoneWarning">
                         <Switch
@@ -105,13 +103,10 @@ export default props => {
                         />
                         <ReactTooltip id="redzoneWarning" place="top" type="error" effect="solid">
                             Warning: This may slow down the map.
-                    </ReactTooltip>
+                            <br></br>This will display all nearby hotspot areas that are too close for them to witness.
+                            <p>Note: Location must be set first. </p>
+                        </ReactTooltip>
                     </label>
-                    &nbsp;&nbsp;<MdInfo />
-                    <ReactTooltip id="redzoneTip" place="top" type="light" effect="solid" clickable={true}>
-                        This will display all nearby hotspot areas that are too close for them to witness.
-                        <p>Note: Location must be set first. </p>
-                    </ReactTooltip>
                 </div>
                 <p></p>
                 <div>
