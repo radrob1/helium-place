@@ -54,7 +54,7 @@ export default props => {
                         className="react-switch"
                         id="material-switch"
                     />
-                    <ReactTooltip id="greenzoneTip" place="top" type="info" effect="solid">
+                    <ReactTooltip id="greenzoneTip" place="top" type="light" effect="solid">
                         Anything in this area should have a high percentage chance of being witnessed with stock setups.
                     </ReactTooltip>
                 </label>
@@ -76,7 +76,7 @@ export default props => {
                         className="react-switch"
                         id="material-switch"
                     />
-                    <ReactTooltip id="toocloseTip" place="top" type="info" effect="solid">
+                    <ReactTooltip id="toocloseTip" place="top" type="light" effect="solid">
                         Anything in this area is too close to witness and cannot participate in POC.
                     </ReactTooltip>
                 </label>
@@ -98,9 +98,11 @@ export default props => {
                         className="react-switch"
                         id="material-switch"
                     />
-                    <ReactTooltip id="redzoneTip" place="top" type="warning" effect="solid">
-                        This will display all nearby hotspot areas that are too close for them to witness.
+                    <ReactTooltip id="redzoneTip" place="top" type="light" effect="solid">
                         Warning: This may slow down the map.
+                        <br />This will display all nearby hotspot areas that are too close for them to witness.
+                        <p>Note: Location must be set first. </p>
+                        
                     </ReactTooltip>
                 </label>
                 <p></p>
@@ -220,7 +222,7 @@ export default props => {
             <div style={{ position: 'absolute', bottom: 55, justifyContent: 'flex-end', flex: 1, textAlign: 'center' }}>
                 Help support this site
                 <p>
-                    <QRCode size={60} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" />
+                    <QRCode size={80} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" />
                     <p>
                         <button
                             onClick={() => {
