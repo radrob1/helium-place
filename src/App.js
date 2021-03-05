@@ -19,7 +19,7 @@ const App = () => {
   const [res10toggle, setRes10Toggle] = useState(localStorage.getItem('res10toggle') === "true"|| false);
   const [sweetspotToggle, setSweetSpotToggle] = useState(localStorage.getItem('sweetspottoggle') === "true"|| true);
   const [locationRedzoneToggle, setLocationRedzoneToggle] = useState(localStorage.getItem('locationredzonetoggle') === "true"|| true);
-  const [redzoneToggle, setRedzoneToggle] = useState(localStorage.getItem('redzonetoggle') === "true"|| false);
+  const [redzoneToggle, setRedzoneToggle] = useState(false);
   const [mapstyle, setMapstyle] = useState(localStorage.getItem('mapstyle') || mapstyles.streets);
   const [trackuserToggle, setTrackuserToggle] = useState(false);
   const geocoderContainerRef = useRef();
