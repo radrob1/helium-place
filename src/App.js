@@ -12,6 +12,8 @@ let mapstyles = require('./mapstyles.json');
 
 const App = () => {
 
+  const [device, setDevice] = useState(!!navigator.maxTouchPoints ? 'mobile' : 'computer');
+  console.log(device);
   const [res6toggle, setRes6Toggle] = useState(localStorage.getItem('res6toggle') === "true"|| false);
   const [res7toggle, setRes7Toggle] = useState(localStorage.getItem('res7toggle') === "true"|| false);
   const [res8toggle, setRes8Toggle] = useState(localStorage.getItem('res8toggle') === "true"|| false);
@@ -169,6 +171,7 @@ return (
         mapstyles={mapstyles}
         trackuserToggle={trackuserToggle}
         handleTrackuserToggle={handleTrackuserToggle}
+        device={device}
       />
       <Map
         sweetspotToggle={sweetspotToggle}

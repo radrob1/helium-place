@@ -56,9 +56,11 @@ export default props => {
                             id="material-switch"
                         />
                     </label>
-                    <ReactTooltip id="greenzoneTip" place="top" type="light" effect="solid" clickable={true}>
-                        Anything in this area should have a high percentage chance of being witnessed with stock setups.
-                    </ReactTooltip>
+                    {props.device==="computer" && (
+                        <ReactTooltip id="greenzoneTip" place="top" type="light" effect="solid" clickable={true}>
+                            Anything in this area should have a high percentage chance of being witnessed with stock setups.
+                        </ReactTooltip>
+                    )}
                 </div>
                 <div>
                     <span>Location Red Zone </span>
@@ -79,9 +81,12 @@ export default props => {
                             id="material-switch"
                         />
                     </label>
-                    <ReactTooltip id="toocloseTip" place="top" type="light" effect="solid" clickable={true}>
-                        Anything in this area is too close to witness and cannot participate in POC.
-                    </ReactTooltip>
+                    {props.device === "computer" && (
+                            <ReactTooltip id="toocloseTip" place="top" type="light" effect="solid" clickable={true}>
+                                Anything in this area is too close to witness and cannot participate in POC.
+                            </ReactTooltip>
+                        )
+                    }
                 </div>
                 <div>
                     <span>All Red Zones </span>
@@ -101,26 +106,27 @@ export default props => {
                             className="react-switch"
                             id="material-switch"
                         />
-                        <ReactTooltip id="redzoneWarning" place="top" type="error" effect="solid">
+                        {props.device === "computer" && (<ReactTooltip id="redzoneWarning" place="top" type="error" effect="solid">
                             Warning: This may slow down the map.
                             <br></br>This will display all nearby hotspot redzones that are too close for them to witness.
                             <br></br>
                             <p>Note: Location must be set first and does not necessarily mean that you cannot place hotspot somewhere in the red. </p>
-                        </ReactTooltip>
+                        </ReactTooltip>)}
                     </label>
                 </div>
                 <p></p>
                 <div>
                     <b data-tip data-for="hip17Tip" data-event="click">Advanced &nbsp;<MdInfo /></b>
-                    <ReactTooltip id="hip17Tip" place="top" type="error" effect="solid" clickable={true}>
-                        Please read HIP17 in depth before using these options.
-                        <p>
-                            <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">
-                                https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html
-                            </a>
-                        </p>
-
-                    </ReactTooltip>
+                    {props.device==="computer" && (
+                        <ReactTooltip id="hip17Tip" place="top" type="error" effect="solid" clickable={true}>
+                            Please read HIP17 in depth before using these options.
+                            <p>
+                                <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">
+                                    https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html
+                                </a>
+                            </p>
+                        </ReactTooltip>
+                    )}
                     <div>
                         <span>Res 6 </span>
                         <label htmlFor="material-switch">
