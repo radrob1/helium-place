@@ -103,8 +103,9 @@ export default props => {
                         />
                         <ReactTooltip id="redzoneWarning" place="top" type="error" effect="solid">
                             Warning: This may slow down the map.
-                            <br></br>This will display all nearby hotspot areas that are too close for them to witness.
-                            <p>Note: Location must be set first. </p>
+                            <br></br>This will display all nearby hotspot redzones that are too close for them to witness.
+                            <br></br>
+                            <p>Note: Location must be set first and does not necessarily mean that you cannot place hotspot somewhere in the red. </p>
                         </ReactTooltip>
                     </label>
                 </div>
