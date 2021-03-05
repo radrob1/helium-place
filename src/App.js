@@ -17,7 +17,9 @@ const App = () => {
   const [res8toggle, setRes8Toggle] = useState(localStorage.getItem('res8toggle') === "true"|| false);
   const [res9toggle, setRes9Toggle] = useState(localStorage.getItem('res9toggle') === "true"|| false);
   const [res10toggle, setRes10Toggle] = useState(localStorage.getItem('res10toggle') === "true"|| false);
-  const [sweetspotToggle, setSweetSpotToggle] = useState(localStorage.getItem('sweetspottoggle') === "true"|| false);
+  const [sweetspotToggle, setSweetSpotToggle] = useState(localStorage.getItem('sweetspottoggle') === "true"|| true);
+  const [locationRedzoneToggle, setLocationRedzoneToggle] = useState(localStorage.getItem('locationredzonetoggle') === "true"|| true);
+  const [redzoneToggle, setRedzoneToggle] = useState(localStorage.getItem('redzonetoggle') === "true"|| false);
   const [mapstyle, setMapstyle] = useState(localStorage.getItem('mapstyle') || mapstyles.streets);
   const [trackuserToggle, setTrackuserToggle] = useState(false);
   const geocoderContainerRef = useRef();
@@ -29,6 +31,14 @@ useEffect(() => {
 useEffect(() => {
   localStorage.setItem("sweetspottoggle", sweetspotToggle)
 }, [sweetspotToggle]);
+
+useEffect(() => {
+  localStorage.setItem("redzonetoggle", redzoneToggle)
+}, [redzoneToggle]);
+
+useEffect(() => {
+  localStorage.setItem("locationredzonetoggle", locationRedzoneToggle)
+}, [locationRedzoneToggle]);
 
 useEffect(() => {
   localStorage.setItem("res6toggle", res6toggle)
@@ -56,6 +66,28 @@ const handleSweetspotToggle = useCallback(
     console.log(sweetspotToggle)
   },
   [sweetspotToggle]
+);
+
+const handleRedzoneToggle = useCallback(
+  (checked) => {
+    setRedzoneToggle(checked);
+    if (checked){
+      setLocationRedzoneToggle(!checked)
+    };
+    console.log(redzoneToggle);
+  },
+  [redzoneToggle]
+);
+
+const handleLocationRedzoneToggle = useCallback(
+  (checked) => {
+    setLocationRedzoneToggle(checked);
+    if (checked) {
+      setRedzoneToggle(!checked);
+    }
+    console.log(locationRedzoneToggle);
+  },
+  [locationRedzoneToggle]
 );
 
 const handleRes6Toggle = useCallback(
@@ -119,6 +151,10 @@ return (
         outerContainerId={'outer-container'}
         sweetspotToggle={sweetspotToggle}
         handleSweetspotToggle={handleSweetspotToggle}
+        locationRedzoneToggle={locationRedzoneToggle}
+        handleLocationRedzoneToggle={handleLocationRedzoneToggle}
+        redzoneToggle={redzoneToggle}
+        handleRedzoneToggle={handleRedzoneToggle}
         res6toggle={res6toggle}
         handleRes6Toggle={handleRes6Toggle}
         res7toggle={res7toggle}
@@ -136,6 +172,8 @@ return (
       />
       <Map
         sweetspotToggle={sweetspotToggle}
+        redzoneToggle={redzoneToggle}
+        locationRedzoneToggle={locationRedzoneToggle}
         res6toggle={res6toggle}
         res7toggle={res7toggle}
         res8toggle={res8toggle}
