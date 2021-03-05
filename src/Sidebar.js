@@ -3,6 +3,7 @@ import { push as Menu } from 'react-burger-menu';
 import Switch from "react-switch";
 import QRCode from "react-qr-code";
 import ReactTooltip from "react-tooltip";
+import {MdInfo} from "react-icons/md"
 import "react-responsive-modal/styles.css";
 
 export default props => {
@@ -104,8 +105,8 @@ export default props => {
                 </label>
                 <p></p>
                 <div>
-                    <b data-tip data-for="hip17Tip">Advanced</b>
-                    <ReactTooltip id="hip17Tip" place="top" type="error" effect="solid" delayHide={1000}>
+                    <b data-tip data-for="hip17Tip" data-event="click">Advanced <MdInfo /></b>
+                    <ReactTooltip id="hip17Tip" place="top" type="error" effect="solid" delayHide={1000} clickable={true}>
                         Please read HIP17 in depth before using these options.
                         <p>
                             <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">
