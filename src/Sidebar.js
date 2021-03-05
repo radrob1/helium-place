@@ -3,7 +3,7 @@ import { push as Menu } from 'react-burger-menu';
 import Switch from "react-switch";
 import QRCode from "react-qr-code";
 import ReactTooltip from "react-tooltip";
-import {MdInfo} from "react-icons/md"
+import { MdInfo } from "react-icons/md"
 import "react-responsive-modal/styles.css";
 
 export default props => {
@@ -37,77 +37,85 @@ export default props => {
                     </tbody>
                 </div>
                 <p></p>
-                <span>Sweetspot Area </span>
-                <label htmlFor="material-switch" data-tip data-for="greenzoneTip">
-                    <Switch
-                        checked={props.sweetspotToggle}
-                        onChange={props.handleSweetspotToggle}
-                        onColor="#86d3ff"
-                        onHandleColor="#2693e6"
-                        handleDiameter={12}
-                        uncheckedIcon={false}
-                        checkedIcon={true}
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={10}
-                        width={25}
-                        className="react-switch"
-                        id="material-switch"
-                    />
+                <div data-tip data-for="greenzoneTip" data-event="click">
+                    <span>Sweetspot Area </span>
+                    <label htmlFor="material-switch" >
+                        <Switch
+                            checked={props.sweetspotToggle}
+                            onChange={props.handleSweetspotToggle}
+                            onColor="#86d3ff"
+                            onHandleColor="#2693e6"
+                            handleDiameter={12}
+                            uncheckedIcon={false}
+                            checkedIcon={true}
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                            height={10}
+                            width={25}
+                            className="react-switch"
+                            id="material-switch"
+                        />
+                    </label>
+                    &nbsp;&nbsp;<MdInfo />
                     <ReactTooltip id="greenzoneTip" place="top" type="light" effect="solid">
                         Anything in this area should have a high percentage chance of being witnessed with stock setups.
                     </ReactTooltip>
-                </label>
-                <br></br>
-                <span>Location Red Zone </span>
-                <label htmlFor="material-switch" data-tip data-for="toocloseTip">
-                    <Switch
-                        checked={props.locationRedzoneToggle}
-                        onChange={props.handleLocationRedzoneToggle}
-                        onColor="#86d3ff"
-                        onHandleColor="#2693e6"
-                        handleDiameter={12}
-                        uncheckedIcon={false}
-                        checkedIcon={true}
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={10}
-                        width={25}
-                        className="react-switch"
-                        id="material-switch"
-                    />
-                    <ReactTooltip id="toocloseTip" place="top" type="light" effect="solid">
+                </div>
+                <div data-tip data-for="toocloseTip" data-event="click">
+                    <span>Location Red Zone </span>
+                    <label htmlFor="material-switch">
+                        <Switch
+                            checked={props.locationRedzoneToggle}
+                            onChange={props.handleLocationRedzoneToggle}
+                            onColor="#86d3ff"
+                            onHandleColor="#2693e6"
+                            handleDiameter={12}
+                            uncheckedIcon={false}
+                            checkedIcon={true}
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                            height={10}
+                            width={25}
+                            className="react-switch"
+                            id="material-switch"
+                        />
+                    </label>
+                    &nbsp;&nbsp;<MdInfo />
+                    <ReactTooltip id="toocloseTip" place="top" type="light" effect="solid" clickable={true}>
                         Anything in this area is too close to witness and cannot participate in POC.
                     </ReactTooltip>
-                </label>
-                <br></br>
-                <span>All Red Zones </span>
-                <label htmlFor="material-switch" data-tip data-for="redzoneTip">
-                    <Switch
-                        checked={props.redzoneToggle}
-                        onChange={props.handleRedzoneToggle}
-                        onColor="#86d3ff"
-                        onHandleColor="#2693e6"
-                        handleDiameter={12}
-                        uncheckedIcon={false}
-                        checkedIcon={true}
-                        boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                        activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                        height={10}
-                        width={25}
-                        className="react-switch"
-                        id="material-switch"
-                    />
-                    <ReactTooltip id="redzoneTip" place="top" type="light" effect="solid">
-                        Warning: This may slow down the map.
-                        <br />This will display all nearby hotspot areas that are too close for them to witness.
-                        <p>Note: Location must be set first. </p>
-                        
+                </div>
+                <div data-tip data-for="redzoneTip" data-event="click">
+                    <span>All Red Zones </span>
+                    <label htmlFor="material-switch" data-tip data-for="redzoneWarning">
+                        <Switch
+                            checked={props.redzoneToggle}
+                            onChange={props.handleRedzoneToggle}
+                            onColor="#86d3ff"
+                            onHandleColor="#2693e6"
+                            handleDiameter={12}
+                            uncheckedIcon={false}
+                            checkedIcon={true}
+                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                            height={10}
+                            width={25}
+                            className="react-switch"
+                            id="material-switch"
+                        />
+                        <ReactTooltip id="redzoneWarning" place="top" type="error" effect="solid">
+                            Warning: This may slow down the map.
                     </ReactTooltip>
-                </label>
+                    </label>
+                    &nbsp;&nbsp;<MdInfo />
+                    <ReactTooltip id="redzoneTip" place="top" type="light" effect="solid" clickable={true}>
+                        This will display all nearby hotspot areas that are too close for them to witness.
+                        <p>Note: Location must be set first. </p>
+                    </ReactTooltip>
+                </div>
                 <p></p>
                 <div>
-                    <b data-tip data-for="hip17Tip" data-event="click">Advanced <MdInfo /></b>
+                    <b data-tip data-for="hip17Tip" data-event="click">Advanced &nbsp;<MdInfo /></b>
                     <ReactTooltip id="hip17Tip" place="top" type="error" effect="solid" clickable={true}>
                         Please read HIP17 in depth before using these options.
                         <p>
