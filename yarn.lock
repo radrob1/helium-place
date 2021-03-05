@@ -9458,6 +9458,10 @@ react-error-overlay@^6.0.8:
   version "6.0.8"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.8.tgz#474ed11d04fc6bda3af643447d85e9127ed6b5de"
 
+react-icons@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.2.0.tgz#6dda80c8a8f338ff96a1851424d63083282630d0"
+
 react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -9603,6 +9607,13 @@ react-switch@^6.0.0:
   resolved "https://registry.yarnpkg.com/react-switch/-/react-switch-6.0.0.tgz#bd4a2dea08f211b8a32e55e8314fd44bc1ec947e"
   dependencies:
     prop-types "^15.7.2"
+
+react-tooltip@^4.2.15:
+  version "4.2.15"
+  resolved "https://registry.yarnpkg.com/react-tooltip/-/react-tooltip-4.2.15.tgz#ae278931a222434ae597c57aab07be215a2aa5f9"
+  dependencies:
+    prop-types "^15.7.2"
+    uuid "^7.0.3"
 
 react-virtualized-auto-sizer@^1.0.2:
   version "1.0.4"
@@ -11285,6 +11296,10 @@ utils-merge@1.0.1:
 uuid@^3.3.2, uuid@^3.4.0:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.4.0.tgz#b23e4358afa8a202fe7a100af1f5f883f02007ee"
+
+uuid@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
 
 uuid@^8.3.0:
   version "8.3.2"

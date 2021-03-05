@@ -20,7 +20,7 @@ import {
 import Geocoder from "react-map-gl-geocoder";
 
 // H3 geo hex map used to create hex shapes and locations
-import { geoToH3, h3ToGeoBoundary, h3ToGeo } from "h3-js";
+import { geoToH3, h3ToGeoBoundary, h3ToGeo, h3ToParent } from "h3-js";
 import { kRing, hexRing } from "h3-js";
 
 // Local imports
@@ -257,6 +257,7 @@ const Map = (props) => {
     const [res10Data, setRes10Data] = useState();
     const [res11SafeRing, setRes11SafeRing] = useState();
     const [res11TooClose, setRes11TooClose] = useState();
+    const [locationTooClose, setLocationTooClose] = useState();
     const [res12location, setRes12Location] = useState();
     const [nearbyHotspots, setNearbyHotspots] = useState();
     const [hoveredFeature, setHoveredFeature] = useState();
@@ -293,6 +294,13 @@ const Map = (props) => {
         console.log("res11TooClose:", value);
         if (typeof value != "undefined") {
             setRes11TooClose(value);
+        }
+    };
+
+    const updateLocationTooClose = (value) => {
+        console.log("locationTooClose:", value);
+        if (typeof value != "undefined") {
+            setLocationTooClose(value);
         }
     };
 
@@ -478,6 +486,7 @@ const Map = (props) => {
         };
         //console.log(updatedlocation.res8neighbors);
         updateLocation(updatedlocation);
+        let res11closehexeslist = kRing(updatedlocation.res11hex, 7);
         const res6hexes = kRing(updatedlocation.res6hex, 1);
         const res7hexes = kRing(updatedlocation.res7hex, 4);
         const res8hexes = kRing(updatedlocation.res8hex, 12);
@@ -504,6 +513,8 @@ const Map = (props) => {
         var i;
         var features = [];
         for (i = 0; i < nearbyHotspots.length; i++) {
+            let nearbyres11closehexes = kRing(h3ToParent(nearbyHotspots[i].location, 11), 7);
+            res11closehexeslist.push(...nearbyres11closehexes);
             let hexBoundary = h3ToGeoBoundary(nearbyHotspots[i].location);
             hexBoundary.push(hexBoundary[0]);
 
@@ -543,7 +554,6 @@ const Map = (props) => {
         console.log(nearbygeojson);
         updateNearbyHotspots(nearbygeojson);
 
-        const res11closehexes = kRing(updatedlocation.res11hex, 7);
         const res11safehexes = [];
         res11safehexes.push({ ring: 1, hexes: hexRing(updatedlocation.res11hex, 8) });
         res11safehexes.push({ ring: 2, hexes: hexRing(updatedlocation.res11hex, 9) });
@@ -718,39 +728,8 @@ const Map = (props) => {
             updateRes10Data(geojson);
         }
 
-        // Get all res 9 neighbor boundaries
-        if (typeof res9hexes !== "undefined" && res9hexes.length > 0) {
-            let res9hexboundaries = [];
-            var i;
-            for (i = 0; i < res9hexes.length; i++) {
-                let hexBoundary = h3ToGeoBoundary(res9hexes[i]);
-                hexBoundary.push(hexBoundary[0]);
-
-                let arr = [];
-                for (const i of hexBoundary) {
-                    arr.push([i[1], i[0]]);
-                }
-                res9hexboundaries.push(arr);
-            }
-
-            var i;
-            var features = [];
-            for (i = 0; i < res9hexboundaries.length; i++) {
-                features.push({
-                    type: "Feature",
-                    geometry: {
-                        type: "Polygon",
-                        coordinates: [res9hexboundaries[i]],
-                    },
-                });
-            }
-            const geojson = {
-                type: "FeatureCollection",
-                features: features,
-            };
-            updateRes9Data(geojson);
-        }
-
+        // Get hex boundaries for all hotspot too close to witness zones
+        const res11closehexes = [...new Set(res11closehexeslist)];
         if (typeof res11closehexes !== "undefined" && res11closehexes.length > 0) {
             let res11hexboundaries = [];
             var i;
@@ -787,7 +766,46 @@ const Map = (props) => {
                 features: features,
             };
             updateRes11TooClose(geojson);
-        }
+        };
+
+        const locationTooClosehexes = kRing(updatedlocation.res11hex, 7);
+        if (typeof locationTooClosehexes !== "undefined" && locationTooClosehexes.length > 0) {
+            let res11hexboundaries = [];
+            var i;
+            for (i = 0; i < res11closehexes.length; i++) {
+                let hexBoundary = h3ToGeoBoundary(locationTooClosehexes[i]);
+                hexBoundary.push(hexBoundary[0]);
+
+                let arr = [];
+                for (const i of hexBoundary) {
+                    arr.push([i[1], i[0]]);
+                }
+                res11hexboundaries.push(arr);
+            }
+
+            var i;
+            var features = [];
+            for (i = 0; i < res11hexboundaries.length; i++) {
+                features.push({
+                    type: "Feature",
+                    properties: {
+                        title: "Too Close",
+                        name: "Too Close",
+                        longitude: res11hexboundaries[i][0][0],
+                        latitude: res11hexboundaries[i][0][1],
+                    },
+                    geometry: {
+                        type: "Polygon",
+                        coordinates: [res11hexboundaries[i]],
+                    },
+                });
+            }
+            const geojson = {
+                type: "FeatureCollection",
+                features: features,
+            };
+            updateLocationTooClose(geojson);
+        };
 
         if (typeof res11safehexes !== "undefined" && res11safehexes.length > 0) {
             let res11hexboundaries = [];
@@ -1035,8 +1053,14 @@ const Map = (props) => {
                         </Source>
                     )}
 
-                    {res11TooClose && (
+                    {res11TooClose && props.redzoneToggle && (
                         <Source type="geojson" data={res11TooClose}>
+                            <Layer id="tooclose" type="fill" paint={tooClosePaint} beforeId={"hotspots"} />
+                        </Source>
+                    )}
+
+                    {locationTooClose && props.locationRedzoneToggle && (
+                        <Source type="geojson" data={locationTooClose}>
                             <Layer id="tooclose" type="fill" paint={tooClosePaint} beforeId={"hotspots"} />
                         </Source>
                     )}
