@@ -106,7 +106,7 @@ export default props => {
                 <p></p>
                 <div>
                     <b data-tip data-for="hip17Tip" data-event="click">Advanced <MdInfo /></b>
-                    <ReactTooltip id="hip17Tip" place="top" type="error" effect="solid" delayHide={1000} clickable={true}>
+                    <ReactTooltip id="hip17Tip" place="top" type="error" effect="solid" clickable={true}>
                         Please read HIP17 in depth before using these options.
                         <p>
                             <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">
