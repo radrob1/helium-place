@@ -113,6 +113,7 @@ const createHotspotsGeojson = (hotspots) => {
                 address: hotspots[i].address,
                 rewardScale: hotspots[i].reward_scale,
                 coordinates: [hotspots[i].longitude, hotspots[i].latitude],
+                status: hotspots[i].status
             },
             geometry: {
                 type: "Polygon",
@@ -497,7 +498,7 @@ const Map = (props) => {
         for (n = 0; n < res8hexes.length; n++) {
             var res8 = res8hexes[n];
             for (var i in hotspots) {
-                if (hotspots[i].res8_location === res8) {
+                if (hotspots[i].res8_location === res8 && hotspots[i].status === 'online') {
                     nearbyHotspots.push({
                         location: hotspots[i].location,
                         name: hotspots[i].name,
@@ -505,6 +506,7 @@ const Map = (props) => {
                         latitude: hotspots[i].latitude,
                         address: hotspots[i].address,
                         rewardScale: hotspots[i].reward_scale,
+                        status: hotspots[i].status
                     });
                 }
             }
@@ -539,7 +541,8 @@ const Map = (props) => {
                     longitude: nearbyHotspots[i].longitude,
                     address: nearbyHotspots[i].address,
                     rewardScale: nearbyHotspots[i].rewardScale,
-                    distance: Math.round(distance)
+                    distance: Math.round(distance),
+                    status: nearbyHotspots[i].status
                 },
                 geometry: {
                     type: "Polygon",
