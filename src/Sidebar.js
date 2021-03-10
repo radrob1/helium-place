@@ -229,6 +229,13 @@ export default props => {
                     </div>
                 </div>
             </div>
+            <div>
+                <p />
+                <br />
+                <b>Want to improve your earnings?</b>
+                <br></br>
+                Try an upgraded antenna from <a target="_blank" style={{color:"white"}} href='https://rakwireless.kckb.st/070fff89'>RAK Wireless</a>
+            </div>
             <div style={{ position: 'absolute', bottom: 55, justifyContent: 'flex-end', flex: 1, textAlign: 'center' }}>
                 Help support this site
                 <p>
