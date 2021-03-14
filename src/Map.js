@@ -214,7 +214,7 @@ const Map = (props) => {
                     var hotspot = hotspots.find(function (element) {
                         return (element.name === hashtagLocation || element.address === hashtagLocation);
                     });
-                    console.log(hotspot);
+                    //console.log(hotspot);
                     if (typeof hotspot != "undefined") {
                         handleOnResult({
                             coords: {
@@ -271,42 +271,42 @@ const Map = (props) => {
     };
 
     const updateNearbyHotspots = (value) => {
-        console.log("NearbyHotspots:", value);
+        //console.log("NearbyHotspots:", value);
         if (typeof value != "undefined") {
             setNearbyHotspots(value);
         }
     };
 
     const updateRes12Location = (value) => {
-        console.log("res12location:", value);
+        //console.log("res12location:", value);
         if (typeof value != "undefined") {
             setRes12Location(value);
         }
     };
 
     const updateRes11SafeRing = (value) => {
-        console.log("res11SafeRing:", value);
+        //console.log("res11SafeRing:", value);
         if (typeof value != "undefined") {
             setRes11SafeRing(value);
         }
     };
 
     const updateRes11TooClose = (value) => {
-        console.log("res11TooClose:", value);
+        //console.log("res11TooClose:", value);
         if (typeof value != "undefined") {
             setRes11TooClose(value);
         }
     };
 
     const updateLocationTooClose = (value) => {
-        console.log("locationTooClose:", value);
+        //console.log("locationTooClose:", value);
         if (typeof value != "undefined") {
             setLocationTooClose(value);
         }
     };
 
     const updateRes8Data = (value) => {
-        console.log("res8Data:", value);
+        //console.log("res8Data:", value);
         if (typeof value != "undefined") {
             setRes8Data(value);
         }
@@ -351,12 +351,12 @@ const Map = (props) => {
             //console.log(hotspotFeature);
             hoveredFeature = nearbyFeature;
             setHoveredFeature(hoveredFeature);
-            console.log(hoveredFeature);
+            //console.log(hoveredFeature);
         }
         else if (typeof hotspotFeature != "undefined") {
             hoveredFeature = hotspotFeature;
             setHoveredFeature(hoveredFeature);
-            console.log(hoveredFeature);
+            //console.log(hoveredFeature);
         }
         else {
             console.log("Null feature");
@@ -530,8 +530,8 @@ const Map = (props) => {
             ])
             const to = turfPoint([h3ToGeo(nearbyHotspots[i].location)[1], h3ToGeo(nearbyHotspots[i].location)[0]])
             let distance = turfDistance(from, to, { units: 'meters' })
-            console.log("distance: ", distance)
-            console.log(nearbyHotspots[i]);
+            //console.log("distance: ", distance)
+            //console.log(nearbyHotspots[i]);
             features.push({
                 type: "Feature",
                 properties: {
@@ -554,7 +554,7 @@ const Map = (props) => {
             type: "FeatureCollection",
             features: features,
         };
-        console.log(nearbygeojson);
+        //console.log(nearbygeojson);
         updateNearbyHotspots(nearbygeojson);
 
         const res11safehexes = [];
@@ -731,6 +731,7 @@ const Map = (props) => {
             updateRes10Data(geojson);
         }
 
+        /*
         // Get hex boundaries for all hotspot too close to witness zones
         const res11closehexes = [...new Set(res11closehexeslist)];
         if (typeof res11closehexes !== "undefined" && res11closehexes.length > 0) {
@@ -770,12 +771,13 @@ const Map = (props) => {
             };
             updateRes11TooClose(geojson);
         };
+        */
 
         const locationTooClosehexes = kRing(updatedlocation.res11hex, 7);
         if (typeof locationTooClosehexes !== "undefined" && locationTooClosehexes.length > 0) {
             let res11hexboundaries = [];
             var i;
-            for (i = 0; i < res11closehexes.length; i++) {
+            for (i = 0; i < locationTooClosehexes.length; i++) {
                 let hexBoundary = h3ToGeoBoundary(locationTooClosehexes[i]);
                 hexBoundary.push(hexBoundary[0]);
 
@@ -824,7 +826,7 @@ const Map = (props) => {
                     for (const i of hexBoundary) {
                         arr.push([i[1], i[0]]);
                     }
-                    console.log(res11safehexes[j].ring);
+                    //console.log(res11safehexes[j].ring);
                     res11hexboundaries.push({ ring: res11safehexes[j].ring, boundaries: arr });
                 }
             }
@@ -935,7 +937,7 @@ const Map = (props) => {
     */
     const searchHotspots = useCallback((query) => {
         var matchingFeatures = [];
-        console.log(hotspotsSearchGeojson);
+        //console.log(hotspotsSearchGeojson);
         for (var i = 0; i < hotspotsSearchGeojson.features.length; i++) {
             var feature = hotspotsSearchGeojson.features[i];
             //console.log(feature);
