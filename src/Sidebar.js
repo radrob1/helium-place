@@ -56,7 +56,7 @@ export default props => {
                             id="material-switch"
                         />
                     </label>
-                    {props.device==="computer" && (
+                    {props.device === "computer" && (
                         <ReactTooltip id="greenzoneTip" place="top" type="light" effect="solid" clickable={true}>
                             Anything in this area should have a high percentage chance of being witnessed with stock setups.
                         </ReactTooltip>
@@ -82,12 +82,13 @@ export default props => {
                         />
                     </label>
                     {props.device === "computer" && (
-                            <ReactTooltip id="toocloseTip" place="top" type="light" effect="solid" clickable={true}>
-                                Anything in this area is too close to witness and cannot participate in POC.
-                            </ReactTooltip>
-                        )
+                        <ReactTooltip id="toocloseTip" place="top" type="light" effect="solid" clickable={true}>
+                            Anything in this area is too close to witness and cannot participate in POC.
+                        </ReactTooltip>
+                    )
                     }
                 </div>
+                {/*
                 <div>
                     <span>All Red Zones </span>
                     <label htmlFor="material-switch" data-tip data-for="redzoneWarning">
@@ -114,10 +115,11 @@ export default props => {
                         </ReactTooltip>)}
                     </label>
                 </div>
+                */}
                 <p></p>
                 <div>
                     <b data-tip data-for="hip17Tip" data-event="click">Advanced &nbsp;<MdInfo /></b>
-                    {props.device==="computer" && (
+                    {props.device === "computer" && (
                         <ReactTooltip id="hip17Tip" place="top" type="error" effect="solid" clickable={true}>
                             Please read HIP17 in depth before using these options.
                             <p>
@@ -229,13 +231,15 @@ export default props => {
                     </div>
                 </div>
             </div>
-            <div>
-                <p />
-                <br />
-                <b>Want to improve your earnings?</b>
-                <br></br>
-                Try an upgraded antenna from <a target="_blank" style={{color:"white"}} href='https://rakwireless.kckb.st/070fff89'>RAK Wireless</a>
-            </div>
+            {props.device === "computer" && (
+                <div>
+                    <p />
+                    <br />
+                    <b>Want to improve your earnings?</b>
+                    <br></br>
+                Try an upgraded antenna from <a target="_blank" style={{ color: "white" }} href='https://rakwireless.kckb.st/070fff89'>RAK Wireless</a>
+                </div>
+            )}
             <div style={{ position: 'absolute', bottom: 55, justifyContent: 'flex-end', flex: 1, textAlign: 'center' }}>
                 Help support this site
                 <p>
