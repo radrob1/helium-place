@@ -1,25 +1,23 @@
 import React from "react";
 
-const Legend = (props) => {
+export default class Legend extends React.Component {
+  render() {
     return (
-        <div id="hex-legend" class="legend">
-            <h4>Hex Color Legend</h4>
-            <div>
-                <span style={{ background: "black" }}></span>Searched Location
-            </div>
-            <div>
-                <span style={{ background: "#0074D9" }}></span>Helium Hotspot
-            </div>
-            <div>
-                <span style={{ background: "#F66F67" }}></span>Too close to witness
-            </div>
-            {props.sweetspotToggle && (
-                <div>
-                    <span style={{ background: '#A8C686' }}></span>Sweet spot
-                </div>
-            )}
+      <div className="legend">
+        <h4>Color Legend</h4>
+        <div className="key">
+          <span style={{ background: "black" }}></span> Searched location
         </div>
-    );
+        <div className="key">
+          <span style={{ background: "#0074D9" }}></span> Helium hotspot
+        </div>
+        <div className="key">
+          <span style={{ background: "#F66F67" }}></span> Invalid witness zone
+        </div>
+        <div className="key">
+          <span style={{ background: '#A8C686' }}></span> Sweetspot
+        </div>
+      </div>
+    )
+  }
 };
-
-export default Legend;
