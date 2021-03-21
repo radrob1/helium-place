@@ -12,11 +12,21 @@ export default class HotSpotInfo extends PureComponent {
     console.log(info);
     return (
         <div className="hotspot-info">
-          <h4><a href={hotspotLink} target="_blank">{displayName}</a></h4>
-          <b>Status:</b> {status}
-          <br></br>
-          <b>Reward Scale:</b> {rewardScale}
-          <br /><b>Distance:</b> {distance}m
+          <a className="name" href={hotspotLink} target="_blank" rel="noreferrer">{displayName}</a>
+          <dl classname="metadata">
+            <div>
+              <dt>Status:</dt>
+              <dd>{status}</dd>
+            </div>
+            <div>
+              <dt>Reward Scale:</dt>
+              <dd>{rewardScale}</dd>
+            </div>
+            <div>
+              <dt>Distance:</dt>
+              <dd>{distance}m</dd>
+            </div>
+          </dl>
         </div>
     );
   }

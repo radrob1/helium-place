@@ -1,48 +1,61 @@
-import React from 'react';
-import { push as Menu } from 'react-burger-menu';
+import React from "react";
 import Switch from "react-switch";
 import QRCode from "react-qr-code";
-import ReactTooltip from "react-tooltip";
-import { MdInfo } from "react-icons/md"
-import "react-responsive-modal/styles.css";
+export default class Sidebar extends React.Component {
 
-export default props => {
+  closeSidebar = (e) => {
+    e.preventDefault()
+    const sidebar = document.getElementsByClassName('sidebar')[0]
+    sidebar.classList.remove('open')
+  }
+
+  render() {
     return (
-        <Menu width={250} noOverlay itemListElement="div">
-            <div>
-                <h2>Map Options</h2>
-                <span><b>Map Style</b></span>
-                <div onChange={props.handleMapStyle}>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <input type="radio" value={props.mapstyles.streets} name="mapstyle" /> Streets
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="radio" value={props.mapstyles.light} name="mapstyle" /> Light
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="radio" value={props.mapstyles.satellite} name="mapstyle" /> Satellite
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <input type="radio" value={props.mapstyles.dark} name="mapstyle" /> Dark
-                            </td>
-                        </tr>
-                    </tbody>
-                </div>
-                <p></p>
-                <div >
-                    <span>Sweetspot Area </span>
-                    <label htmlFor="material-switch" data-tip data-for="greenzoneTip">
-                        <Switch
-                            checked={props.sweetspotToggle}
-                            onChange={props.handleSweetspotToggle}
+      <div className="sidebar">
+          <div className="wrap">
+            <section aria-labelledby="slide-over-heading">
+              <div className="wrap">
+                <div className="content">
+                  <div className="content-header-wrap">
+                    <div className="content-header">
+                      <h2 id="slide-over-heading">
+                        Map Options
+                      </h2>
+                      <div className="close-wrap">
+                        <button onClick={this.closeSidebar}>
+                          <span className="sr-only">Close panel</span>
+                          <svg className="" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="content-body-wrap">
+                    <div className="content-body">
+                      <div className="option">
+                        <div className="map-styles" onClick={this.props.handleMapStyle}>
+                          <label htmlFor="mapstyle">
+                            <input type="radio" value={this.props.mapstyles.streets} name="mapstyle" /> Streets
+                          </label>
+                          <label htmlFor="mapstyle">
+                            <input type="radio" value={this.props.mapstyles.light} name="mapstyle" /> Light
+                          </label>
+                          <label htmlFor="mapstyle">
+                            <input type="radio" value={this.props.mapstyles.dark} name="mapstyle" /> Dark
+                          </label>
+                          <label htmlFor="mapstyle">
+                            <input type="radio" value={this.props.mapstyles.satellite} name="mapstyle" /> Satellite
+                          </label>
+                        </div>
+                      </div>
+                      <div className="option">
+                        <h3 className="option-header toggle">
+                          Sweetspot
+                          <label htmlFor="material-switch" data-tip data-for="greenzoneTip">
+                          <Switch
+                            checked={this.props.sweetspotToggle}
+                            onChange={this.props.handleSweetspotToggle}
                             onColor="#86d3ff"
                             onHandleColor="#2693e6"
                             handleDiameter={12}
@@ -53,21 +66,17 @@ export default props => {
                             height={10}
                             width={25}
                             className="react-switch"
-                            id="material-switch"
-                        />
-                    </label>
-                    {props.device === "computer" && (
-                        <ReactTooltip id="greenzoneTip" place="top" type="light" effect="solid" clickable={true}>
-                            Anything in this area should have a high percentage chance of being witnessed with stock setups.
-                        </ReactTooltip>
-                    )}
-                </div>
-                <div>
-                    <span>Location Red Zone </span>
-                    <label htmlFor="material-switch" data-tip data-for="toocloseTip">
-                        <Switch
-                            checked={props.locationRedzoneToggle}
-                            onChange={props.handleLocationRedzoneToggle}
+                            id="material-switch"/>
+                        </label>
+                        </h3>
+                        <p className="option-description">Toggle a green zone that represents an area that should have high chance of being a witness for basic hotspot placement.</p>
+                      </div>
+                      <div className="option">
+                        <h3 className="option-header toggle">Location Red Zone
+                        <label htmlFor="material-switch" data-tip data-for="toocloseTip">
+                          <Switch
+                            checked={this.props.locationRedzoneToggle}
+                            onChange={this.props.handleLocationRedzoneToggle}
                             onColor="#86d3ff"
                             onHandleColor="#2693e6"
                             handleDiameter={12}
@@ -78,185 +87,140 @@ export default props => {
                             height={10}
                             width={25}
                             className="react-switch"
-                            id="material-switch"
-                        />
-                    </label>
-                    {props.device === "computer" && (
-                        <ReactTooltip id="toocloseTip" place="top" type="light" effect="solid" clickable={true}>
-                            Anything in this area is too close to witness and cannot participate in POC.
-                        </ReactTooltip>
-                    )
-                    }
+                            id="material-switch"/>
+                        </label>
+                       </h3>
+                       <p className="option-description">Hotspots placed in this area will to to close to participate in proof of coverage.</p>
+                      </div>
+                      <div className="option">
+                        <h3 className="option-header toggle">HIP 17 Hex Controls</h3>
+                        <p className="option-description">The following controls help you visualize the h3 hexagons used by HIP-17. To better understand what these are and why they are important be sure to read the <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">engineering post on HIP 17</a></p>
+                        <div className="res-toggles">
+                          <div>
+                            <label htmlFor="material-switch">
+                              <Switch
+                                  checked={this.props.res6toggle}
+                                  onChange={this.props.handleRes6Toggle}
+                                  onColor="#86d3ff"
+                                  onHandleColor="#2693e6"
+                                  handleDiameter={12}
+                                  uncheckedIcon={false}
+                                  checkedIcon={false}
+                                  boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                                  activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                                  height={10}
+                                  width={25}
+                                  className="react-switch"
+                                  id="material-switch"
+                              />
+                              <span className="switch-text">Res 6</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label htmlFor="material-switch">
+                              <Switch
+                                  checked={this.props.res7toggle}
+                                  onChange={this.props.handleRes7Toggle}
+                                  onColor="#86d3ff"
+                                  onHandleColor="#2693e6"
+                                  handleDiameter={12}
+                                  uncheckedIcon={false}
+                                  checkedIcon={false}
+                                  boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                                  activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                                  height={10}
+                                  width={25}
+                                  className="react-switch"
+                                  id="material-switch"
+                              />
+                              <span className="switch-text">Res 7</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label htmlFor="material-switch">
+                              <Switch
+                                  checked={this.props.res8toggle}
+                                  onChange={this.props.handleRes8Toggle}
+                                  onColor="#86d3ff"
+                                  onHandleColor="#2693e6"
+                                  handleDiameter={12}
+                                  uncheckedIcon={false}
+                                  checkedIcon={false}
+                                  boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                                  activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                                  height={10}
+                                  width={25}
+                                  className="react-switch"
+                                  id="material-switch"
+                              />
+                              <span className="switch-text">Res 8</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label htmlFor="material-switch">
+                              <Switch
+                                  checked={this.props.res9toggle}
+                                  onChange={this.props.handleRes9Toggle}
+                                  onColor="#86d3ff"
+                                  onHandleColor="#2693e6"
+                                  handleDiameter={12}
+                                  uncheckedIcon={false}
+                                  checkedIcon={false}
+                                  boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                                  activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                                  height={10}
+                                  width={25}
+                                  className="react-switch"
+                                  id="material-switch"
+                              />
+                              <span className="switch-text">Res 9</span>
+                            </label>
+                          </div>
+                          <div>
+                            <label htmlFor="material-switch">
+                              <Switch
+                                  checked={this.props.res10toggle}
+                                  onChange={this.props.handleRes10Toggle}
+                                  onColor="#86d3ff"
+                                  onHandleColor="#2693e6"
+                                  handleDiameter={12}
+                                  uncheckedIcon={false}
+                                  checkedIcon={false}
+                                  boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                                  activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                                  height={10}
+                                  width={25}
+                                  className="react-switch"
+                                  id="material-switch"
+                              />
+                              <span className="switch-text">Res 10</span>
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      {
+                        this.props.device === "computer" && (
+                          <a target="_blank" rel="noreferrer" href='https://rakwireless.kckb.st/070fff89' className="ad">
+                            <div className="logo">
+                              <img src="https://www.rakwireless.com/resources/rak-registered/logo/white-logo-registered.svg?s=78a805e47594033e23d8b5c8e6ff1bf0" alt="rak-wireless"/></div>
+                            <div className="ad-content">
+                              <h4 className="title">Want to improve your earnings?</h4>
+                              <p className="description">Try an upgraded antenna from >RAK Wireless</p>
+                            </div>
+                          </a>)
+                      }
+                      <div className="donate">
+                        <h4 className="title">Donate Today</h4>
+                        <p>Helium.place is open source. Scan the QR code below or send HNT to <a onClick={() => {navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp")}}>139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp</a> to support development efforts.</p>
+                        <QRCode size={60} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" style="margin-bottom:1rem;" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                {/*
-                <div>
-                    <span>All Red Zones </span>
-                    <label htmlFor="material-switch" data-tip data-for="redzoneWarning">
-                        <Switch
-                            checked={props.redzoneToggle}
-                            onChange={props.handleRedzoneToggle}
-                            onColor="#86d3ff"
-                            onHandleColor="#2693e6"
-                            handleDiameter={12}
-                            uncheckedIcon={false}
-                            checkedIcon={true}
-                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                            height={10}
-                            width={25}
-                            className="react-switch"
-                            id="material-switch"
-                        />
-                        {props.device === "computer" && (<ReactTooltip id="redzoneWarning" place="top" type="error" effect="solid">
-                            Warning: This may slow down the map.
-                            <br></br>This will display all nearby hotspot redzones that are too close for them to witness.
-                            <br></br>
-                            <p>Note: Location must be set first and does not necessarily mean that you cannot place hotspot somewhere in the red. </p>
-                        </ReactTooltip>)}
-                    </label>
-                </div>
-                */}
-                <p></p>
-                <div>
-                    <b data-tip data-for="hip17Tip" data-event="click">Advanced &nbsp;<MdInfo /></b>
-                    {props.device === "computer" && (
-                        <ReactTooltip id="hip17Tip" place="top" type="error" effect="solid" clickable={true}>
-                            Please read HIP17 in depth before using these options.
-                            <p>
-                                <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">
-                                    https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html
-                                </a>
-                            </p>
-                        </ReactTooltip>
-                    )}
-                    <div>
-                        <span>Res 6 </span>
-                        <label htmlFor="material-switch">
-                            <Switch
-                                checked={props.res6toggle}
-                                onChange={props.handleRes6Toggle}
-                                onColor="#86d3ff"
-                                onHandleColor="#2693e6"
-                                handleDiameter={12}
-                                uncheckedIcon={false}
-                                checkedIcon={false}
-                                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                                height={10}
-                                width={25}
-                                className="react-switch"
-                                id="material-switch"
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <span>Res 7 </span>
-                        <label htmlFor="material-switch">
-                            <Switch
-                                checked={props.res7toggle}
-                                onChange={props.handleRes7Toggle}
-                                onColor="#86d3ff"
-                                onHandleColor="#2693e6"
-                                handleDiameter={12}
-                                uncheckedIcon={false}
-                                checkedIcon={false}
-                                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                                height={10}
-                                width={25}
-                                className="react-switch"
-                                id="material-switch"
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <span>Res 8 </span>
-                        <label htmlFor="material-switch">
-                            <Switch
-                                checked={props.res8toggle}
-                                onChange={props.handleRes8Toggle}
-                                onColor="#86d3ff"
-                                onHandleColor="#2693e6"
-                                handleDiameter={12}
-                                uncheckedIcon={false}
-                                checkedIcon={false}
-                                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                                height={10}
-                                width={25}
-                                className="react-switch"
-                                id="material-switch"
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <span>Res 9 </span>
-                        <label htmlFor="material-switch">
-                            <Switch
-                                checked={props.res9toggle}
-                                onChange={props.handleRes9Toggle}
-                                onColor="#86d3ff"
-                                onHandleColor="#2693e6"
-                                handleDiameter={12}
-                                uncheckedIcon={false}
-                                checkedIcon={false}
-                                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                                height={10}
-                                width={25}
-                                className="react-switch"
-                                id="material-switch"
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <span>Res 10 </span>
-                        <label htmlFor="material-switch">
-                            <Switch
-                                checked={props.res10toggle}
-                                onChange={props.handleRes10Toggle}
-                                onColor="#86d3ff"
-                                onHandleColor="#2693e6"
-                                handleDiameter={12}
-                                uncheckedIcon={false}
-                                checkedIcon={false}
-                                boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                                activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                                height={10}
-                                width={25}
-                                className="react-switch"
-                                id="material-switch"
-                            />
-                        </label>
-                    </div>
-                </div>
-            </div>
-            {props.device === "computer" && (
-                <div>
-                    <p />
-                    <br />
-                    <b>Want to improve your earnings?</b>
-                    <br></br>
-                Try an upgraded antenna from <a target="_blank" style={{ color: "white" }} href='https://rakwireless.kckb.st/070fff89'>RAK Wireless</a>
-                </div>
-            )}
-            <div style={{ position: 'absolute', bottom: 55, justifyContent: 'flex-end', flex: 1, textAlign: 'center' }}>
-                Help support this site
-                <p>
-                    <QRCode size={80} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" />
-                    <p>
-                        <button
-                            onClick={() => {
-                                navigator.clipboard.writeText(
-                                    "139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp"
-                                );
-                            }}
-                        >
-                            Copy address
-                    </button>
-                    </p>
-                </p>
-            </div>
-        </Menu>
+              </div>
+            </section>
+          </div>
+      </div>
     );
-};
+  }
+}
