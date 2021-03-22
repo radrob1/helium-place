@@ -66,7 +66,7 @@ const handleSweetspotToggle = useCallback(
   (checked) => {
     setSweetSpotToggle(checked);
   },
-  [sweetspotToggle]
+  []
 );
 
 const handleRedzoneToggle = useCallback(
@@ -76,7 +76,7 @@ const handleRedzoneToggle = useCallback(
       setLocationRedzoneToggle(!checked)
     };
   },
-  [redzoneToggle]
+  []
 );
 
 const handleLocationRedzoneToggle = useCallback(
@@ -86,7 +86,7 @@ const handleLocationRedzoneToggle = useCallback(
       setRedzoneToggle(!checked);
     }
   },
-  [locationRedzoneToggle]
+  []
 );
 
 const handleRes6Toggle = useCallback(
