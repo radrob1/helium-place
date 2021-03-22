@@ -1015,6 +1015,8 @@ const Map = (props) => {
                             trackUserLocation={props.trackuserToggle}
                             onViewportChange={handleGeolocateViewportChange}
                             onGeolocate={handleOnResult}
+                            captureClick={true}
+                            captureDoubleClick={true}
                         />
                     </div>
                     {res12location && (

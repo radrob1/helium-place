@@ -136,6 +136,18 @@ body {
   border-width: 0;
 }
 
+.button {
+  background-color: #e7e7e7; 
+  color: black;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  border-radius: 12px;
+}
+
 @media screen and (min-width: 640px) {
   .header .search-wrap {
     width: 40%;
