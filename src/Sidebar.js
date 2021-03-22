@@ -69,7 +69,11 @@ export default class Sidebar extends React.Component {
                             id="material-switch" />
                         </label>
                       </h3>
-                      <p className="option-description">Toggle a green zone that represents an area that should have high chance of being a witness for basic hotspot placement.</p>
+                      {
+                        this.props.device === "mobile" && (
+                          <p className="option-description">Toggle a green zone that represents an area that should have high chance of being a witness for basic hotspot placement.</p>
+                        )
+                      }
                     </div>
                     <div className="option">
                       <h3 className="option-header toggle">Location Red Zone
@@ -90,7 +94,11 @@ export default class Sidebar extends React.Component {
                             id="material-switch" />
                         </label>
                       </h3>
-                      <p className="option-description">Hotspots placed in this area will be too close to participate in proof of coverage.</p>
+                      {
+                        this.props.device === "mobile" && (
+                          <p className="option-description">Hotspots placed in this area will be too close to participate in proof of coverage.</p>
+                        )
+                      }
                     </div>
                     <div className="option">
                       <h3 className="option-header toggle">HIP 17 Hex Controls</h3>
@@ -222,8 +230,9 @@ export default class Sidebar extends React.Component {
                       {
                         this.props.device === "mobile" && (
                           <div >
+                            HNT:
                             <a style={{ color: "blue" }} onClick={() => { navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp") }}>
-                              HNT: 139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp
+                              139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp
                             </a>
                           </div>
                         )
