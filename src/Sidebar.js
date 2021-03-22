@@ -70,7 +70,7 @@ export default class Sidebar extends React.Component {
                         </label>
                       </h3>
                       {
-                        this.props.device === "mobile" && (
+                        this.props.device === "computer" && (
                           <p className="option-description">Toggle a green zone that represents an area that should have high chance of being a witness for basic hotspot placement.</p>
                         )
                       }
@@ -95,7 +95,7 @@ export default class Sidebar extends React.Component {
                         </label>
                       </h3>
                       {
-                        this.props.device === "mobile" && (
+                        this.props.device === "computer" && (
                           <p className="option-description">Hotspots placed in this area will be too close to participate in proof of coverage.</p>
                         )
                       }
