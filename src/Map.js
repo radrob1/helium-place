@@ -196,43 +196,6 @@ let hotspotsGeojson = [];
  *  Main map component
  */
 const Map = (props) => {
-    // Fetch all the hotspot data and convert to geojson
-    //console.log(props);
-    useEffect(() => {
-        fetch("https://d32xu4rsl9zro4.cloudfront.net/hotspots.json")
-            .then((response) => response.json())
-            .then((hotspots_data) => {
-                //console.log("First hotspot: ", hotspots[0]);
-                hotspots = hotspots_data;
-                hotspotsSearchGeojson = createSearchHotspotsGeojson(hotspots);
-                hotspotsGeojson = createHotspotsGeojson(hotspots);
-                //hotspotDensities = getHexDensities(hotspots);
-                //console.log(hotspotDensities);
-                if (hashtagLocation) {
-                    console.log("hashtaglocation: ", hashtagLocation);
-                    //console.log(hotspots);
-                    var hotspot = hotspots.find(function (element) {
-                        return (element.name === hashtagLocation || element.address === hashtagLocation);
-                    });
-                    //console.log(hotspot);
-                    if (typeof hotspot != "undefined") {
-                        handleOnResult({
-                            coords: {
-                                longitude: hotspot.longitude,
-                                latitude: hotspot.latitude,
-                            },
-                        });
-                        setViewport({
-                            longitude: hotspot.longitude,
-                            latitude: hotspot.latitude,
-                            zoom: 15,
-                        });
-                    }
-                }
-                setDataloading(false);
-            });
-    }, []);
-
     const [viewport, setViewport] = useState({
         latitude: 40.229447620978966,
         longitude: -98.84343917535838,
@@ -338,8 +301,7 @@ const Map = (props) => {
 
     const _onHover = useCallback((event) => {
         const {
-            features,
-            srcEvent: { offsetX, offsetY },
+            features
         } = event;
         const hotspotFeature =
             features && features.find((f) => f.layer.id === "hotspots");
@@ -878,6 +840,43 @@ const Map = (props) => {
         updateRes12Location(geojson);
     }, []);
 
+    // Fetch all the hotspot data and convert to geojson
+    //console.log(props);
+    useEffect(() => {
+        fetch("https://d32xu4rsl9zro4.cloudfront.net/hotspots.json")
+            .then((response) => response.json())
+            .then((hotspots_data) => {
+                //console.log("First hotspot: ", hotspots[0]);
+                hotspots = hotspots_data;
+                hotspotsSearchGeojson = createSearchHotspotsGeojson(hotspots);
+                hotspotsGeojson = createHotspotsGeojson(hotspots);
+                //hotspotDensities = getHexDensities(hotspots);
+                //console.log(hotspotDensities);
+                if (hashtagLocation) {
+                    console.log("hashtaglocation: ", hashtagLocation);
+                    //console.log(hotspots);
+                    var hotspot = hotspots.find(function (element) {
+                        return (element.name === hashtagLocation || element.address === hashtagLocation);
+                    });
+                    //console.log(hotspot);
+                    if (typeof hotspot != "undefined") {
+                        handleOnResult({
+                            coords: {
+                                longitude: hotspot.longitude,
+                                latitude: hotspot.latitude,
+                            },
+                        });
+                        setViewport({
+                            longitude: hotspot.longitude,
+                            latitude: hotspot.latitude,
+                            zoom: 15,
+                        });
+                    }
+                }
+                setDataloading(false);
+            });
+    }, [handleOnResult]);    
+
     const mapClick = (event) => {
         console.log(event);
         const newlocation = {
@@ -1015,6 +1014,8 @@ const Map = (props) => {
                             trackUserLocation={props.trackuserToggle}
                             onViewportChange={handleGeolocateViewportChange}
                             onGeolocate={handleOnResult}
+                            captureClick={true}
+                            captureDoubleClick={true}
                         />
                     </div>
                     {res12location && (
