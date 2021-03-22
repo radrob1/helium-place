@@ -223,7 +223,18 @@ export default class Sidebar extends React.Component {
                         this.props.device === "computer" && (
                           <div>
                             <p>Helium.place is open source. Scan the QR code below or send HNT to <a style={{ color: "blue" }} onClick={() => { navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp") }}>139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp</a> to support development efforts.</p>
-                            <QRCode size={72} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" style="margin-bottom:1rem;" />
+                            <QRCode size={80} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" style="margin-bottom:1rem;" />
+                            <p>
+                              <button
+                                onClick={() => {
+                                  navigator.clipboard.writeText(
+                                    "139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp"
+                                  );
+                                }}
+                              >
+                                Copy address
+                              </button>
+                            </p>
                           </div>
                         )
                       }
@@ -231,7 +242,7 @@ export default class Sidebar extends React.Component {
                         this.props.device === "mobile" && (
                           <div >
                             HNT:
-                            <a style={{ color: "blue", fontSize: "10px" }} onClick={() => { navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp") }}>
+                            <a style={{ color: "blue", fontSize: "8px" }} onClick={() => { navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp") }}>
                               139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp
                             </a>
                           </div>
