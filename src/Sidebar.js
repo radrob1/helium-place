@@ -240,7 +240,8 @@ export default class Sidebar extends React.Component {
                       }
                       {
                         this.props.device === "mobile" && (
-                          <div >
+                          <div>
+                            <p></p>
                             HNT:
                             <a style={{ color: "blue", fontSize: "10px" }} onClick={() => { navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp") }}>
                               139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp
