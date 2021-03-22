@@ -9,10 +9,6 @@ export default class Sidebar extends React.Component {
     sidebar.classList.remove('open')
   }
 
-  componentDidMount = (e) => {
-    console.log(this.props)
-  }
-
   render() {
     return (
       <div className="sidebar">
@@ -39,16 +35,16 @@ export default class Sidebar extends React.Component {
                     <div className="content-body">
                       <div className="option">
                         <div className="map-styles" onClick={this.props.handleMapStyle}>
-                          <label for="mapstyle">
+                          <label htmlFor="mapstyle">
                             <input type="radio" value={this.props.mapstyles.streets} name="mapstyle" /> Streets
                           </label>
-                          <label for="mapstyle">
+                          <label htmlFor="mapstyle">
                             <input type="radio" value={this.props.mapstyles.light} name="mapstyle" /> Light
                           </label>
-                          <label for="mapstyle">
+                          <label htmlFor="mapstyle">
                             <input type="radio" value={this.props.mapstyles.dark} name="mapstyle" /> Dark
                           </label>
-                          <label for="mapstyle">
+                          <label htmlFor="mapstyle">
                             <input type="radio" value={this.props.mapstyles.satellite} name="mapstyle" /> Satellite
                           </label>
                         </div>
@@ -117,7 +113,7 @@ export default class Sidebar extends React.Component {
                                   className="react-switch"
                                   id="material-switch"
                               />
-                              <span class="switch-text">Res 6</span>
+                              <span className="switch-text">Res 6</span>
                             </label>
                           </div>
                           <div>
@@ -137,7 +133,7 @@ export default class Sidebar extends React.Component {
                                   className="react-switch"
                                   id="material-switch"
                               />
-                              <span class="switch-text">Res 7</span>
+                              <span className="switch-text">Res 7</span>
                             </label>
                           </div>
                           <div>
@@ -157,7 +153,7 @@ export default class Sidebar extends React.Component {
                                   className="react-switch"
                                   id="material-switch"
                               />
-                              <span class="switch-text">Res 8</span>
+                              <span className="switch-text">Res 8</span>
                             </label>
                           </div>
                           <div>
@@ -177,7 +173,7 @@ export default class Sidebar extends React.Component {
                                   className="react-switch"
                                   id="material-switch"
                               />
-                              <span class="switch-text">Res 9</span>
+                              <span className="switch-text">Res 9</span>
                             </label>
                           </div>
                           <div>
@@ -197,21 +193,21 @@ export default class Sidebar extends React.Component {
                                   className="react-switch"
                                   id="material-switch"
                               />
-                              <span class="switch-text">Res 10</span>
+                              <span className="switch-text">Res 10</span>
                             </label>
                           </div>
                         </div>
                       </div>
                       {
                         this.props.device === "computer" && (
-                          <div className="ad">
+                          <a target="_blank" rel="noreferrer" href='https://rakwireless.kckb.st/070fff89' className="ad">
                             <div className="logo">
                               <img src="https://www.rakwireless.com/resources/rak-registered/logo/white-logo-registered.svg?s=78a805e47594033e23d8b5c8e6ff1bf0" alt="rak-wireless"/></div>
                             <div className="ad-content">
                               <h4 className="title">Want to improve your earnings?</h4>
-                              <p className="description">Try an upgraded antenna from <a target="_blank" rel="noreferrer" href='https://rakwireless.kckb.st/070fff89'>RAK Wireless</a></p>
+                              <p className="description">Try an upgraded antenna from >RAK Wireless</p>
                             </div>
-                          </div>)
+                          </a>)
                       }
                       <div className="donate">
                         <h4 className="title">Donate Today</h4>

@@ -57,6 +57,7 @@ body {
   bottom: 2rem;
   left: 1rem;
   z-index: 1;
+  display: none;
 }
 
 .legend h4 {
@@ -145,5 +146,9 @@ body {
     font-size: inherit;
     line-height: inherit;
     max-width: 100%;
+  }
+
+  .legend {
+    display: block;
   }
 }

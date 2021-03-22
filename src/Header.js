@@ -11,10 +11,6 @@ export default class Header extends React.Component {
     }
   }
 
-  componentDidMount = (e) => {
-    console.log(this.props)
-  }
-
   render() {
     return (
       <div className="header">
