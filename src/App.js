@@ -7,7 +7,7 @@ import Map from "./Map";
 import Sidebar from './Sidebar';
 import Legend from "./Legend";
 import "./index.css";
-import './sidebar.css';
+import './Sidebar.css';
 
 let mapstyles = require('./mapstyles.json');
 
