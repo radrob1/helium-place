@@ -206,17 +206,18 @@ export default class Sidebar extends React.Component {
                         </div>
                       </div>
                     </div>
-                    {
-                      this.props.device === "computer" && (
-                        <a target="_blank" rel="noreferrer" href='https://rakwireless.kckb.st/070fff89' className="ad">
-                          <div className="logo">
-                            <img src="https://www.rakwireless.com/resources/rak-registered/logo/white-logo-registered.svg?s=78a805e47594033e23d8b5c8e6ff1bf0" alt="rak-wireless" /></div>
-                          <div className="ad-content">
-                            <h4 className="title">Want to improve your earnings?</h4>
-                            <p className="description">Try an upgraded antenna from RAK Wireless</p>
-                          </div>
-                        </a>)
-                    }
+                    <a target="_blank" rel="noreferrer" href='https://rakwireless.kckb.st/070fff89' className="ad">
+                      <div className="ad-content">
+                        <h4 className="title">Want to improve your earnings?</h4>
+                        <p className="description">Try an upgraded antenna from RAK Wireless</p>
+                      </div>
+                    </a>
+                    <a target="_blank" rel="noreferrer" href='https://www.nebra.com/?ref=8gcilh0jjjdv' className="ad">
+                      <div className="ad-content">
+                        <h4 className="title">Want to buy a hotspot?</h4>
+                        <p className="description">Try a Nebra Helium Miner</p>
+                      </div>
+                    </a>
                     <div className="donate">
                       <h4 className="title">Donate Today</h4>
                       {
@@ -256,7 +257,7 @@ export default class Sidebar extends React.Component {
             </div>
           </section>
         </div>
-      </div>
+      </div >
     );
   }
 }
