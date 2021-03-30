@@ -35,6 +35,38 @@ body {
   outline: none;
 }
 
+.header .donatebar-toggle {
+  display:inline-block;
+  padding: 0em 1.0em;
+  border:0.05em solid #FFFFFF;
+  margin:0 0.05em 0.05em 0;
+  border-radius:0.1em;
+  box-sizing: border-box;
+  text-decoration:none;
+  font-weight:100;
+  text-align:center;
+  transition: all 0.2s;
+  color: #162646;
+  background-color: #FFFFFF;
+}
+    
+.header .donatebar-toggle:hover{
+  background-color:#162646;
+  color:#FFFFFF;
+}
+    
+@media all and (max-width:30em){
+  .header .donatebar-toggle{
+    display:block;
+    margin:0.2em auto;
+  }
+}
+
+
+.header .donatebar-toggle:focus {
+  outline: none;
+}
+
 .header .search-wrap {
   width: 80%;
 }
@@ -146,6 +178,13 @@ body {
   display: inline-block;
   font-size: 12px;
   border-radius: 12px;
+}
+
+.donate h4 {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #162646
 }
 
 @media screen and (min-width: 640px) {

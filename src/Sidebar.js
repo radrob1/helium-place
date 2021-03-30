@@ -206,57 +206,25 @@ export default class Sidebar extends React.Component {
                         </div>
                       </div>
                     </div>
-                    {
-                      this.props.device === "computer" && (
-                        <a target="_blank" rel="noreferrer" href='https://rakwireless.kckb.st/070fff89' className="ad">
-                          <div className="logo">
-                            <img src="https://www.rakwireless.com/resources/rak-registered/logo/white-logo-registered.svg?s=78a805e47594033e23d8b5c8e6ff1bf0" alt="rak-wireless" /></div>
-                          <div className="ad-content">
-                            <h4 className="title">Want to improve your earnings?</h4>
-                            <p className="description">Try an upgraded antenna from RAK Wireless</p>
-                          </div>
-                        </a>)
-                    }
-                    <div className="donate">
-                      <h4 className="title">Donate Today</h4>
-                      {
-                        this.props.device === "computer" && (
-                          <div>
-                            <p>Helium.place is open source. Scan the QR code below or send HNT to <a style={{ color: "blue" }} onClick={() => { navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp") }}>139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp</a> to support development efforts.</p>
-                            <QRCode size={80} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" style="margin-bottom:1rem;" />
-                            <p>
-                              <button
-                                onClick={() => {
-                                  navigator.clipboard.writeText(
-                                    "139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp"
-                                  );
-                                }}
-                              >
-                                Copy address
-                              </button>
-                            </p>
-                          </div>
-                        )
-                      }
-                      {
-                        this.props.device === "mobile" && (
-                          <div>
-                            <p></p>
-                            HNT:
-                            <a style={{ color: "blue", fontSize: "10px" }} onClick={() => { navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp") }}>
-                              139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp
-                            </a>
-                          </div>
-                        )
-                      }
-                    </div>
+                    <a target="_blank" rel="noreferrer" href='https://rakwireless.kckb.st/070fff89' className="ad">
+                      <div className="ad-content">
+                        <h4 className="title">Want to improve your earnings?</h4>
+                        <p className="description">Try an upgraded antenna from RAK Wireless</p>
+                      </div>
+                    </a>
+                    <a target="_blank" rel="noreferrer" href='https://www.nebra.com/?ref=8gcilh0jjjdv' className="ad">
+                      <div className="ad-content">
+                        <h4 className="title">Want to buy a hotspot?</h4>
+                        <p className="description">Try a Nebra Helium Miner</p>
+                      </div>
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
           </section>
         </div>
-      </div>
+      </div >
     );
   }
 }

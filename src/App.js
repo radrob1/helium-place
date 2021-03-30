@@ -5,9 +5,11 @@ import React, { useRef, useState, useCallback, useEffect } from "react";
 import Header from "./Header";
 import Map from "./Map";
 import Sidebar from './Sidebar';
+import Donatebar from './Donatebar';
 import Legend from "./Legend";
 import "./index.css";
 import './Sidebar.css';
+import './Donatebar.css';
 
 let mapstyles = require('./mapstyles.json');
 
@@ -140,8 +142,9 @@ const handleTrackuserToggle = useCallback(
 
 return (
   <div className="App">
-    <Header geocoderContainerRef={geocoderContainerRef} >
-    </Header>
+    <Header 
+        geocoderContainerRef={geocoderContainerRef} 
+        device={device} />
     <Map
       sweetspotToggle={sweetspotToggle}
       redzoneToggle={redzoneToggle}
@@ -178,6 +181,7 @@ return (
       handleTrackuserToggle={handleTrackuserToggle}
       device={device}
     ></Sidebar>
+    <Donatebar device={device}/>
     <Legend></Legend>
   </div>
 );
