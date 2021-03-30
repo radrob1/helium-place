@@ -49,7 +49,7 @@ export default class Donatebar extends React.Component {
                             click the qr code icon in the top left to scan this code using
                             your phone camera.
                           </p>
-                          <QRCode size={120} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" />
+                          <QRCode size={100} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" />
                           <p>
                             <button
                               onClick={() => {
