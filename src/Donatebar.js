@@ -42,7 +42,6 @@ export default class Donatebar extends React.Component {
                             139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp
                             </a>
                         </p>
-                        <center>
                           <p>
                             To send HNT to this address, open the Helium app and click Send then
                             click the qr code icon in the top left to scan this code using
@@ -66,7 +65,6 @@ export default class Donatebar extends React.Component {
                             into the Recipient Address field in the Helium app.
                           </p>
                           <p>Thank you for your support!</p>
-                        </center>
                       </center>
                     </div>
                   </div>
