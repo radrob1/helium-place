@@ -1,5 +1,4 @@
 import React from "react";
-import Switch from "react-switch";
 import QRCode from "react-qr-code";
 export default class Donatebar extends React.Component {
 

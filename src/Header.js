@@ -37,7 +37,7 @@ export default class Header extends React.Component {
         </button>
         <div ref={this.props.geocoderContainerRef} className="search-wrap"></div>
           <button className="donatebar-toggle" onClick={this.openDonatebar}>
-            <h4>Help support this site!</h4>
+            Help support this site!
           </button>
       </div>
     );
