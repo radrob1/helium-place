@@ -218,39 +218,6 @@ export default class Sidebar extends React.Component {
                         <p className="description">Try a Nebra Helium Miner</p>
                       </div>
                     </a>
-                    <div className="donate">
-                      <h4 className="title">Donate Today</h4>
-                      {
-                        this.props.device === "computer" && (
-                          <div>
-                            <p>Helium.place is open source. Scan the QR code below or send HNT to <a style={{ color: "blue" }} onClick={() => { navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp") }}>139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp</a> to support development efforts.</p>
-                            <QRCode size={80} value="139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp" style="margin-bottom:1rem;" />
-                            <p>
-                              <button
-                                onClick={() => {
-                                  navigator.clipboard.writeText(
-                                    "139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp"
-                                  );
-                                }}
-                              >
-                                Copy address
-                              </button>
-                            </p>
-                          </div>
-                        )
-                      }
-                      {
-                        this.props.device === "mobile" && (
-                          <div>
-                            <p></p>
-                            HNT:
-                            <a style={{ color: "blue", fontSize: "10px" }} onClick={() => { navigator.clipboard.writeText("139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp") }}>
-                              139PpQDPxiAYo37iiXKaGVV1FM3qVPnyUFJbvGNpTwBrAx8B4hp
-                            </a>
-                          </div>
-                        )
-                      }
-                    </div>
                   </div>
                 </div>
               </div>

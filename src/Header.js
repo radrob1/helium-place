@@ -11,6 +11,16 @@ export default class Header extends React.Component {
     }
   }
 
+  openDonatebar = (e) => {
+    e.preventDefault()
+    const donatebar = document.getElementsByClassName('donatebar')[0]
+    if (donatebar.classList.contains('open')) {
+      donatebar.classList.remove('open')
+    } else {
+      donatebar.classList.add('open')
+    }
+  }
+
   render() {
     return (
       <div className="header">
@@ -26,6 +36,9 @@ export default class Header extends React.Component {
           </svg>
         </button>
         <div ref={this.props.geocoderContainerRef} className="search-wrap"></div>
+        <button className="donatebar-toggle" onClick={this.openDonatebar}>
+          <h4>Help support this site!</h4>
+        </button>
       </div>
     );
   }

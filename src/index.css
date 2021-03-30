@@ -35,6 +35,20 @@ body {
   outline: none;
 }
 
+.header .donatebar-toggle {
+  width: 128px;
+  height: 32px;
+  padding: 0;
+  color: #ffffff;
+  background: transparent;
+  border: 0;
+  appearance: none;
+}
+
+.header .donatebar-toggle:focus {
+  outline: none;
+}
+
 .header .search-wrap {
   width: 80%;
 }
@@ -146,6 +160,13 @@ body {
   display: inline-block;
   font-size: 12px;
   border-radius: 12px;
+}
+
+.donate h4 {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #162646
 }
 
 @media screen and (min-width: 640px) {
