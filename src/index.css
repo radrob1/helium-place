@@ -36,13 +36,14 @@ body {
 }
 
 .header .donatebar-toggle {
-  width: 20vw;;
-  height: 24px;
+  width: 10vw;;
+  height: 32px;
   padding: 0;
   color: #ffffff;
   background: transparent;
   border: 0;
   appearance: none;
+  text-align: center;
 }
 
 .header .donatebar-toggle:focus {

@@ -32,7 +32,7 @@ export default class Donatebar extends React.Component {
                   <div className="content-body">
                     <div className="donate">
                       <center>
-                        <p>Find this useful? Help support it! </p>
+                        <h4>Find this useful? Help support it! </h4>
                         <p>
                           HNT:
                             <a style={{ color: "blue" }} onClick={() => {
