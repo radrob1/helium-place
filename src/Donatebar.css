@@ -6,9 +6,9 @@
   left: 0px;
   overflow: hidden;
   z-index: -1;
-  height: 50vh;
+  height: 100vh;
   margin-top: 5.075rem;
-  font-size:20px;
+  font-size: 18px;
 }
 
 .donatebar .wrap {
