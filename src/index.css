@@ -29,6 +29,7 @@ body {
   background: transparent;
   border: 0;
   appearance: none;
+  margin: 0 1em 0 0;
 }
 
 .header .sidebar-toggle:focus {
@@ -48,6 +49,7 @@ body {
   transition: all 0.2s;
   color: #162646;
   background-color: #FFFFFF;
+  margin: 0 0 0 1em;
 }
     
 .header .donatebar-toggle:hover{
