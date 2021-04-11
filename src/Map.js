@@ -991,7 +991,7 @@ const Map = (props) => {
                             mapboxApiAccessToken={MAPBOX_TOKEN}
                             position="top-right"
                             marker={false}
-                            minLength={10}
+                            minLength={12}
                             //countries={"US,CA"}
                             onResult={handleOnResult}
                             reverseGeocode
