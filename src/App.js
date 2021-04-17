@@ -7,6 +7,7 @@ import Map from "./Map";
 import Sidebar from './Sidebar';
 import Donatebar from './Donatebar';
 import Legend from "./Legend";
+import RWLegend from "./RWLegend";
 import "./index.css";
 import './Sidebar.css';
 import './Donatebar.css';
@@ -183,6 +184,7 @@ return (
     ></Sidebar>
     <Donatebar device={device}/>
     <Legend></Legend>
+    <RWLegend></RWLegend>
   </div>
 );
 };

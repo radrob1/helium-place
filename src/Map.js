@@ -85,8 +85,29 @@ const locationPaint = {
 };
 
 const nearbyPaint = {
-    //"fill-color": "#afd275",
-    "fill-color": "#0074D9",
+    //"fill-color": "#0074D9",
+    'fill-color': [
+        "case",
+        ["==", ["get", "rewardScale"], null],
+        "black",
+        [
+            'interpolate',
+            ['linear'],
+            ['get', 'rewardScale'],
+            0.1,
+            '#CA0926',
+            0.3,
+            '#FFA500',
+            0.5,
+            '#F1C40F',
+            0.8,
+            '#00FFFF',
+            0.9,
+            '#0521EB',
+            1,
+            '#09B851',
+        ],
+    ],
     "fill-opacity": 1,
     //'background': 'purple'
 };
@@ -875,7 +896,7 @@ const Map = (props) => {
                 }
                 setDataloading(false);
             });
-    }, [handleOnResult]);    
+    }, [handleOnResult]);
 
     const mapClick = (event) => {
         console.log(event);

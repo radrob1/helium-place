@@ -80,6 +80,46 @@ body {
   max-width: 100%;
 }
 
+.rwlegend {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: #000;
+  padding: 0.875rem;
+  position: absolute;
+  bottom: 2rem;
+  right: 1em;
+  z-index: 1;
+  display: none;
+}
+
+.rwlegend h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0 0 0.875rem;
+}
+
+.rwlegend .key {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.rwlegend .key:last-child {
+  margin-bottom: 0;
+}
+
+.rwlegend div span {
+  border-radius: 0.375rem;
+  height: 0.5rem;
+  margin-left: 0.5rem;
+  width: 0.5rem;
+}
+
 .legend {
   background-color: #ffffff;
   border-radius: 8px;
@@ -202,6 +242,10 @@ body {
   }
 
   .legend {
+    display: block;
+  }
+
+  .rwlegend {
     display: block;
   }
 }
