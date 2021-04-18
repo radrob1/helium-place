@@ -79,7 +79,7 @@ const safeRingPaint = {
 };
 
 const locationPaint = {
-    "fill-color": "black",
+    "fill-color": "grey",
     "fill-opacity": 1,
     //'background': 'blue'
 };
@@ -90,25 +90,28 @@ const nearbyPaint = {
         "case",
         ["==", ["get", "rewardScale"], null],
         "black",
+        ["==", ["get", "status"], "offline"],
+        "black",
         [
             'interpolate',
             ['linear'],
             ['get', 'rewardScale'],
             0.1,
-            '#CA0926',
+            '#D4070F',
             0.3,
-            '#FFA500',
+            '#F18009',
             0.5,
-            '#F1C40F',
+            '#FFDA13',
             0.8,
             '#00FFFF',
             0.9,
-            '#0521EB',
+            '#0066E7',
             1,
-            '#09B851',
+            '#1C1AAF',
         ],
     ],
     "fill-opacity": 1,
+    "fill-outline-color": "white"
     //'background': 'purple'
 };
 

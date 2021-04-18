@@ -6,10 +6,10 @@ export default class Legend extends React.Component {
       <div className="legend">
         <h4>Color Legend</h4>
         <div className="key">
-          <span style={{ background: "black" }}></span> Searched location
+          <span style={{ background: "grey" }}></span> Searched location
         </div>
         <div className="key">
-          <span style={{ background: "#0074D9" }}></span> Helium hotspot
+          <span style={{ background: "black" }}></span> Offline hotspot
         </div>
         <div className="key">
           <span style={{ background: "#F66F67" }}></span> Invalid witness zone
