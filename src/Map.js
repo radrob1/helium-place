@@ -45,6 +45,10 @@ const polygonPaint = {
     "line-color": "black",
 };
 
+const darkmodePolygonPaint = {
+    "line-color": "white",
+};
+
 const tooClosePaint = {
     //"fill-color": "#FF4136",
     //"fill-color": "#FC4445",
@@ -56,24 +60,27 @@ const tooClosePaint = {
 
 const safeRingPaint = {
     "fill-color": "#A8C686",
+    //"fill-outline-color": "white",
     "fill-opacity": [
         'interpolate',
         ['linear'],
         ['get', 'ring'],
-        1,
-        0.9,
-        2,
-        0.9,
-        3,
-        0.8,
-        4,
-        0.7,
-        5,
-        0.6,
         6,
+        0.9,
+        8,
+        0.9,
+        10,
+        0.8,
+        12,
+        0.7,
+        14,
+        0.6,
+        16,
         0.4,
-        7,
-        0.2
+        18,
+        0.2,
+        20,
+        0.15
     ],
     //'background': 'green'
 };
@@ -551,6 +558,19 @@ const Map = (props) => {
         res11safehexes.push({ ring: 5, hexes: hexRing(updatedlocation.res11hex, 12) });
         res11safehexes.push({ ring: 6, hexes: hexRing(updatedlocation.res11hex, 13) });
         res11safehexes.push({ ring: 7, hexes: hexRing(updatedlocation.res11hex, 14) });
+        res11safehexes.push({ ring: 8, hexes: hexRing(updatedlocation.res11hex, 15) });
+        res11safehexes.push({ ring: 9, hexes: hexRing(updatedlocation.res11hex, 16) });
+        res11safehexes.push({ ring: 10, hexes: hexRing(updatedlocation.res11hex, 17) });
+        res11safehexes.push({ ring: 11, hexes: hexRing(updatedlocation.res11hex, 18) });
+        res11safehexes.push({ ring: 12, hexes: hexRing(updatedlocation.res11hex, 19) });
+        res11safehexes.push({ ring: 13, hexes: hexRing(updatedlocation.res11hex, 20) });
+        res11safehexes.push({ ring: 14, hexes: hexRing(updatedlocation.res11hex, 21) });
+        res11safehexes.push({ ring: 15, hexes: hexRing(updatedlocation.res11hex, 22) });
+        res11safehexes.push({ ring: 16, hexes: hexRing(updatedlocation.res11hex, 23) });
+        res11safehexes.push({ ring: 17, hexes: hexRing(updatedlocation.res11hex, 24) });
+        res11safehexes.push({ ring: 18, hexes: hexRing(updatedlocation.res11hex, 25) });
+        res11safehexes.push({ ring: 19, hexes: hexRing(updatedlocation.res11hex, 26) });
+        res11safehexes.push({ ring: 20, hexes: hexRing(updatedlocation.res11hex, 27) });
 
         // Get all  res 6 neighbor boundaries
         if (typeof res6hexes !== "undefined" && res6hexes.length > 0) {
@@ -1050,31 +1070,31 @@ const Map = (props) => {
 
                     {res6Data && props.res6toggle && (
                         <Source type="geojson" data={res6Data}>
-                            <Layer type="line" paint={polygonPaint} />
+                            <Layer type="line" paint={props.mapstyle.includes('dark') ? darkmodePolygonPaint : polygonPaint} />
                         </Source>
                     )}
 
                     {res7Data && props.res7toggle && (
                         <Source type="geojson" data={res7Data}>
-                            <Layer type="line" paint={polygonPaint} />
+                            <Layer type="line" paint={props.mapstyle.includes('dark') ? darkmodePolygonPaint : polygonPaint} />
                         </Source>
                     )}
 
                     {res8Data && props.res8toggle && (
                         <Source type="geojson" data={res8Data}>
-                            <Layer type="line" paint={polygonPaint} />
+                            <Layer type="line" paint={props.mapstyle.includes('dark') ? darkmodePolygonPaint : polygonPaint} />
                         </Source>
                     )}
 
                     {res9Data && props.res9toggle && (
                         <Source type="geojson" data={res9Data}>
-                            <Layer type="line" paint={polygonPaint} />
+                            <Layer type="line" paint={props.mapstyle.includes('dark') ? darkmodePolygonPaint : polygonPaint} />
                         </Source>
                     )}
 
                     {res10Data && props.res10toggle && (
                         <Source type="geojson" data={res10Data}>
-                            <Layer type="line" paint={polygonPaint} />
+                            <Layer type="line" paint={props.mapstyle.includes('dark') ? darkmodePolygonPaint : polygonPaint} />
                         </Source>
                     )}
 
