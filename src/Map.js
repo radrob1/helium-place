@@ -65,8 +65,6 @@ const safeRingPaint = {
         'interpolate',
         ['linear'],
         ['get', 'ring'],
-        6,
-        0.9,
         8,
         0.9,
         10,
@@ -76,11 +74,11 @@ const safeRingPaint = {
         14,
         0.6,
         16,
-        0.4,
+        0.5,
         18,
-        0.2,
+        0.3,
         20,
-        0.15
+        0.1
     ],
     //'background': 'green'
 };
