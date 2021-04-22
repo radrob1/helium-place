@@ -350,7 +350,7 @@ const Map = (props) => {
             //console.log(hoveredFeature);
         }
         else {
-            console.log("Null feature");
+            //console.log("Null feature");
         }
     });
 
