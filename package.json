@@ -12,6 +12,7 @@
     "immutable": "^4.0.0-rc.12",
     "node-notifier": "^8.0.1",
     "react": "^17.0.1",
+    "react-adsense": "^0.1.0",
     "react-burger-menu": "^3.0.3",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
