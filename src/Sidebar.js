@@ -1,6 +1,6 @@
 import React from "react";
 import Switch from "react-switch";
-import QRCode from "react-qr-code";
+
 export default class Sidebar extends React.Component {
 
   closeSidebar = (e) => {
@@ -71,7 +71,7 @@ export default class Sidebar extends React.Component {
                       </h3>
                       {
                         this.props.device === "computer" && (
-                          <p className="option-description">Toggle a green zone that represents an area that should have high chance of being a witness for basic hotspot placement. 
+                          <p className="option-description">Toggle a green zone that represents an area that should have high chance of being a witness for basic hotspot placement.
                           See maximum witness distance <a target="_blank" href="https://cdn.discordapp.com/attachments/730272677104713791/813632435496419338/unknown.png">here</a>
                           </p>
                         )

@@ -1,4 +1,5 @@
 import React from "react";
+
 export default class Header extends React.Component {
 
   openSidebar = (e) => {
@@ -36,8 +37,8 @@ export default class Header extends React.Component {
           </svg>
         </button>
         <div ref={this.props.geocoderContainerRef} className="search-wrap"></div>
-          <button className="donatebar-toggle" onClick={this.openDonatebar}>
-            Help support this site!
+        <button className="donatebar-toggle" onClick={this.openDonatebar}>
+          Help support this site!
           </button>
       </div>
     );

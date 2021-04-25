@@ -29,164 +29,164 @@ const App = () => {
   const [trackuserToggle, setTrackuserToggle] = useState(false);
   const geocoderContainerRef = useRef();
 
-useEffect(() => {
-  localStorage.setItem("mapstyle", mapstyle)
-}, [mapstyle]);
+  useEffect(() => {
+    localStorage.setItem("mapstyle", mapstyle)
+  }, [mapstyle]);
 
-useEffect(() => {
-  localStorage.setItem("sweetspottoggle", sweetspotToggle)
-}, [sweetspotToggle]);
+  useEffect(() => {
+    localStorage.setItem("sweetspottoggle", sweetspotToggle)
+  }, [sweetspotToggle]);
 
-useEffect(() => {
-  localStorage.setItem("redzonetoggle", redzoneToggle)
-}, [redzoneToggle]);
+  useEffect(() => {
+    localStorage.setItem("redzonetoggle", redzoneToggle)
+  }, [redzoneToggle]);
 
-useEffect(() => {
-  localStorage.setItem("locationredzonetoggle", locationRedzoneToggle)
-}, [locationRedzoneToggle]);
+  useEffect(() => {
+    localStorage.setItem("locationredzonetoggle", locationRedzoneToggle)
+  }, [locationRedzoneToggle]);
 
-useEffect(() => {
-  localStorage.setItem("res6toggle", res6toggle)
-}, [res6toggle]);
+  useEffect(() => {
+    localStorage.setItem("res6toggle", res6toggle)
+  }, [res6toggle]);
 
-useEffect(() => {
-  localStorage.setItem("res7toggle", res7toggle)
-}, [res7toggle]);
+  useEffect(() => {
+    localStorage.setItem("res7toggle", res7toggle)
+  }, [res7toggle]);
 
-useEffect(() => {
-  localStorage.setItem("res8toggle", res8toggle)
-}, [res8toggle]);
+  useEffect(() => {
+    localStorage.setItem("res8toggle", res8toggle)
+  }, [res8toggle]);
 
-useEffect(() => {
-  localStorage.setItem("res9toggle", res9toggle)
-}, [res9toggle]);
+  useEffect(() => {
+    localStorage.setItem("res9toggle", res9toggle)
+  }, [res9toggle]);
 
-useEffect(() => {
-  localStorage.setItem("res10toggle", res10toggle)
-}, [res10toggle]);
+  useEffect(() => {
+    localStorage.setItem("res10toggle", res10toggle)
+  }, [res10toggle]);
 
-const handleSweetspotToggle = useCallback(
-  (checked) => {
-    setSweetSpotToggle(checked);
-  },
-  []
-);
+  const handleSweetspotToggle = useCallback(
+    (checked) => {
+      setSweetSpotToggle(checked);
+    },
+    []
+  );
 
-const handleRedzoneToggle = useCallback(
-  (checked) => {
-    setRedzoneToggle(checked);
-    if (checked){
-      setLocationRedzoneToggle(!checked)
-    };
-  },
-  []
-);
+  const handleRedzoneToggle = useCallback(
+    (checked) => {
+      setRedzoneToggle(checked);
+      if (checked) {
+        setLocationRedzoneToggle(!checked)
+      };
+    },
+    []
+  );
 
-const handleLocationRedzoneToggle = useCallback(
-  (checked) => {
-    setLocationRedzoneToggle(checked);
-    if (checked) {
-      setRedzoneToggle(!checked);
-    }
-  },
-  []
-);
+  const handleLocationRedzoneToggle = useCallback(
+    (checked) => {
+      setLocationRedzoneToggle(checked);
+      if (checked) {
+        setRedzoneToggle(!checked);
+      }
+    },
+    []
+  );
 
-const handleRes6Toggle = useCallback(
-  (checked) => {
-    setRes6Toggle(checked);
-  },
-  []
-);
+  const handleRes6Toggle = useCallback(
+    (checked) => {
+      setRes6Toggle(checked);
+    },
+    []
+  );
 
-const handleRes7Toggle = useCallback(
-  (checked) => {
-    setRes7Toggle(checked);
-  },
-  []
-);
+  const handleRes7Toggle = useCallback(
+    (checked) => {
+      setRes7Toggle(checked);
+    },
+    []
+  );
 
-const handleRes8Toggle = useCallback(
-  (checked) => {
-    setRes8Toggle(checked);
-  },
-  []
-);
+  const handleRes8Toggle = useCallback(
+    (checked) => {
+      setRes8Toggle(checked);
+    },
+    []
+  );
 
-const handleRes9Toggle = useCallback(
-  (checked) => {
-    setRes9Toggle(checked);
-  },
-  []
-);
+  const handleRes9Toggle = useCallback(
+    (checked) => {
+      setRes9Toggle(checked);
+    },
+    []
+  );
 
-const handleRes10Toggle = useCallback(
-  (checked) => {
-    setRes10Toggle(checked);
-  },
-  []
-);
+  const handleRes10Toggle = useCallback(
+    (checked) => {
+      setRes10Toggle(checked);
+    },
+    []
+  );
 
-const handleMapStyle = useCallback(
-  (value) => {
-    setMapstyle(value.target.value);
-  },
-  []
-);
+  const handleMapStyle = useCallback(
+    (value) => {
+      setMapstyle(value.target.value);
+    },
+    []
+  );
 
-const handleTrackuserToggle = useCallback(
-  (checked) => {
-    setTrackuserToggle(checked);
-  },
-  []
-);
+  const handleTrackuserToggle = useCallback(
+    (checked) => {
+      setTrackuserToggle(checked);
+    },
+    []
+  );
 
-return (
-  <div className="App">
-    <Header 
-        geocoderContainerRef={geocoderContainerRef} 
+  return (
+    <div className="App">
+      <Header
+        geocoderContainerRef={geocoderContainerRef}
         device={device} />
-    <Map
-      sweetspotToggle={sweetspotToggle}
-      redzoneToggle={redzoneToggle}
-      locationRedzoneToggle={locationRedzoneToggle}
-      res6toggle={res6toggle}
-      res7toggle={res7toggle}
-      res8toggle={res8toggle}
-      res9toggle={res9toggle}
-      res10toggle={res10toggle}
-      mapstyle={mapstyle}
-      geocoderContainerRef={geocoderContainerRef}
-      trackuserToggle={trackuserToggle}
-    />
-    <Sidebar
-      sweetspotToggle={sweetspotToggle}
-      handleSweetspotToggle={handleSweetspotToggle}
-      locationRedzoneToggle={locationRedzoneToggle}
-      handleLocationRedzoneToggle={handleLocationRedzoneToggle}
-      redzoneToggle={redzoneToggle}
-      handleRedzoneToggle={handleRedzoneToggle}
-      res6toggle={res6toggle}
-      handleRes6Toggle={handleRes6Toggle}
-      res7toggle={res7toggle}
-      handleRes7Toggle={handleRes7Toggle}
-      res8toggle={res8toggle}
-      handleRes8Toggle={handleRes8Toggle}
-      res9toggle={res9toggle}
-      handleRes9Toggle={handleRes9Toggle}
-      res10toggle={res10toggle}
-      handleRes10Toggle={handleRes10Toggle}
-      handleMapStyle={handleMapStyle}
-      mapstyles={mapstyles}
-      trackuserToggle={trackuserToggle}
-      handleTrackuserToggle={handleTrackuserToggle}
-      device={device}
-    ></Sidebar>
-    <Donatebar device={device}/>
-    <Legend></Legend>
-    <RWLegend></RWLegend>
-  </div>
-);
+      <Map
+        sweetspotToggle={sweetspotToggle}
+        redzoneToggle={redzoneToggle}
+        locationRedzoneToggle={locationRedzoneToggle}
+        res6toggle={res6toggle}
+        res7toggle={res7toggle}
+        res8toggle={res8toggle}
+        res9toggle={res9toggle}
+        res10toggle={res10toggle}
+        mapstyle={mapstyle}
+        geocoderContainerRef={geocoderContainerRef}
+        trackuserToggle={trackuserToggle}
+      />
+      <Sidebar
+        sweetspotToggle={sweetspotToggle}
+        handleSweetspotToggle={handleSweetspotToggle}
+        locationRedzoneToggle={locationRedzoneToggle}
+        handleLocationRedzoneToggle={handleLocationRedzoneToggle}
+        redzoneToggle={redzoneToggle}
+        handleRedzoneToggle={handleRedzoneToggle}
+        res6toggle={res6toggle}
+        handleRes6Toggle={handleRes6Toggle}
+        res7toggle={res7toggle}
+        handleRes7Toggle={handleRes7Toggle}
+        res8toggle={res8toggle}
+        handleRes8Toggle={handleRes8Toggle}
+        res9toggle={res9toggle}
+        handleRes9Toggle={handleRes9Toggle}
+        res10toggle={res10toggle}
+        handleRes10Toggle={handleRes10Toggle}
+        handleMapStyle={handleMapStyle}
+        mapstyles={mapstyles}
+        trackuserToggle={trackuserToggle}
+        handleTrackuserToggle={handleTrackuserToggle}
+        device={device}
+      ></Sidebar>
+      <Donatebar device={device} />
+      <Legend></Legend>
+      <RWLegend></RWLegend>
+    </div>
+  );
 };
 
 export default App;
