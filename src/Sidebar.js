@@ -220,6 +220,7 @@ export default class Sidebar extends React.Component {
                         <p className="description">Try a Nebra Helium Miner</p>
                       </div>
                     </a>
+
                   </div>
                 </div>
               </div>
