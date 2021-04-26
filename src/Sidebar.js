@@ -1,5 +1,6 @@
 import React from "react";
 import Switch from "react-switch";
+import AdSense from "react-adsense";
 
 export default class Sidebar extends React.Component {
 
@@ -220,6 +221,17 @@ export default class Sidebar extends React.Component {
                         <p className="description">Try a Nebra Helium Miner</p>
                       </div>
                     </a>
+                    <div className="ad">
+                      <ins class="adsbygoogle" className="ad-content"
+                        style={{display:"block"}}
+                        data-ad-client="ca-pub-1070052536064762"
+                        data-ad-slot="9316473190"
+                        data-ad-format="auto"
+                        data-full-width-responsive="true"></ins>
+                      <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({ });
+                      </script>
+                    </div>
                   </div>
                 </div>
               </div>
