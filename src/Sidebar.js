@@ -220,7 +220,9 @@ export default class Sidebar extends React.Component {
                         <p className="description">Try a Nebra Helium Miner</p>
                       </div>
                     </a>
-
+                    <div className="ad">
+                    <iframe data-aa="1620536" src="//ad.a-ads.com/1620536?size=468x60" scrolling="no" style={{width:"468px", height:"60px", border:"0px", padding:0, overflow:"hidden"}} allowtransparency="true"></iframe>
+                    </div>
                   </div>
                 </div>
               </div>
