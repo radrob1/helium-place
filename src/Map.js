@@ -1026,7 +1026,7 @@ const Map = (props) => {
                     height="100%"
                     onViewportChange={setViewport}
                     mapStyle={props.mapstyle}
-                    onHover={_onHover}
+                    //onHover={_onHover}
                     onClick={mapClick}
                 >
                     {_renderTooltip()}
