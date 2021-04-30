@@ -27,6 +27,14 @@ const App = () => {
   const [redzoneToggle, setRedzoneToggle] = useState(false);
   const [mapstyle, setMapstyle] = useState(localStorage.getItem('mapstyle') || mapstyles.streets);
   const [trackuserToggle, setTrackuserToggle] = useState(false);
+
+  // Experimental zone
+  //    Use these toggles to see what hotspots asserted at different resolutions could look like
+  const [res8Hotspot, setRes8Hotspot] = useState(false);
+  const [res9Hotspot, setRes9Hotspot] = useState(false);
+  const [res10Hotspot, setRes10Hotspot] = useState(false);
+  // End of experimental props
+
   const geocoderContainerRef = useRef();
 
   useEffect(() => {
@@ -127,6 +135,29 @@ const App = () => {
     []
   );
 
+  // Experimental: Visualize various hotspot assertion resolutions for privacy
+  const handleRes8Hotspot = useCallback(
+    (checked) => {
+      setRes8Hotspot(checked);
+    },
+    []
+  );
+
+  const handleRes9Hotspot = useCallback(
+    (checked) => {
+      setRes9Hotspot(checked);
+    },
+    []
+  );
+
+  const handleRes10Hotspot = useCallback(
+    (checked) => {
+      setRes10Hotspot(checked);
+    },
+    []
+  );
+  // End of Experimental
+
   const handleMapStyle = useCallback(
     (value) => {
       setMapstyle(value.target.value);
@@ -155,6 +186,11 @@ const App = () => {
         res8toggle={res8toggle}
         res9toggle={res9toggle}
         res10toggle={res10toggle}
+        //Experimental
+        res8Hotspot={res8Hotspot}
+        res9Hotspot={res9Hotspot}
+        res10Hotspot={res10Hotspot}
+        //End Experimental
         mapstyle={mapstyle}
         geocoderContainerRef={geocoderContainerRef}
         trackuserToggle={trackuserToggle}
@@ -176,6 +212,14 @@ const App = () => {
         handleRes9Toggle={handleRes9Toggle}
         res10toggle={res10toggle}
         handleRes10Toggle={handleRes10Toggle}
+        // Experimental
+        handleRes8Hotspot={handleRes8Hotspot}
+        res8Hotspot={res8Hotspot}
+        handleRes9Hotspot={handleRes9Hotspot}
+        res9Hotspot={res9Hotspot}
+        handleRes10Hotspot={handleRes10Hotspot}
+        res10Hotspot={res10Hotspot}
+        //End Experimental
         handleMapStyle={handleMapStyle}
         mapstyles={mapstyles}
         trackuserToggle={trackuserToggle}

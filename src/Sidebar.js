@@ -206,6 +206,66 @@ export default class Sidebar extends React.Component {
                             <span className="switch-text">Res 10</span>
                           </label>
                         </div>
+                        <div>
+                          <label htmlFor="material-switch">
+                            <Switch
+                              checked={this.props.res8Hotspot}
+                              onChange={this.props.handleRes8Hotspot}
+                              onColor="#86d3ff"
+                              onHandleColor="#2693e6"
+                              handleDiameter={12}
+                              uncheckedIcon={false}
+                              checkedIcon={false}
+                              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                              height={10}
+                              width={25}
+                              className="react-switch"
+                              id="material-switch"
+                            />
+                            <span className="switch-text">Res 8 Hotspot</span>
+                          </label>
+                        </div>
+                        <div>
+                          <label htmlFor="material-switch">
+                            <Switch
+                              checked={this.props.res9Hotspot}
+                              onChange={this.props.handleRes9Hotspot}
+                              onColor="#86d3ff"
+                              onHandleColor="#2693e6"
+                              handleDiameter={12}
+                              uncheckedIcon={false}
+                              checkedIcon={false}
+                              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                              height={10}
+                              width={25}
+                              className="react-switch"
+                              id="material-switch"
+                            />
+                            <span className="switch-text">Res9 Hotspot</span>
+                          </label>
+                        </div>
+                        <div>
+                          <label htmlFor="material-switch">
+                            <Switch
+                              checked={this.props.res10Hotspot}
+                              onChange={this.props.handleRes10Hotspot}
+                              onColor="#86d3ff"
+                              onHandleColor="#2693e6"
+                              handleDiameter={12}
+                              uncheckedIcon={false}
+                              checkedIcon={false}
+                              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                              height={10}
+                              width={25}
+                              className="react-switch"
+                              id="material-switch"
+                            />
+                            <span className="switch-text">Res 10 Hotspot</span>
+                          </label>
+                        </div>
                       </div>
                     </div>
                     <a target="_blank" rel="noreferrer" href='https://rakwireless.kckb.st/070fff89' className="ad">

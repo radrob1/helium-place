@@ -121,11 +121,11 @@ const nearbyPaint = {
 };
 
 // Load hotspots and create geojson object
-const createHotspotsGeojson = (hotspots) => {
+const createHotspotsGeojson = (hotspots, res) => {
     const features = [];
     var i;
     for (i = 0; i < hotspots.length; i++) {
-        let hexBoundary = h3ToGeoBoundary(hotspots[i].location);
+        let hexBoundary = h3ToGeoBoundary(h3ToParent(hotspots[i].location, res));
         hexBoundary.push(hexBoundary[0]);
 
         let arr = [];
@@ -220,6 +220,9 @@ const getHexDensities = (hotspots, resolution) => {
 let hotspots = [];
 let hotspotsSearchGeojson = [];
 let hotspotsGeojson = [];
+let hotspotsGeojsonRes8 = [];
+let hotspotsGeojsonRes9 = [];
+let hotspotsGeojsonRes10 = [];
 //let hotspotDensities = {};
 /**
  *  Main map component
@@ -508,7 +511,7 @@ const Map = (props) => {
         for (i = 0; i < nearbyHotspots.length; i++) {
             let nearbyres11closehexes = kRing(h3ToParent(nearbyHotspots[i].location, 11), 7);
             res11closehexeslist.push(...nearbyres11closehexes);
-            let hexBoundary = h3ToGeoBoundary(nearbyHotspots[i].location);
+            let hexBoundary = h3ToGeoBoundary(nearbyHotspots[i].res8_location);
             hexBoundary.push(hexBoundary[0]);
 
             let arr = [];
@@ -891,7 +894,10 @@ const Map = (props) => {
                 //console.log("First hotspot: ", hotspots[0]);
                 hotspots = hotspots_data;
                 hotspotsSearchGeojson = createSearchHotspotsGeojson(hotspots);
-                hotspotsGeojson = createHotspotsGeojson(hotspots);
+                hotspotsGeojson = createHotspotsGeojson(hotspots, 12);
+                hotspotsGeojsonRes8 = createHotspotsGeojson(hotspots, 8);
+                hotspotsGeojsonRes9 = createHotspotsGeojson(hotspots, 9);
+                hotspotsGeojsonRes10 = createHotspotsGeojson(hotspots, 10);
                 //hotspotDensities = getHexDensities(hotspots);
                 //console.log(hotspotDensities);
                 if (hashtagLocation) {
@@ -1114,8 +1120,26 @@ const Map = (props) => {
                         </Source>
                     )}
 
-                    {hotspotsGeojson && (
+                    {hotspotsGeojson && !props.res8Hotspot && !props.res9Hotspot && !props.res10Hotspot && (
                         <Source type="geojson" data={hotspotsGeojson}>
+                            <Layer id="hotspots" type="fill" paint={nearbyPaint} />
+                        </Source>
+                    )}
+
+                    {props.res8Hotspot && (
+                        <Source type="geojson" data={hotspotsGeojsonRes8}>
+                            <Layer id="hotspots" type="fill" paint={nearbyPaint} />
+                        </Source>
+                    )}
+
+                    {props.res9Hotspot && (
+                        <Source type="geojson" data={hotspotsGeojsonRes9}>
+                            <Layer id="hotspots" type="fill" paint={nearbyPaint} />
+                        </Source>
+                    )}
+
+                    {props.res10Hotspot && (
+                        <Source type="geojson" data={hotspotsGeojsonRes10}>
                             <Layer id="hotspots" type="fill" paint={nearbyPaint} />
                         </Source>
                     )}
