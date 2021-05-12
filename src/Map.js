@@ -1062,7 +1062,7 @@ const Map = (props) => {
                     </div>
                     {res12location && (
                         <Source type="geojson" data={res12location}>
-                            <Layer type="fill" paint={locationPaint} />
+                            <Layer id="searchedlocation" type="fill" paint={locationPaint} />
                         </Source>
                     )}
 
@@ -1116,13 +1116,13 @@ const Map = (props) => {
 
                     {hotspotsGeojson && (
                         <Source type="geojson" data={hotspotsGeojson}>
-                            <Layer id="hotspots" type="fill" paint={nearbyPaint} />
+                            <Layer id="hotspots" type="fill" paint={nearbyPaint} beforeId={"searchedlocation"}/>
                         </Source>
                     )}
 
                     {nearbyHotspots && (
                         <Source type="geojson" data={nearbyHotspots}>
-                            <Layer id="nearbyhotspots" type="fill" paint={nearbyPaint} />
+                            <Layer id="nearbyhotspots" type="fill" paint={nearbyPaint} beforeId={"searchedlocation"}/>
                         </Source>
                     )}
 
