@@ -860,7 +860,7 @@ const Map = (props) => {
             updateRes11SafeRing(geojson);
         }
 
-        let hexBoundary = h3ToGeoBoundary(res12hex);
+        let hexBoundary = h3ToGeoBoundary(res11hex);
         hexBoundary.push(hexBoundary[0]);
 
         let arr = [];
