@@ -121,11 +121,11 @@ const nearbyPaint = {
 };
 
 // Load hotspots and create geojson object
-const createHotspotsGeojson = (hotspots) => {
+const createHotspotsGeojson = (hotspots, res) => {
     const features = [];
     var i;
     for (i = 0; i < hotspots.length; i++) {
-        let hexBoundary = h3ToGeoBoundary(hotspots[i].location);
+        let hexBoundary = h3ToGeoBoundary(h3ToParent(hotspots[i].location, res));
         hexBoundary.push(hexBoundary[0]);
 
         let arr = [];
@@ -508,7 +508,7 @@ const Map = (props) => {
         for (i = 0; i < nearbyHotspots.length; i++) {
             let nearbyres11closehexes = kRing(h3ToParent(nearbyHotspots[i].location, 11), 7);
             res11closehexeslist.push(...nearbyres11closehexes);
-            let hexBoundary = h3ToGeoBoundary(nearbyHotspots[i].location);
+            let hexBoundary = h3ToGeoBoundary(nearbyHotspots[i].res11hex);
             hexBoundary.push(hexBoundary[0]);
 
             let arr = [];
@@ -891,7 +891,7 @@ const Map = (props) => {
                 //console.log("First hotspot: ", hotspots[0]);
                 hotspots = hotspots_data;
                 hotspotsSearchGeojson = createSearchHotspotsGeojson(hotspots);
-                hotspotsGeojson = createHotspotsGeojson(hotspots);
+                hotspotsGeojson = createHotspotsGeojson(hotspots, 11);
                 //hotspotDensities = getHexDensities(hotspots);
                 //console.log(hotspotDensities);
                 if (hashtagLocation) {
