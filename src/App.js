@@ -17,7 +17,7 @@ let mapstyles = require('./mapstyles.json');
 const App = () => {
 
   const [device, setDevice] = useState(!!navigator.maxTouchPoints ? 'mobile' : 'computer');
-  const [locationHexToggle, setLocationHexToggle] = useState(localStorage.getItem('locationHexToggle') === "true" || false);
+  const [locationHexToggle, setLocationHexToggle] = useState(false);
   const [res6toggle, setRes6Toggle] = useState(localStorage.getItem('res6toggle') === "true" || false);
   const [res7toggle, setRes7Toggle] = useState(localStorage.getItem('res7toggle') === "true" || false);
   const [res8toggle, setRes8Toggle] = useState(localStorage.getItem('res8toggle') === "true" || false);
