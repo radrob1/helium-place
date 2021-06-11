@@ -89,6 +89,11 @@ const locationPaint = {
     //'background': 'blue'
 };
 
+const darkmodeLocationHexPaint = {
+    "fill-color": "white",
+    "fill-opacity": 0.2
+};
+
 const locationHexesPaint = {
     "fill-color": "grey",
     "fill-opacity": 0.2
@@ -1120,7 +1125,7 @@ const Map = (props) => {
 
                     {locationHexesPaint && props.locationHexToggle && (
                         <Source type="geojson" data={locationHexData}>
-                            <Layer id="locationhexes" type="fill" paint={locationHexesPaint} beforeId={"searchedlocation"}/>
+                            <Layer id="locationhexes" type="fill" paint={props.mapstyle.includes('dark') ? darkmodeLocationHexPaint : locationHexesPaint} beforeId={"searchedlocation"}/>
                         </Source>
                     )}
 
