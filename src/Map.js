@@ -84,9 +84,14 @@ const safeRingPaint = {
 };
 
 const locationPaint = {
-    "fill-color": "grey",
+    "fill-color": "darkslategray",
     "fill-opacity": 1,
     //'background': 'blue'
+};
+
+const locationHexesPaint = {
+    "fill-color": "grey",
+    "fill-opacity": 0.2
 };
 
 const nearbyPaint = {
@@ -252,6 +257,7 @@ const Map = (props) => {
     const [res11TooClose, setRes11TooClose] = useState();
     const [locationTooClose, setLocationTooClose] = useState();
     const [res12location, setRes12Location] = useState();
+    const [locationHexData, setLocationHexData] = useState();
     const [nearbyHotspots, setNearbyHotspots] = useState();
     const [hoveredFeature, setHoveredFeature] = useState();
 
@@ -294,6 +300,13 @@ const Map = (props) => {
         //console.log("locationTooClose:", value);
         if (typeof value != "undefined") {
             setLocationTooClose(value);
+        }
+    };
+
+    const updateLocationHexData = (value) => {
+        //console.log("res8Data:", value);
+        if (typeof value != "undefined") {
+            setLocationHexData(value);
         }
     };
 
@@ -508,7 +521,7 @@ const Map = (props) => {
         for (i = 0; i < nearbyHotspots.length; i++) {
             let nearbyres11closehexes = kRing(h3ToParent(nearbyHotspots[i].location, 11), 7);
             res11closehexeslist.push(...nearbyres11closehexes);
-            let hexBoundary = h3ToGeoBoundary(nearbyHotspots[i].res11hex);
+            let hexBoundary = h3ToGeoBoundary(nearbyHotspots[i].location);
             hexBoundary.push(hexBoundary[0]);
 
             let arr = [];
@@ -569,6 +582,45 @@ const Map = (props) => {
         res11safehexes.push({ ring: 18, hexes: hexRing(updatedlocation.res11hex, 25) });
         res11safehexes.push({ ring: 19, hexes: hexRing(updatedlocation.res11hex, 26) });
         res11safehexes.push({ ring: 20, hexes: hexRing(updatedlocation.res11hex, 27) });
+
+        // Get all location parent/child hexes
+        let locationhexes = [];
+        let locationhexboundaries = [];
+        locationhexes.push(res8hex);
+        locationhexes.push(res9hex);
+        locationhexes.push(res10hex);
+        //locationhexes.push(h3ToParent(updatedlocation.res12hex, 8));
+        //locationhexes.push(h3ToParent(updatedlocation.res12hex, 9));
+        //locationhexes.push(h3ToParent(updatedlocation.res12hex, 10));
+
+        var i;
+        for (i = 0; i < locationhexes.length; i++) {
+            let hexBoundary = h3ToGeoBoundary(locationhexes[i]);
+            hexBoundary.push(hexBoundary[0]);
+
+            let arr = [];
+            for (const i of hexBoundary) {
+                arr.push([i[1], i[0]]);
+            }
+            locationhexboundaries.push(arr);
+        }
+
+        var i;
+        var features = [];
+        for (i = 0; i < locationhexboundaries.length; i++) {
+            features.push({
+                type: "Feature",
+                geometry: {
+                    type: "Polygon",
+                    coordinates: [locationhexboundaries[i]],
+                },
+            });
+        }
+        const locationgeojson = {
+            type: "FeatureCollection",
+            features: features,
+        };
+        updateLocationHexData(locationgeojson);
 
         // Get all  res 6 neighbor boundaries
         if (typeof res6hexes !== "undefined" && res6hexes.length > 0) {
@@ -1062,7 +1114,13 @@ const Map = (props) => {
                     </div>
                     {res12location && (
                         <Source type="geojson" data={res12location}>
-                            <Layer id="searchedlocation" type="fill" paint={locationPaint} />
+                            <Layer id="searchedlocation" type="fill" paint={locationPaint} beforeId={"locationhexes"}/>
+                        </Source>
+                    )}
+
+                    {locationHexesPaint && props.locationHexToggle && (
+                        <Source type="geojson" data={locationHexData}>
+                            <Layer id="locationhexes" type="fill" paint={locationHexesPaint} />
                         </Source>
                     )}
 
@@ -1120,11 +1178,11 @@ const Map = (props) => {
                         </Source>
                     )}
 
-                    {nearbyHotspots && (
+                    {/*nearbyHotspots && (
                         <Source type="geojson" data={nearbyHotspots}>
-                            <Layer id="nearbyhotspots" type="fill" paint={nearbyPaint} beforeId={"searchedlocation"}/>
+                            <Layer id="nearbyhotspots" type="fill" paint={nearbyPaint}/>
                         </Source>
-                    )}
+                    )*/}
 
                 </MapGL>
             </div>

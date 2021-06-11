@@ -17,6 +17,7 @@ let mapstyles = require('./mapstyles.json');
 const App = () => {
 
   const [device, setDevice] = useState(!!navigator.maxTouchPoints ? 'mobile' : 'computer');
+  const [locationHexToggle, setLocationHexToggle] = useState(localStorage.getItem('locationHexToggle') === "true" || false);
   const [res6toggle, setRes6Toggle] = useState(localStorage.getItem('res6toggle') === "true" || false);
   const [res7toggle, setRes7Toggle] = useState(localStorage.getItem('res7toggle') === "true" || false);
   const [res8toggle, setRes8Toggle] = useState(localStorage.getItem('res8toggle') === "true" || false);
@@ -44,6 +45,10 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("locationredzonetoggle", locationRedzoneToggle)
   }, [locationRedzoneToggle]);
+
+  useEffect(() => {
+    localStorage.setItem("locationHexToggle", locationHexToggle)
+  }, [locationHexToggle]);
 
   useEffect(() => {
     localStorage.setItem("res6toggle", res6toggle)
@@ -99,6 +104,13 @@ const App = () => {
     []
   );
 
+  const handleLocationHexToggle = useCallback(
+    (checked) => {
+      setLocationHexToggle(checked);
+    },
+    []
+  );
+
   const handleRes7Toggle = useCallback(
     (checked) => {
       setRes7Toggle(checked);
@@ -150,6 +162,7 @@ const App = () => {
         sweetspotToggle={sweetspotToggle}
         redzoneToggle={redzoneToggle}
         locationRedzoneToggle={locationRedzoneToggle}
+        locationHexToggle={locationHexToggle}
         res6toggle={res6toggle}
         res7toggle={res7toggle}
         res8toggle={res8toggle}
@@ -166,6 +179,8 @@ const App = () => {
         handleLocationRedzoneToggle={handleLocationRedzoneToggle}
         redzoneToggle={redzoneToggle}
         handleRedzoneToggle={handleRedzoneToggle}
+        locationHexToggle={locationHexToggle}
+        handleLocationHexToggle={handleLocationHexToggle}
         res6toggle={res6toggle}
         handleRes6Toggle={handleRes6Toggle}
         res7toggle={res7toggle}

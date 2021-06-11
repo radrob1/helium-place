@@ -6,7 +6,10 @@ export default class Legend extends React.Component {
       <div className="legend">
         <h4>Color Legend</h4>
         <div className="key">
-          <span style={{ background: "grey" }}></span> Searched location
+          <span style={{ background: "darkslategray" }}></span> Searched location
+        </div>
+        <div className="key">
+          <span style={{ background: "grey" }}></span> HIP17 Hexes
         </div>
         <div className="key">
           <span style={{ background: "black" }}></span> Offline hotspot

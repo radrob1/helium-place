@@ -106,6 +106,26 @@ export default class Sidebar extends React.Component {
                       <h3 className="option-header toggle">HIP 17 Hex Controls</h3>
                       <p className="option-description">The following controls help you visualize the h3 hexagons used by HIP-17. To better understand what these are and why they are important be sure to read the <a href="https://engineering.helium.com/2020/12/09/blockchain-release-hip-17.html">engineering post on HIP 17</a></p>
                       <div className="res-toggles">
+                      <div>
+                          <label htmlFor="material-switch">
+                            <Switch
+                              checked={this.props.locationHexToggle}
+                              onChange={this.props.handleLocationHexToggle}
+                              onColor="#86d3ff"
+                              onHandleColor="#2693e6"
+                              handleDiameter={12}
+                              uncheckedIcon={false}
+                              checkedIcon={false}
+                              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                              height={10}
+                              width={25}
+                              className="react-switch"
+                              id="material-switch"
+                            />
+                            <span className="switch-text">Location Hexes</span>
+                          </label>
+                        </div>
                         <div>
                           <label htmlFor="material-switch">
                             <Switch
