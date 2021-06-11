@@ -9,7 +9,7 @@ export default class Legend extends React.Component {
           <span style={{ background: "darkslategray" }}></span> Searched location
         </div>
         <div className="key">
-          <span style={{ background: "grey" }}></span> HIP17 Hexes
+          <span style={{ background: "grey" }}></span> Hotspot Parent Hexes
         </div>
         <div className="key">
           <span style={{ background: "black" }}></span> Offline hotspot
