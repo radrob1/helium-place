@@ -1114,13 +1114,13 @@ const Map = (props) => {
                     </div>
                     {res12location && (
                         <Source type="geojson" data={res12location}>
-                            <Layer id="searchedlocation" type="fill" paint={locationPaint} beforeId={"locationhexes"}/>
+                            <Layer id="searchedlocation" type="fill" paint={locationPaint}/>
                         </Source>
                     )}
 
                     {locationHexesPaint && props.locationHexToggle && (
                         <Source type="geojson" data={locationHexData}>
-                            <Layer id="locationhexes" type="fill" paint={locationHexesPaint} />
+                            <Layer id="locationhexes" type="fill" paint={locationHexesPaint} beforeId={"searchedlocation"}/>
                         </Source>
                     )}
 
