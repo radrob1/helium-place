@@ -267,7 +267,7 @@ const Map = (props) => {
     const [hoveredFeature, setHoveredFeature] = useState();
 
     const updateLocation = (value) => {
-        console.log(value);
+        //console.log(value);
         if (typeof value != "undefined") {
             setLocation(value);
         }
@@ -441,7 +441,7 @@ const Map = (props) => {
                 11
             );
         } catch {
-            console.log("handleOnResult: Geolocate");
+            //console.log("handleOnResult: Geolocate");
             newlatitude = newlocation.coords.latitude;
             newlongitude = newlocation.coords.longitude;
             res6hex = geoToH3(
@@ -454,11 +454,13 @@ const Map = (props) => {
                 newlocation.coords.longitude,
                 7
             );
+            //console.log("GPS: ", newlocation.coords.latitude,newlocation.coords.longitude);
             res8hex = geoToH3(
                 newlocation.coords.latitude,
                 newlocation.coords.longitude,
                 8
             );
+            //console.log("res8hex: ", res8hex);
             res9hex = geoToH3(
                 newlocation.coords.latitude,
                 newlocation.coords.longitude,
@@ -502,6 +504,7 @@ const Map = (props) => {
         const res8hexes = kRing(updatedlocation.res8hex, 12);
         const res9hexes = kRing(updatedlocation.res9hex, 24);
         const res10hexes = kRing(updatedlocation.res10hex, 48);
+        /* Nearby hotspots no longer used
         const nearbyHotspots = [];
         var n;
         for (n = 0; n < res8hexes.length; n++) {
@@ -565,7 +568,7 @@ const Map = (props) => {
         };
         //console.log(nearbygeojson);
         updateNearbyHotspots(nearbygeojson);
-
+*/
         const res11safehexes = [];
         res11safehexes.push({ ring: 1, hexes: hexRing(updatedlocation.res11hex, 8) });
         res11safehexes.push({ ring: 2, hexes: hexRing(updatedlocation.res11hex, 9) });
@@ -591,12 +594,13 @@ const Map = (props) => {
         // Get all location parent/child hexes
         let locationhexes = [];
         let locationhexboundaries = [];
-        locationhexes.push(res8hex);
-        locationhexes.push(res9hex);
-        locationhexes.push(res10hex);
-        //locationhexes.push(h3ToParent(updatedlocation.res12hex, 8));
-        //locationhexes.push(h3ToParent(updatedlocation.res12hex, 9));
-        //locationhexes.push(h3ToParent(updatedlocation.res12hex, 10));
+        //locationhexes.push(res8hex);
+        //locationhexes.push(res9hex);
+        //locationhexes.push(res10hex);
+        locationhexes.push(h3ToParent(updatedlocation.res12hex, 8));
+        locationhexes.push(h3ToParent(updatedlocation.res12hex, 9));
+        locationhexes.push(h3ToParent(updatedlocation.res12hex, 10));
+        //console.log("res8hex: ", res8hex);
 
         var i;
         for (i = 0; i < locationhexes.length; i++) {
@@ -952,7 +956,7 @@ const Map = (props) => {
                 //hotspotDensities = getHexDensities(hotspots);
                 //console.log(hotspotDensities);
                 if (hashtagLocation) {
-                    console.log("hashtaglocation: ", hashtagLocation);
+                    //console.log("hashtaglocation: ", hashtagLocation);
                     //console.log(hotspots);
                     var hotspot = hotspots.find(function (element) {
                         return (element.name === hashtagLocation || element.address === hashtagLocation);
@@ -977,7 +981,7 @@ const Map = (props) => {
     }, [handleOnResult]);
 
     const mapClick = (event) => {
-        console.log(event);
+        //console.log(event);
         const newlocation = {
             coords: {
                 latitude: event.lngLat[1],
@@ -1018,7 +1022,7 @@ const Map = (props) => {
     // if you are happy with Geocoder default settings, you can just use handleViewportChange directly
     const handleGeolocateViewportChange = useCallback(
         (newViewport) => {
-            console.log(newViewport);
+            //console.log(newViewport);
             const geolocateDefaultOverrides = { transitionDuration: 1000, zoom: 15 };
 
             return handleViewportChange({
