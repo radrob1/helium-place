@@ -136,6 +136,7 @@ const createHotspotsGeojson = (hotspots, res) => {
     var i;
     for (i = 0; i < hotspots.length; i++) {
         let hexBoundary = h3ToGeoBoundary(h3ToParent(hotspots[i].location, res));
+        //console.log("res: ",res, hexBoundary);
         hexBoundary.push(hexBoundary[0]);
 
         let arr = [];
@@ -151,8 +152,8 @@ const createHotspotsGeojson = (hotspots, res) => {
                 longitude: hotspots[i].longitude,
                 address: hotspots[i].address,
                 rewardScale: hotspots[i].reward_scale,
-                coordinates: [hotspots[i].longitude, hotspots[i].latitude],
-                status: hotspots[i].status
+                //coordinates: [hotspots[i].longitude, hotspots[i].latitude],
+                //status: hotspots[i].status
             },
             geometry: {
                 type: "Polygon",
@@ -160,19 +161,6 @@ const createHotspotsGeojson = (hotspots, res) => {
             },
         });
         //console.log(hotspots[i]);
-        /*
-        features.push({
-            type: "Feature",
-            properties: {
-                title: hotspots[i].name,
-                name: hotspots[i].name,
-                coordinates: [hotspots[i].longitude, hotspots[i].latitude],
-            },
-            geometry: {
-                type: "Point",
-                coordinates: [hotspots[i].longitude, hotspots[i].latitude],
-            },
-        });*/
     }
 
     const geojson = {
@@ -209,27 +197,11 @@ const createSearchHotspotsGeojson = (hotspots) => {
     return geojson;
 };
 
-/*
-const getHexDensities = (hotspots, resolution) => {
-    var n, i;
-    var densities = {};
-    for (n = 6; n < 11; n++) {
-        for (i = 0; i < hotspots.length; i++) {
-            var res = h3ToParent(hotspots[i].location, n);
-            if (typeof densities[res] === "undefined") {
-                densities[res] = 0;
-            }
-            else {
-                densities[res] += 1;
-            }
-        }
-    }
-    return densities;
-};*/
 
 let hotspots = [];
 let hotspotsSearchGeojson = [];
 let hotspotsGeojson = [];
+let hotspotsGPSGeojson = [];
 //let hotspotDensities = {};
 /**
  *  Main map component
@@ -347,25 +319,41 @@ const Map = (props) => {
     };
 
     const _onHover = useCallback((event) => {
+        //console.log("event: ",event);
         const {
             features
         } = event;
+        //console.log("features: ",features);
         const hotspotFeature =
             features && features.find((f) => f.layer.id === "hotspots");
+
+        if (typeof hotspotFeature != "undefined"){
+
+        }
+        /*
         const nearbyFeature =
-            features && features.find((f) => f.layer.id === "nearbyhotspots");
+           features && features.find((f) => f.layer.id === "nearbyhotspots");
+        */
 
         let hoveredFeature = null;
+        /*
         if (typeof hotspotFeature != "undefined" && typeof nearbyFeature != "undefined") {
             //console.log(hotspotFeature);
             hoveredFeature = nearbyFeature;
             setHoveredFeature(hoveredFeature);
             //console.log(hoveredFeature);
         }
-        else if (typeof hotspotFeature != "undefined") {
-            hoveredFeature = hotspotFeature;
-            setHoveredFeature(hoveredFeature);
-            //console.log(hoveredFeature);
+        else */
+        if (typeof hotspotFeature != "undefined") {
+            let featureslnglat = [hotspotFeature.properties.longitude.toFixed(3),hotspotFeature.properties.latitude.toFixed(3)];
+            let eventlnglat = [event.lngLat[0].toFixed(3),event.lngLat[1].toFixed(3)]
+            //console.log(featureslnglat, eventlnglat);
+            
+            if (eventlnglat[0] === featureslnglat[0] && eventlnglat[1] === featureslnglat[1]){
+                hoveredFeature = hotspotFeature;
+                setHoveredFeature(hoveredFeature);
+                //console.log(hoveredFeature);
+            }
         }
         else {
             //console.log("Null feature");
@@ -384,7 +372,7 @@ const Map = (props) => {
                     closeOnClick={false}
                     onClose={() => setHoveredFeature(null)}
                 >
-                    <HotSpotInfo info={hoveredFeature} />
+                    <HotSpotInfo info={hoveredFeature} location={location}/>
                 </Popup>
             )
         );
@@ -952,6 +940,7 @@ const Map = (props) => {
                 //console.log("First hotspot: ", hotspots[0]);
                 hotspots = hotspots_data;
                 hotspotsSearchGeojson = createSearchHotspotsGeojson(hotspots);
+                //hotspotsGPSGeojson = createHotspotsGeojson(hotspots, 13);
                 hotspotsGeojson = createHotspotsGeojson(hotspots, 11);
                 //hotspotDensities = getHexDensities(hotspots);
                 //console.log(hotspotDensities);
@@ -1121,15 +1110,16 @@ const Map = (props) => {
                             captureDoubleClick={true}
                         />
                     </div>
+
                     {res12location && (
                         <Source type="geojson" data={res12location}>
-                            <Layer id="searchedlocation" type="fill" paint={locationPaint}/>
+                            <Layer id="searchedlocation" type="fill" paint={locationPaint} />
                         </Source>
                     )}
 
                     {locationHexesPaint && props.locationHexToggle && (
                         <Source type="geojson" data={locationHexData}>
-                            <Layer id="locationhexes" type="fill" paint={props.mapstyle.includes('dark') ? darkmodeLocationHexPaint : locationHexesPaint} beforeId={"searchedlocation"}/>
+                            <Layer id="locationhexes" type="fill" paint={props.mapstyle.includes('dark') ? darkmodeLocationHexPaint : locationHexesPaint} beforeId={"searchedlocation"} />
                         </Source>
                     )}
 
@@ -1163,6 +1153,12 @@ const Map = (props) => {
                         </Source>
                     )}
 
+                    {hotspotsGeojson && (
+                        <Source type="geojson" data={hotspotsGeojson}>
+                            <Layer id="hotspots" type="fill" paint={nearbyPaint} beforeId={"searchedlocation"} />
+                        </Source>
+                    )}
+
                     {res11SafeRing && props.sweetspotToggle && (
                         <Source type="geojson" data={res11SafeRing}>
                             <Layer id="safedistance" type="fill" paint={safeRingPaint} beforeId={"hotspots"} />
@@ -1178,12 +1174,6 @@ const Map = (props) => {
                     {locationTooClose && props.locationRedzoneToggle && (
                         <Source type="geojson" data={locationTooClose}>
                             <Layer id="tooclose" type="fill" paint={tooClosePaint} beforeId={"hotspots"} />
-                        </Source>
-                    )}
-
-                    {hotspotsGeojson && (
-                        <Source type="geojson" data={hotspotsGeojson}>
-                            <Layer id="hotspots" type="fill" paint={nearbyPaint} beforeId={"searchedlocation"}/>
                         </Source>
                     )}
 
