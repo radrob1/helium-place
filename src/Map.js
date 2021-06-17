@@ -395,6 +395,8 @@ const Map = (props) => {
         //console.log(geoToH3(location.result.geometry.coordinates[1], location.result.geometry.coordinates[0], 8))
         let newlatitude = 0;
         let newlongitude = 0;
+        let res4hex = null;
+        let res5hex = null;
         let res6hex = null;
         let res7hex = null;
         let res8hex = null;
@@ -405,6 +407,16 @@ const Map = (props) => {
         try {
             newlatitude = newlocation.result.geometry.coordinates[1];
             newlongitude = newlocation.result.geometry.coordinates[0];
+            res4hex = geoToH3(
+                newlocation.result.geometry.coordinates[1],
+                newlocation.result.geometry.coordinates[0],
+                4
+            );
+            res5hex = geoToH3(
+                newlocation.result.geometry.coordinates[1],
+                newlocation.result.geometry.coordinates[0],
+                5
+            );
             res6hex = geoToH3(
                 newlocation.result.geometry.coordinates[1],
                 newlocation.result.geometry.coordinates[0],
@@ -444,6 +456,16 @@ const Map = (props) => {
             //console.log("handleOnResult: Geolocate");
             newlatitude = newlocation.coords.latitude;
             newlongitude = newlocation.coords.longitude;
+            res4hex = geoToH3(
+                newlocation.coords.latitude,
+                newlocation.coords.longitude,
+                4
+            );
+            res5hex = geoToH3(
+                newlocation.coords.latitude,
+                newlocation.coords.longitude,
+                5
+            );
             res6hex = geoToH3(
                 newlocation.coords.latitude,
                 newlocation.coords.longitude,
@@ -597,6 +619,10 @@ const Map = (props) => {
         //locationhexes.push(res8hex);
         //locationhexes.push(res9hex);
         //locationhexes.push(res10hex);
+        //locationhexes.push(h3ToParent(updatedlocation.res12hex, 4));
+        locationhexes.push(h3ToParent(updatedlocation.res12hex, 5));
+        locationhexes.push(h3ToParent(updatedlocation.res12hex, 6));
+        locationhexes.push(h3ToParent(updatedlocation.res12hex, 7));
         locationhexes.push(h3ToParent(updatedlocation.res12hex, 8));
         locationhexes.push(h3ToParent(updatedlocation.res12hex, 9));
         locationhexes.push(h3ToParent(updatedlocation.res12hex, 10));
