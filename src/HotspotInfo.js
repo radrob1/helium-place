@@ -1,19 +1,22 @@
-import * as React from "react";
-import { PureComponent } from "react";
+import React, {
+  useState,
+  useEffect
+} from "react";
 import Loader from "react-loader-spinner";
 import { distance as turfDistance, point as turfPoint } from '@turf/turf'
 
 
 let hotspotInfo = {};
-let loading = true;
 
-export default class HotSpotInfo extends PureComponent {
+const HotSpotInfo = (props) => {
+  const [dataLoading, setDataloading] = useState(true);
+  const [hotspotInfo, setHotspotInfo] = useState(true);
+  const [location, setLocation] = useState(true);
 
-  hotspotData = (hotspot, location) => {
-    fetch("https://api.helium.io/v1/hotspots/" + hotspot.properties.address, {cache:"force-cache"})
+  useEffect(() => {
+    fetch("https://api.helium.io/v1/hotspots/" + props.info.properties.address, {cache:"force-cache"})
       .then((response) => response.json())
       .then((hotspot_data) => {
-        //console.log("location: ", location);
         let relayed = true;
         let ipAddrs = hotspot_data.data.status.listen_addrs;
         //console.log(ipAddrs);
@@ -29,13 +32,13 @@ export default class HotSpotInfo extends PureComponent {
         }
 
         const from = turfPoint([
-          location.longitude,
-          location.latitude,
+          props.location.longitude,
+          props.location.latitude,
         ])
         const to = turfPoint([hotspot_data.data.lng, hotspot_data.data.lat])
         let distance = Math.trunc(turfDistance(from, to, { units: 'meters' }))
 
-        hotspotInfo = {
+        setHotspotInfo({
           name: hotspot_data.data.name,
           address: hotspot_data.data.address,
           owner: hotspot_data.data.owner,
@@ -43,14 +46,12 @@ export default class HotSpotInfo extends PureComponent {
           status: hotspot_data.data.status.online,
           relayed: relayed,
           distance: distance
-        }
-        loading = false;
+        });
+        setDataloading(false);
       });
-  };
+  }, [props.info]);
 
-  render() {
-    const { info, location } = this.props;
-    this.hotspotData(info, location);
+    //hotspotData(info, location);
     //console.log("loading:", loading);
     //console.log(hotspotInfo);
     const displayName = `${hotspotInfo.name}`;
@@ -67,7 +68,7 @@ export default class HotSpotInfo extends PureComponent {
     }
 
     //console.log(info);
-    if (loading) {
+    if (dataLoading) {
       return (
         <div style={{
           display: 'flex',
@@ -82,7 +83,7 @@ export default class HotSpotInfo extends PureComponent {
       return (
         <div className="hotspot-info">
           <a className="name" href={hotspotLink} target="_blank" rel="noreferrer">{displayName}</a>
-          <dl classname="metadata">
+          <dl className="metadata">
             <div>
               <dt>Status:</dt>
               <dd>{status}</dd>
@@ -99,5 +100,6 @@ export default class HotSpotInfo extends PureComponent {
         </div>
       );
     }
-  }
-}
+};
+
+export default HotSpotInfo;

@@ -318,6 +318,15 @@ const Map = (props) => {
         }
     };
 
+    const getHoveredFeature = () => {
+        if (typeof hoveredFeature === "undefined") {
+            return null
+        }
+        else {
+            return hoveredFeature;
+        }
+    };
+
     const _onHover = useCallback((event) => {
         //console.log("event: ",event);
         const {
@@ -327,15 +336,12 @@ const Map = (props) => {
         const hotspotFeature =
             features && features.find((f) => f.layer.id === "hotspots");
 
-        if (typeof hotspotFeature != "undefined"){
-
-        }
         /*
         const nearbyFeature =
            features && features.find((f) => f.layer.id === "nearbyhotspots");
         */
 
-        let hoveredFeature = null;
+        //let hoveredFeature = null;
         /*
         if (typeof hotspotFeature != "undefined" && typeof nearbyFeature != "undefined") {
             //console.log(hotspotFeature);
@@ -344,15 +350,13 @@ const Map = (props) => {
             //console.log(hoveredFeature);
         }
         else */
+        let hoveredFeature = getHoveredFeature();
         if (typeof hotspotFeature != "undefined") {
-            let featureslnglat = [hotspotFeature.properties.longitude.toFixed(3),hotspotFeature.properties.latitude.toFixed(3)];
-            let eventlnglat = [event.lngLat[0].toFixed(3),event.lngLat[1].toFixed(3)]
+            //let featureslnglat = [hotspotFeature.properties.longitude.toFixed(3), hotspotFeature.properties.latitude.toFixed(3)];
+            //let eventlnglat = [event.lngLat[0].toFixed(3), event.lngLat[1].toFixed(3)]
             //console.log(featureslnglat, eventlnglat);
-            
-            if (eventlnglat[0] === featureslnglat[0] && eventlnglat[1] === featureslnglat[1]){
-                hoveredFeature = hotspotFeature;
-                setHoveredFeature(hoveredFeature);
-                //console.log(hoveredFeature);
+            if (hoveredFeature === null || hoveredFeature.properties.name !== hotspotFeature.properties.name) {
+                setHoveredFeature(hotspotFeature);
             }
         }
         else {
@@ -372,7 +376,7 @@ const Map = (props) => {
                     closeOnClick={false}
                     onClose={() => setHoveredFeature(null)}
                 >
-                    <HotSpotInfo info={hoveredFeature} location={location}/>
+                    <HotSpotInfo info={hoveredFeature} location={location} />
                 </Popup>
             )
         );
