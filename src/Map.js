@@ -135,7 +135,7 @@ const createHotspotsGeojson = (hotspots, res) => {
     const features = [];
     var i;
     for (i = 0; i < hotspots.length; i++) {
-        let hexBoundary = h3ToGeoBoundary(h3ToParent(hotspots[i].location, res));
+        let hexBoundary = h3ToGeoBoundary(h3ToParent(geoToH3(hotspots[i].latitude,hotspots[i].longitude,12), res));
         //console.log("res: ",res, hexBoundary);
         hexBoundary.push(hexBoundary[0]);
 
