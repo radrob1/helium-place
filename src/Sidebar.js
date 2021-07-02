@@ -50,34 +50,6 @@ export default class Sidebar extends React.Component {
                       </div>
                     </div>
                     <div className="option">
-                      <h3 className="option-header toggle">
-                        Sweetspot
-                          <label htmlFor="material-switch" data-tip data-for="greenzoneTip">
-                          <Switch
-                            checked={this.props.sweetspotToggle}
-                            onChange={this.props.handleSweetspotToggle}
-                            onColor="#86d3ff"
-                            onHandleColor="#2693e6"
-                            handleDiameter={12}
-                            uncheckedIcon={false}
-                            checkedIcon={true}
-                            boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
-                            activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-                            height={10}
-                            width={25}
-                            className="react-switch"
-                            id="material-switch" />
-                        </label>
-                      </h3>
-                      {
-                        this.props.device === "computer" && (
-                          <p className="option-description">Toggle a green zone that represents an area that should have high chance of being a witness for basic hotspot placement.
-                          See maximum witness distance <a target="_blank" href="https://cdn.discordapp.com/attachments/730272677104713791/813632435496419338/unknown.png">here</a>
-                          </p>
-                        )
-                      }
-                    </div>
-                    <div className="option">
                       <h3 className="option-header toggle">Location Red Zone
                         <label htmlFor="material-switch" data-tip data-for="toocloseTip">
                           <Switch
@@ -124,6 +96,46 @@ export default class Sidebar extends React.Component {
                               id="material-switch"
                             />
                             <span className="switch-text">Location Hexes</span>
+                          </label>
+                        </div>
+                        <div>
+                          <label htmlFor="material-switch">
+                            <Switch
+                              checked={this.props.res4toggle}
+                              onChange={this.props.handleRes4Toggle}
+                              onColor="#86d3ff"
+                              onHandleColor="#2693e6"
+                              handleDiameter={12}
+                              uncheckedIcon={false}
+                              checkedIcon={false}
+                              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                              height={10}
+                              width={25}
+                              className="react-switch"
+                              id="material-switch"
+                            />
+                            <span className="switch-text">Res 4</span>
+                          </label>
+                        </div>
+                        <div>
+                          <label htmlFor="material-switch">
+                            <Switch
+                              checked={this.props.res5toggle}
+                              onChange={this.props.handleRes5Toggle}
+                              onColor="#86d3ff"
+                              onHandleColor="#2693e6"
+                              handleDiameter={12}
+                              uncheckedIcon={false}
+                              checkedIcon={false}
+                              boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                              height={10}
+                              width={25}
+                              className="react-switch"
+                              id="material-switch"
+                            />
+                            <span className="switch-text">Res 5</span>
                           </label>
                         </div>
                         <div>
@@ -232,12 +244,6 @@ export default class Sidebar extends React.Component {
                       <div className="ad-content">
                         <h4 className="title">Want to improve your earnings?</h4>
                         <p className="description">Try an upgraded antenna from RAK Wireless</p>
-                      </div>
-                    </a>
-                    <a target="_blank" rel="noreferrer" href='https://www.nebra.com/?ref=8gcilh0jjjdv' className="ad">
-                      <div className="ad-content">
-                        <h4 className="title">Want to buy a hotspot?</h4>
-                        <p className="description">Try a Nebra Helium Miner</p>
                       </div>
                     </a>
                     <div className="ad">
