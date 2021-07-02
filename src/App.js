@@ -18,12 +18,14 @@ const App = () => {
 
   const [device, setDevice] = useState(!!navigator.maxTouchPoints ? 'mobile' : 'computer');
   const [locationHexToggle, setLocationHexToggle] = useState(false);
+  const [res4toggle, setRes4Toggle] = useState(localStorage.getItem('res4toggle') === "true" || false);
+  const [res5toggle, setRes5Toggle] = useState(localStorage.getItem('res5toggle') === "true" || false);
   const [res6toggle, setRes6Toggle] = useState(localStorage.getItem('res6toggle') === "true" || false);
   const [res7toggle, setRes7Toggle] = useState(localStorage.getItem('res7toggle') === "true" || false);
   const [res8toggle, setRes8Toggle] = useState(localStorage.getItem('res8toggle') === "true" || false);
   const [res9toggle, setRes9Toggle] = useState(localStorage.getItem('res9toggle') === "true" || false);
   const [res10toggle, setRes10Toggle] = useState(localStorage.getItem('res10toggle') === "true" || false);
-  const [sweetspotToggle, setSweetSpotToggle] = useState(localStorage.getItem('sweetspottoggle') === "true" || true);
+  //const [sweetspotToggle, setSweetSpotToggle] = useState(localStorage.getItem('sweetspottoggle') === "true" || false);
   const [locationRedzoneToggle, setLocationRedzoneToggle] = useState(localStorage.getItem('locationredzonetoggle') === "true" || true);
   const [redzoneToggle, setRedzoneToggle] = useState(false);
   const [mapstyle, setMapstyle] = useState(localStorage.getItem('mapstyle') || mapstyles.streets);
@@ -34,10 +36,11 @@ const App = () => {
     localStorage.setItem("mapstyle", mapstyle)
   }, [mapstyle]);
 
+  /*
   useEffect(() => {
     localStorage.setItem("sweetspottoggle", sweetspotToggle)
   }, [sweetspotToggle]);
-
+*/
   useEffect(() => {
     localStorage.setItem("redzonetoggle", redzoneToggle)
   }, [redzoneToggle]);
@@ -49,6 +52,14 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("locationHexToggle", locationHexToggle)
   }, [locationHexToggle]);
+
+  useEffect(() => {
+    localStorage.setItem("res4toggle", res4toggle)
+  }, [res4toggle]);
+
+  useEffect(() => {
+    localStorage.setItem("res5toggle", res5toggle)
+  }, [res5toggle]);
 
   useEffect(() => {
     localStorage.setItem("res6toggle", res6toggle)
@@ -70,13 +81,14 @@ const App = () => {
     localStorage.setItem("res10toggle", res10toggle)
   }, [res10toggle]);
 
+  /*
   const handleSweetspotToggle = useCallback(
     (checked) => {
       setSweetSpotToggle(checked);
     },
     []
   );
-
+*/
   const handleRedzoneToggle = useCallback(
     (checked) => {
       setRedzoneToggle(checked);
@@ -93,6 +105,20 @@ const App = () => {
       if (checked) {
         setRedzoneToggle(!checked);
       }
+    },
+    []
+  );
+
+  const handleRes4Toggle = useCallback(
+    (checked) => {
+      setRes4Toggle(checked);
+    },
+    []
+  );
+
+  const handleRes5Toggle = useCallback(
+    (checked) => {
+      setRes5Toggle(checked);
     },
     []
   );
@@ -159,10 +185,12 @@ const App = () => {
         geocoderContainerRef={geocoderContainerRef}
         device={device} />
       <Map
-        sweetspotToggle={sweetspotToggle}
+        //sweetspotToggle={sweetspotToggle}
         redzoneToggle={redzoneToggle}
         locationRedzoneToggle={locationRedzoneToggle}
         locationHexToggle={locationHexToggle}
+        res4toggle={res4toggle}
+        res5toggle={res5toggle}
         res6toggle={res6toggle}
         res7toggle={res7toggle}
         res8toggle={res8toggle}
@@ -173,14 +201,18 @@ const App = () => {
         trackuserToggle={trackuserToggle}
       />
       <Sidebar
-        sweetspotToggle={sweetspotToggle}
-        handleSweetspotToggle={handleSweetspotToggle}
+        //sweetspotToggle={sweetspotToggle}
+        //handleSweetspotToggle={handleSweetspotToggle}
         locationRedzoneToggle={locationRedzoneToggle}
         handleLocationRedzoneToggle={handleLocationRedzoneToggle}
         redzoneToggle={redzoneToggle}
         handleRedzoneToggle={handleRedzoneToggle}
         locationHexToggle={locationHexToggle}
         handleLocationHexToggle={handleLocationHexToggle}
+        res4toggle={res4toggle}
+        handleRes4Toggle={handleRes4Toggle}
+        res5toggle={res5toggle}
+        handleRes5Toggle={handleRes5Toggle}
         res6toggle={res6toggle}
         handleRes6Toggle={handleRes6Toggle}
         res7toggle={res7toggle}

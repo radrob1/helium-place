@@ -91,12 +91,12 @@ const locationPaint = {
 
 const darkmodeLocationHexPaint = {
     "fill-color": "white",
-    "fill-opacity": 0.2
+    "fill-opacity": 0.1
 };
 
 const locationHexesPaint = {
-    "fill-color": "grey",
-    "fill-opacity": 0.2
+    "fill-color": "black",
+    "fill-opacity": 0.1
 };
 
 const nearbyPaint = {
@@ -135,7 +135,7 @@ const createHotspotsGeojson = (hotspots, res) => {
     const features = [];
     var i;
     for (i = 0; i < hotspots.length; i++) {
-        let hexBoundary = h3ToGeoBoundary(h3ToParent(geoToH3(hotspots[i].latitude,hotspots[i].longitude,12), res));
+        let hexBoundary = h3ToGeoBoundary(h3ToParent(geoToH3(hotspots[i].latitude, hotspots[i].longitude, 12), res));
         //console.log("res: ",res, hexBoundary);
         hexBoundary.push(hexBoundary[0]);
 
@@ -225,12 +225,15 @@ const Map = (props) => {
         res8hex: "",
         res12hex: "",
     });
+
+    const [res4Data, setRes4Data] = useState();
+    const [res5Data, setRes5Data] = useState();
     const [res6Data, setRes6Data] = useState();
     const [res7Data, setRes7Data] = useState();
     const [res8Data, setRes8Data] = useState();
     const [res9Data, setRes9Data] = useState();
     const [res10Data, setRes10Data] = useState();
-    const [res11SafeRing, setRes11SafeRing] = useState();
+    //const [res11SafeRing, setRes11SafeRing] = useState();
     const [res11TooClose, setRes11TooClose] = useState();
     const [locationTooClose, setLocationTooClose] = useState();
     const [res12location, setRes12Location] = useState();
@@ -259,12 +262,14 @@ const Map = (props) => {
         }
     };
 
+    /*
     const updateRes11SafeRing = (value) => {
         //console.log("res11SafeRing:", value);
         if (typeof value != "undefined") {
             setRes11SafeRing(value);
         }
     };
+    */
 
     const updateRes11TooClose = (value) => {
         //console.log("res11TooClose:", value);
@@ -291,6 +296,18 @@ const Map = (props) => {
         //console.log("res8Data:", value);
         if (typeof value != "undefined") {
             setRes8Data(value);
+        }
+    };
+
+    const updateRes4Data = (value) => {
+        if (typeof value != "undefined") {
+            setRes4Data(value);
+        }
+    };
+
+    const updateRes5Data = (value) => {
+        if (typeof value != "undefined") {
+            setRes5Data(value);
         }
     };
 
@@ -501,6 +518,8 @@ const Map = (props) => {
         const updatedlocation = {
             latitude: newlatitude,
             longitude: newlongitude,
+            res4hex: res4hex,
+            res5hex: res5hex,
             res8hex: res8hex,
             res12hex: res12hex,
             res11hex: res11hex,
@@ -513,6 +532,8 @@ const Map = (props) => {
         //console.log(updatedlocation.res8neighbors);
         updateLocation(updatedlocation);
         let res11closehexeslist = kRing(updatedlocation.res11hex, 7);
+        const res4hexes = kRing(updatedlocation.res4hex, 1);
+        const res5hexes = kRing(updatedlocation.res5hex, 1);
         const res6hexes = kRing(updatedlocation.res6hex, 1);
         const res7hexes = kRing(updatedlocation.res7hex, 4);
         const res8hexes = kRing(updatedlocation.res8hex, 12);
@@ -648,6 +669,72 @@ const Map = (props) => {
             features: features,
         };
         updateLocationHexData(locationgeojson);
+
+        // Get all  res 4 neighbor boundaries
+        if (typeof res4hexes !== "undefined" && res4hexes.length > 0) {
+            let res4hexboundaries = [];
+            var i;
+            for (i = 0; i < res4hexes.length; i++) {
+                let hexBoundary = h3ToGeoBoundary(res4hexes[i]);
+                hexBoundary.push(hexBoundary[0]);
+
+                let arr = [];
+                for (const i of hexBoundary) {
+                    arr.push([i[1], i[0]]);
+                }
+                res4hexboundaries.push(arr);
+            }
+
+            var i;
+            var features = [];
+            for (i = 0; i < res4hexboundaries.length; i++) {
+                features.push({
+                    type: "Feature",
+                    geometry: {
+                        type: "Polygon",
+                        coordinates: [res4hexboundaries[i]],
+                    },
+                });
+            }
+            const geojson = {
+                type: "FeatureCollection",
+                features: features,
+            };
+            updateRes4Data(geojson);
+        }
+
+        // Get all  res 5 neighbor boundaries
+        if (typeof res5hexes !== "undefined" && res5hexes.length > 0) {
+            let res5hexboundaries = [];
+            var i;
+            for (i = 0; i < res5hexes.length; i++) {
+                let hexBoundary = h3ToGeoBoundary(res5hexes[i]);
+                hexBoundary.push(hexBoundary[0]);
+
+                let arr = [];
+                for (const i of hexBoundary) {
+                    arr.push([i[1], i[0]]);
+                }
+                res5hexboundaries.push(arr);
+            }
+
+            var i;
+            var features = [];
+            for (i = 0; i < res5hexboundaries.length; i++) {
+                features.push({
+                    type: "Feature",
+                    geometry: {
+                        type: "Polygon",
+                        coordinates: [res5hexboundaries[i]],
+                    },
+                });
+            }
+            const geojson = {
+                type: "FeatureCollection",
+                features: features,
+            };
+            updateRes5Data(geojson);
+        }
 
         // Get all  res 6 neighbor boundaries
         if (typeof res6hexes !== "undefined" && res6hexes.length > 0) {
@@ -894,7 +981,7 @@ const Map = (props) => {
             };
             updateLocationTooClose(geojson);
         };
-
+/*
         if (typeof res11safehexes !== "undefined" && res11safehexes.length > 0) {
             let res11hexboundaries = [];
             var j;
@@ -938,6 +1025,7 @@ const Map = (props) => {
             };
             updateRes11SafeRing(geojson);
         }
+        */
 
         let hexBoundary = h3ToGeoBoundary(res11hex);
         hexBoundary.push(hexBoundary[0]);
@@ -1153,6 +1241,18 @@ const Map = (props) => {
                         </Source>
                     )}
 
+                    {res4Data && props.res4toggle && (
+                        <Source type="geojson" data={res4Data}>
+                            <Layer type="line" paint={props.mapstyle.includes('dark') ? darkmodePolygonPaint : polygonPaint} />
+                        </Source>
+                    )}
+
+                    {res5Data && props.res5toggle && (
+                        <Source type="geojson" data={res5Data}>
+                            <Layer type="line" paint={props.mapstyle.includes('dark') ? darkmodePolygonPaint : polygonPaint} />
+                        </Source>
+                    )}
+
                     {res6Data && props.res6toggle && (
                         <Source type="geojson" data={res6Data}>
                             <Layer type="line" paint={props.mapstyle.includes('dark') ? darkmodePolygonPaint : polygonPaint} />
@@ -1189,11 +1289,11 @@ const Map = (props) => {
                         </Source>
                     )}
 
-                    {res11SafeRing && props.sweetspotToggle && (
+                    {/*res11SafeRing && props.sweetspotToggle && (
                         <Source type="geojson" data={res11SafeRing}>
                             <Layer id="safedistance" type="fill" paint={safeRingPaint} beforeId={"hotspots"} />
                         </Source>
-                    )}
+                    )*/}
 
                     {res11TooClose && props.redzoneToggle && (
                         <Source type="geojson" data={res11TooClose}>
