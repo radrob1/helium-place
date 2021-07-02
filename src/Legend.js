@@ -17,9 +17,6 @@ export default class Legend extends React.Component {
         <div className="key">
           <span style={{ background: "#F66F67" }}></span> Invalid witness zone
         </div>
-        <div className="key">
-          <span style={{ background: '#A8C686' }}></span> Sweetspot
-        </div>
       </div>
     )
   }
