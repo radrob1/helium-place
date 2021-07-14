@@ -1,8 +1,9 @@
 import React from "react";
+import "./Header.css";
 
-export default class Header extends React.Component {
+export const Header = ({ geocoderContainerRef }) => {
 
-  openSidebar = (e) => {
+  const openSidebar = (e) => {
     e.preventDefault()
     const sidebar = document.getElementsByClassName('sidebar')[0]
     if (sidebar.classList.contains('open')) {
@@ -12,7 +13,7 @@ export default class Header extends React.Component {
     }
   }
 
-  openDonatebar = (e) => {
+  const openDonatebar = (e) => {
     e.preventDefault()
     const donatebar = document.getElementsByClassName('donatebar')[0]
     if (donatebar.classList.contains('open')) {
@@ -22,10 +23,9 @@ export default class Header extends React.Component {
     }
   }
 
-  render() {
     return (
       <div className="header">
-        <button className="sidebar-toggle" onClick={this.openSidebar}>
+        <button className="sidebar-toggle" onClick={openSidebar}>
           <svg xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 20 20"
@@ -36,12 +36,12 @@ export default class Header extends React.Component {
               d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <div ref={this.props.geocoderContainerRef} className="search-wrap"></div>
-        <button className="donatebar-toggle" onClick={this.openDonatebar}>
+        <div ref={geocoderContainerRef} className="search-wrap"></div>
+        <button className="donatebar-toggle" onClick={openDonatebar}>
           Help support this site!
           </button>
       </div>
     );
-  }
 };
 
+export default Header;
