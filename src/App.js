@@ -10,7 +10,6 @@ import Legend from "./Legend";
 import RWLegend from "./RWLegend";
 import "./index.css";
 import './Sidebar.css';
-import './Donatebar.css';
 
 let mapstyles = require('./mapstyles.json');
 
@@ -18,6 +17,7 @@ const App = () => {
 
   const [device, setDevice] = useState(!!navigator.maxTouchPoints ? 'mobile' : 'computer');
   const [locationHexToggle, setLocationHexToggle] = useState(false);
+  
   const [res4toggle, setRes4Toggle] = useState(localStorage.getItem('res4toggle') === "true" || false);
   const [res5toggle, setRes5Toggle] = useState(localStorage.getItem('res5toggle') === "true" || false);
   const [res6toggle, setRes6Toggle] = useState(localStorage.getItem('res6toggle') === "true" || false);
@@ -25,6 +25,8 @@ const App = () => {
   const [res8toggle, setRes8Toggle] = useState(localStorage.getItem('res8toggle') === "true" || false);
   const [res9toggle, setRes9Toggle] = useState(localStorage.getItem('res9toggle') === "true" || false);
   const [res10toggle, setRes10Toggle] = useState(localStorage.getItem('res10toggle') === "true" || false);
+
+
   //const [sweetspotToggle, setSweetSpotToggle] = useState(localStorage.getItem('sweetspottoggle') === "true" || false);
   const [locationRedzoneToggle, setLocationRedzoneToggle] = useState(localStorage.getItem('locationredzonetoggle') === "true" || true);
   const [redzoneToggle, setRedzoneToggle] = useState(false);
@@ -209,6 +211,7 @@ const App = () => {
         handleRedzoneToggle={handleRedzoneToggle}
         locationHexToggle={locationHexToggle}
         handleLocationHexToggle={handleLocationHexToggle}
+
         res4toggle={res4toggle}
         handleRes4Toggle={handleRes4Toggle}
         res5toggle={res5toggle}
@@ -223,6 +226,7 @@ const App = () => {
         handleRes9Toggle={handleRes9Toggle}
         res10toggle={res10toggle}
         handleRes10Toggle={handleRes10Toggle}
+
         handleMapStyle={handleMapStyle}
         mapstyles={mapstyles}
         trackuserToggle={trackuserToggle}
