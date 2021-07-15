@@ -24,7 +24,7 @@ import { geoToH3, h3ToGeoBoundary, h3ToGeo, h3ToParent } from "h3-js";
 import { kRing, hexRing } from "h3-js";
 
 // Local imports
-import HotSpotInfo from "./HotspotInfo/HotspotInfo";
+import HotSpotInfo from "../HotspotInfo/HotspotInfo";
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
@@ -206,7 +206,7 @@ let hotspotsGPSGeojson = [];
 /**
  *  Main map component
  */
-const Map = (props) => {
+export const Map = (props) => {
     const [viewport, setViewport] = useState({
         latitude: 40.229447620978966,
         longitude: -98.84343917535838,
