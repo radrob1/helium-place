@@ -1,6 +1,6 @@
 import React from "react";
 
-export const  RWLegend = () => (
+export const RewardLegend = () => (
   <div className="rwlegend">
     <h4>Reward Scale</h4>
     <div className="key">
@@ -24,4 +24,4 @@ export const  RWLegend = () => (
   </div>
 );
 
-export default RWLegend;
+export default RewardLegend;

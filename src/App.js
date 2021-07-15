@@ -7,7 +7,7 @@ import Map from "./Map";
 import Sidebar from './Sidebar';
 import Donatebar from './Donatebar';
 import Legend from "./Legend";
-import RWLegend from "./RWLegend";
+import RewardLegend from "./RewardLegend";
 import "./index.css";
 
 let mapstyles = require('./mapstyles.json');
@@ -184,7 +184,8 @@ const App = () => {
     <div className="App">
       <Header
         geocoderContainerRef={geocoderContainerRef}
-        device={device} />
+        device={device} 
+      />
       <Map
         //sweetspotToggle={sweetspotToggle}
         redzoneToggle={redzoneToggle}
@@ -231,10 +232,10 @@ const App = () => {
         trackuserToggle={trackuserToggle}
         handleTrackuserToggle={handleTrackuserToggle}
         device={device}
-      ></Sidebar>
+      />
       <Donatebar device={device} />
-      <Legend></Legend>
-      <RWLegend></RWLegend>
+      <Legend/>
+      <RewardLegend/>
     </div>
   );
 };
