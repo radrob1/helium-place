@@ -1,7 +1,8 @@
 import React from "react";
 import Switch from "react-switch";
+import './Sidebar.css'
 
-export default class Sidebar extends React.Component {
+export class Sidebar extends React.Component {
 
   closeSidebar = (e) => {
     e.preventDefault()
@@ -259,3 +260,5 @@ export default class Sidebar extends React.Component {
     );
   }
 }
+
+export default Sidebar;

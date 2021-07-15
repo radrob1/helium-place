@@ -9,7 +9,6 @@ import Donatebar from './Donatebar';
 import Legend from "./Legend";
 import RWLegend from "./RWLegend";
 import "./index.css";
-import './Sidebar.css';
 
 let mapstyles = require('./mapstyles.json');
 
