@@ -1,14 +1,15 @@
 import React from "react";
 import QRCode from "react-qr-code";
-export default class Donatebar extends React.Component {
+import './Donatebar.css';
 
-  closeDonatebar = (e) => {
+export const Donatebar = () => {
+
+  const closeDonatebar = (e) => {
     e.preventDefault()
     const donatebar = document.getElementsByClassName('donatebar')[0]
     donatebar.classList.remove('open')
   }
 
-  render() {
     return (
       <div className="donatebar">
         <div className="wrap">
@@ -18,7 +19,7 @@ export default class Donatebar extends React.Component {
                 <div className="content-header-wrap">
                   <div className="content-header">
                     <div className="close-wrap">
-                      <button onClick={this.closeDonatebar}>
+                      <button onClick={closeDonatebar}>
                         <span className="sr-only">Close panel</span>
                         <svg className="" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -75,5 +76,6 @@ export default class Donatebar extends React.Component {
         </div>
       </div >
     );
-  }
 }
+
+export default Donatebar;

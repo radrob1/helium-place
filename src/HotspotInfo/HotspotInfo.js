@@ -6,8 +6,6 @@ import Loader from "react-loader-spinner";
 import { distance as turfDistance, point as turfPoint } from '@turf/turf'
 
 
-let hotspotInfo = {};
-
 const HotSpotInfo = (props) => {
   const [dataLoading, setDataloading] = useState(true);
   const [hotspotInfo, setHotspotInfo] = useState(true);
