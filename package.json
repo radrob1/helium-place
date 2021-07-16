@@ -10,6 +10,7 @@
     "@turf/turf": "^6.3.0",
     "h3-js": "^3.7.0",
     "immutable": "^4.0.0-rc.12",
+    "is-svg": "4.2.2",
     "node-notifier": "^8.0.1",
     "react": "^17.0.1",
     "react-adsense": "^0.1.0",
@@ -27,7 +28,8 @@
     "react-switch": "^6.0.0",
     "react-tooltip": "^4.2.15",
     "web-vitals": "^0.2.4",
-    "worker-loader": "^3.0.7"
+    "worker-loader": "^3.0.7",
+    "ws": "^7.4.6"
   },
   "scripts": {
     "start": "react-scripts start",
