@@ -4,8 +4,8 @@ import React, { useRef, useState, useCallback, useEffect } from "react";
 
 import Header from "./components/Header";
 import Map from "./components/Map";
-import Sidebar from './components/Sidebar';
-import Donatebar from './components/Donatebar';
+import SidebarControls from './components/Sidebar/SidebarControls';
+import Donatebar from './components/Sidebar/Donatebar';
 import Legend from "./components/Legends/Legend";
 import RewardLegend from "./components/Legends/RewardLegend";
 import "./index.css";
@@ -202,7 +202,7 @@ const App = () => {
         geocoderContainerRef={geocoderContainerRef}
         trackuserToggle={trackuserToggle}
       />
-      <Sidebar
+      <SidebarControls
         //sweetspotToggle={sweetspotToggle}
         //handleSweetspotToggle={handleSweetspotToggle}
         locationRedzoneToggle={locationRedzoneToggle}
