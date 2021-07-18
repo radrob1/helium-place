@@ -6,8 +6,8 @@ import Header from "./components/Header";
 import Map from "./components/Map";
 import Sidebar from './components/Sidebar';
 import Donatebar from './components/Donatebar';
-import Legend from "./components/Legend";
-import RewardLegend from "./components/RewardLegend";
+import Legend from "./components/Legends/Legend";
+import RewardLegend from "./components/Legends/RewardLegend";
 import "./index.css";
 
 let mapstyles = require('./mapstyles.json');
