@@ -49,7 +49,7 @@ const HotSpotInfo = (props) => {
         name: hotspot_data.data.name,
         address: hotspot_data.data.address,
         owner: hotspot_data.data.owner,
-        reward_scale: hotspot_data.data.reward_scale.toFixed(2),
+        reward_scale: hotspot_data.data.reward_scale?.toFixed(2) || 0,
         status: hotspot_data.data.status.online,
         relayed: relayed,
         distance: distance,
