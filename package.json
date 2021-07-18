@@ -30,7 +30,8 @@
     "react-tooltip": "^4.2.15",
     "web-vitals": "^0.2.4",
     "worker-loader": "^3.0.7",
-    "ws": "^7.4.6"
+    "ws": "^7.4.6",
+    "yarn": "^1.22.10"
   },
   "scripts": {
     "start": "react-scripts start",
