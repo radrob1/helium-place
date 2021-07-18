@@ -2,12 +2,12 @@
 //import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import React, { useRef, useState, useCallback, useEffect } from "react";
 
-import Header from "./Header";
-import Map from "./Map";
-import Sidebar from './Sidebar';
-import Donatebar from './Donatebar';
-import Legend from "./Legend";
-import RewardLegend from "./RewardLegend";
+import Header from "./components/Header";
+import Map from "./components/Map";
+import Sidebar from './components/Sidebar';
+import Donatebar from './components/Donatebar';
+import Legend from "./components/Legend";
+import RewardLegend from "./components/RewardLegend";
 import "./index.css";
 
 let mapstyles = require('./mapstyles.json');
