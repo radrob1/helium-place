@@ -160,6 +160,46 @@ body {
   width: 0.5rem;
 }
 
+.hexcountlegend {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  color: #000;
+  padding: 0.875rem;
+  position: absolute;
+  left: 2rem;
+  top: 10rem;
+  z-index: 2;
+  display: none;
+}
+
+.hexcountlegend h4 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin: 0 0 0.875rem;
+}
+
+.hexcountlegend .key {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.hexcountlegend .key:last-child {
+  margin-bottom: 0;
+}
+
+.hexcountlegend div span {
+  border-radius: 0.375rem;
+  height: 0.5rem;
+  margin-left: 0.5rem;
+  width: 0.5rem;
+}
+
 .tooltip:hover .tooltiptext {
   visibility: visible;
 }
@@ -246,6 +286,10 @@ body {
   }
 
   .rwlegend {
+    display: block;
+  }
+
+  .hexcountlegend {
     display: block;
   }
 }
