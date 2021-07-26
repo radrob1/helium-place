@@ -24,7 +24,7 @@ export const createHotspotsGeojson = (hotspots, res) => {
               address: hotspots[i].address,
               rewardScale: hotspots[i].reward_scale,
               //coordinates: [hotspots[i].longitude, hotspots[i].latitude],
-              //status: hotspots[i].status
+              status: hotspots[i].status
           },
           geometry: {
               type: "Polygon",
