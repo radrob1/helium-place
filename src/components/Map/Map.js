@@ -6,7 +6,7 @@ import React, {
 } from "react";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
-import { distance as turfDistance, point as turfPoint } from '@turf/turf'
+//import { distance as turfDistance, point as turfPoint } from '@turf/turf'
 
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import MapGL from "react-map-gl";
@@ -17,17 +17,17 @@ import {
     Source,
     Layer
 } from "react-map-gl";
-import Geocoder from "react-map-gl-geocoder";
+import Geocoder from "../Geocoder/Geocoder";
 
 // H3 geo hex map used to create hex shapes and locations
-import { geoToH3, h3ToGeoBoundary, h3ToGeo, h3ToParent } from "h3-js";
+import { geoToH3, h3ToGeoBoundary, h3ToParent } from "h3-js";
 import { kRing, hexRing } from "h3-js";
 
 // Local imports
 import HotSpotInfo from "../HotspotInfo/HotspotInfo";
 
 import MapConstants from '../../constants/MapConstants'
-import { createHotspotsGeojson, createSearchHotspotsGeojson } from './MapUtils';
+import { createHotspotsGeojson } from './MapUtils';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
@@ -35,9 +35,9 @@ mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 const hashtagLocation = window.location.hash.substr(1);
 
 let hotspots = [];
-let hotspotsSearchGeojson = [];
+//let hotspotsSearchGeojson = [];
 let hotspotsGeojson = [];
-let hotspotsGPSGeojson = [];
+//let hotspotsGPSGeojson = [];
 //let hotspotDensities = {};
 /**
  *  Main map component
@@ -74,7 +74,7 @@ export const Map = (props) => {
     const [locationTooClose, setLocationTooClose] = useState();
     const [res12location, setRes12Location] = useState();
     const [locationHexData, setLocationHexData] = useState();
-    const [nearbyHotspots, setNearbyHotspots] = useState();
+    //const [nearbyHotspots, setNearbyHotspots] = useState();
     const [hoveredFeature, setHoveredFeature] = useState();
 
     const updateLocation = (value) => {
@@ -84,12 +84,12 @@ export const Map = (props) => {
         }
     };
 
-    const updateNearbyHotspots = (value) => {
-        //console.log("NearbyHotspots:", value);
-        if (typeof value != "undefined") {
-            setNearbyHotspots(value);
-        }
-    };
+    //const updateNearbyHotspots = (value) => {
+    //    //console.log("NearbyHotspots:", value);
+    //    if (typeof value != "undefined") {
+    //        setNearbyHotspots(value);
+    //    }
+    //};
 
     const updateRes12Location = (value) => {
         //console.log("res12location:", value);
@@ -107,12 +107,14 @@ export const Map = (props) => {
     };
     */
 
+    /*
     const updateRes11TooClose = (value) => {
         //console.log("res11TooClose:", value);
         if (typeof value != "undefined") {
             setRes11TooClose(value);
         }
     };
+    */
 
     const updateLocationTooClose = (value) => {
         //console.log("locationTooClose:", value);
@@ -233,7 +235,7 @@ export const Map = (props) => {
                 </Popup>
             )
         );
-    }, [hoveredFeature]);
+    }, [hoveredFeature, location]);
 
     const handleOnResult = useCallback((newlocation) => {
         console.log(newlocation);
@@ -893,7 +895,7 @@ export const Map = (props) => {
             .then((hotspots_data) => {
                 //console.log("First hotspot: ", hotspots[0]);
                 hotspots = hotspots_data;
-                hotspotsSearchGeojson = createSearchHotspotsGeojson(hotspots);
+                //hotspotsSearchGeojson = createSearchHotspotsGeojson(hotspots);
                 //hotspotsGPSGeojson = createHotspotsGeojson(hotspots, 13);
                 hotspotsGeojson = createHotspotsGeojson(hotspots, 11);
                 //hotspotDensities = getHexDensities(hotspots);
@@ -980,9 +982,42 @@ export const Map = (props) => {
     * Used by the geocoder component as a local supplemental search
     *  returns list of matching hotspot names
     */
-    const searchHotspots = useCallback((query) => {
-        var matchingFeatures = [];
+    const searchHotspots = useCallback(async (query) => {
+        //var matchingFeatures = [];
         //console.log(hotspotsSearchGeojson);
+        
+        const [hotspots] = await Promise.all([
+            fetch('https://api.helium.io/v1/hotspots/name?search='+query)
+            .then((response) => response.json())
+            .then((hotspots_data) => {
+                var matchingFeatures = [];
+                //console.log(hotspots_data);
+                for (var i = 0; i < hotspots_data.data.length; i++) { 
+                    var hs = hotspots_data.data[i];
+                    var feature = {
+                        place_name: hs.name,
+                        center: [hs.lng,hs.lat],
+                        place_type: ["hotspot"],
+                        type: "Feature",
+                        geometry: {
+                            coordinates: [hs.lng,hs.lat],
+                            type: "Point"
+                        },
+                        properties: {
+                            name: hs.name,
+                            title: hs.name
+                        },
+                    }
+                    //console.log(feature);
+                    matchingFeatures.push(feature);
+                }
+                return matchingFeatures;
+            })
+        ])
+        console.log(hotspots);
+        return hotspots;
+        
+        /*
         for (var i = 0; i < hotspotsSearchGeojson.features.length; i++) {
             var feature = hotspotsSearchGeojson.features[i];
             //console.log(feature);
@@ -999,7 +1034,10 @@ export const Map = (props) => {
                 matchingFeatures.push(feature);
             }
         }
+        console.log(matchingFeatures);
         return matchingFeatures;
+        */
+
     }, []);
 
     if (dataLoading) {
@@ -1042,7 +1080,8 @@ export const Map = (props) => {
                             onResult={handleOnResult}
                             reverseGeocode
                             placeholder="Search for an address, GPS coords, or hotspot name"
-                            localGeocoder={searchHotspots}
+                            //localGeocoder={searchHotspots}
+                            externalGeocoder={searchHotspots}
                             clearOnBlur={true}
                             clearAndBlurOnEsc={true}
                         />
