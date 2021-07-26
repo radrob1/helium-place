@@ -8,6 +8,7 @@ import SidebarControls from './components/Sidebar/SidebarControls';
 import Donatebar from './components/Sidebar/Donatebar';
 import Legend from "./components/Legends/Legend";
 import RewardLegend from "./components/Legends/RewardLegend";
+import HexCountLegend from "./components/Legends/HexCountLegend";
 import "./index.css";
 
 let mapstyles = require('./mapstyles.json');
@@ -31,6 +32,38 @@ const App = () => {
   const [redzoneToggle, setRedzoneToggle] = useState(false);
   const [mapstyle, setMapstyle] = useState(localStorage.getItem('mapstyle') || mapstyles.streets);
   const [trackuserToggle, setTrackuserToggle] = useState(false);
+  const [locationHexCounts, setLocationHexCounts] = useState(
+    {
+      res4:{
+        hex: null,
+        count: 0
+      },
+      res5:{
+        hex: null,
+        count: 0
+      },
+      res6:{
+        hex: null,
+        count: 0
+      },
+      res7:{
+        hex: null,
+        count: 0
+      },
+      res8:{
+        hex: null,
+        count: 0
+      },
+      res9:{
+        hex: null,
+        count: 0
+      },
+      res10:{
+        hex: null,
+        count: 0
+      },
+    });
+  const [nearbydataLoading, setNearbyDataloading] = useState(true);
   const geocoderContainerRef = useRef();
 
   useEffect(() => {
@@ -90,6 +123,14 @@ const App = () => {
     []
   );
 */
+
+const handleLocationHexCounts = useCallback(
+  (hexcounts) => {
+    setLocationHexCounts(hexcounts);
+  },
+  []
+);
+
   const handleRedzoneToggle = useCallback(
     (checked) => {
       setRedzoneToggle(checked);
@@ -201,6 +242,8 @@ const App = () => {
         mapstyle={mapstyle}
         geocoderContainerRef={geocoderContainerRef}
         trackuserToggle={trackuserToggle}
+        updateHexCounts={handleLocationHexCounts}
+        setNearbyDataloading={setNearbyDataloading}
       />
       <SidebarControls
         //sweetspotToggle={sweetspotToggle}
@@ -236,6 +279,7 @@ const App = () => {
       <Donatebar device={device} />
       <Legend/>
       <RewardLegend/>
+      <HexCountLegend hexcounts={locationHexCounts} toggle={locationHexToggle}/>
     </div>
   );
 };

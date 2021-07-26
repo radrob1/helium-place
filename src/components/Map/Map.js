@@ -74,7 +74,9 @@ export const Map = (props) => {
     const [locationTooClose, setLocationTooClose] = useState();
     const [res12location, setRes12Location] = useState();
     const [locationHexData, setLocationHexData] = useState();
-    //const [nearbyHotspots, setNearbyHotspots] = useState();
+    const [locationHexCount, setLocationHexCount] = useState()
+    const [nearbyHotspots, setNearbyHotspots] = useState();
+    //const [nearbydataLoading, setNearbyDataloading] = useState(true);
     const [hoveredFeature, setHoveredFeature] = useState();
 
     const updateLocation = (value) => {
@@ -84,12 +86,12 @@ export const Map = (props) => {
         }
     };
 
-    //const updateNearbyHotspots = (value) => {
-    //    //console.log("NearbyHotspots:", value);
-    //    if (typeof value != "undefined") {
-    //        setNearbyHotspots(value);
-    //    }
-    //};
+    const updateNearbyHotspots = (value) => {
+        //console.log("NearbyHotspots:", value);
+        if (typeof value != "undefined") {
+            setNearbyHotspots(value);
+        }
+    };
 
     const updateRes12Location = (value) => {
         //console.log("res12location:", value);
@@ -127,6 +129,14 @@ export const Map = (props) => {
         //console.log("res8Data:", value);
         if (typeof value != "undefined") {
             setLocationHexData(value);
+        }
+    };
+
+    const updateLocationHexCount = (value) => {
+        //console.log("res8Data:", value);
+        if (typeof value != "undefined") {
+            setLocationHexCount(value);
+            props.updateHexCounts(value);
         }
     };
 
@@ -471,12 +481,19 @@ export const Map = (props) => {
         //locationhexes.push(res9hex);
         //locationhexes.push(res10hex);
         //locationhexes.push(h3ToParent(updatedlocation.res12hex, 4));
-        locationhexes.push(h3ToParent(updatedlocation.res12hex, 5));
-        locationhexes.push(h3ToParent(updatedlocation.res12hex, 6));
-        locationhexes.push(h3ToParent(updatedlocation.res12hex, 7));
-        locationhexes.push(h3ToParent(updatedlocation.res12hex, 8));
-        locationhexes.push(h3ToParent(updatedlocation.res12hex, 9));
-        locationhexes.push(h3ToParent(updatedlocation.res12hex, 10));
+        let location4hex = h3ToParent(updatedlocation.res12hex, 4);
+        let location5hex = h3ToParent(updatedlocation.res12hex, 5);
+        let location6hex = h3ToParent(updatedlocation.res12hex, 6);
+        let location7hex = h3ToParent(updatedlocation.res12hex, 7);
+        let location8hex = h3ToParent(updatedlocation.res12hex, 8);
+        let location9hex = h3ToParent(updatedlocation.res12hex, 9);
+        let location10hex = h3ToParent(updatedlocation.res12hex, 10);
+        locationhexes.push(location5hex);
+        locationhexes.push(location6hex);
+        locationhexes.push(location7hex);
+        locationhexes.push(location8hex);
+        locationhexes.push(location9hex);
+        locationhexes.push(location10hex);
         //console.log("res8hex: ", res8hex);
 
         var i;
@@ -507,6 +524,77 @@ export const Map = (props) => {
             features: features,
         };
         updateLocationHexData(locationgeojson);
+
+        // Count all hotspots in each respective location hexes
+        var locationhexcount = {
+            res4: {
+                hex: location4hex,
+                count: 0
+            },
+            res5: {
+                hex: location5hex,
+                count: 0
+            },
+            res6: {
+                hex: location6hex,
+                count: 0
+            },
+            res7: {
+                hex: location7hex,
+                count: 0
+            },
+            res8: {
+                hex: location8hex,
+                count: 0
+            },
+            res9: {
+                hex: location9hex,
+                count: 0
+            },
+            res10: {
+                hex: location10hex,
+                count: 0
+            },
+        }
+
+        searchHotspotsByDistance(updatedlocation).then((nearbyHotspots) => {
+            //console.log("nearbyhotspots:", nearbyHotspots);
+            for (i = 0; i < nearbyHotspots.length; i++){
+                let nearbyRes4 = h3ToParent(nearbyHotspots[i].location, 4);
+                let nearbyRes5 = h3ToParent(nearbyHotspots[i].location, 5);
+                let nearbyRes6 = h3ToParent(nearbyHotspots[i].location, 6);
+                let nearbyRes7 = h3ToParent(nearbyHotspots[i].location, 7);
+                let nearbyRes8 = h3ToParent(nearbyHotspots[i].location, 8);
+                let nearbyRes9 = h3ToParent(nearbyHotspots[i].location, 9);
+                let nearbyRes10 = h3ToParent(nearbyHotspots[i].location, 10);
+                if (nearbyHotspots[i].status.online === "online"){
+                    if (nearbyRes4 === location4hex){
+                        locationhexcount['res4']['count'] += 1;
+                    }
+                    if (nearbyRes5 === location5hex){
+                        locationhexcount['res5']['count'] += 1;
+                    }
+                    if (nearbyRes6 === location6hex){
+                        locationhexcount['res6']['count'] += 1;
+                    }
+                    if (nearbyRes7 === location7hex){
+                        locationhexcount['res7']['count'] += 1;
+                    }
+                    if (nearbyRes8 === location8hex){
+                        locationhexcount['res8']['count'] += 1;
+                    }
+                    if (nearbyRes9 === location9hex){
+                        locationhexcount['res9']['count'] += 1;
+                    }
+                    if (nearbyRes10 === location10hex){
+                        locationhexcount['res10']['count'] += 1;
+                    }
+                }
+            }
+            console.log(locationhexcount);
+            updateLocationHexCount(locationhexcount);
+        });
+        //console.log(locationhexcount);
 
         // Get all  res 4 neighbor boundaries
         if (typeof res4hexes !== "undefined" && res4hexes.length > 0) {
@@ -978,6 +1066,28 @@ export const Map = (props) => {
         [handleViewportChange]
     );
 
+    const searchHotspotsByDistance = (location, cursor = null, prevResp = []) => {
+        props.setNearbyDataloading(true);
+        let url = 'https://api.helium.io/v1/hotspots/location/distance?'
+        if (cursor){
+            url = url + 'lat='+location.latitude+'&lon='+location.longitude+'&distance=50000&cursor='+cursor
+        }
+        else {
+            url = url+ 'lat='+location.latitude+'&lon='+location.longitude+'&distance=50000'
+        }
+        return fetch(url)
+                .then((response) => response.json())
+                .then((hotspots_data) => {
+                    console.log(hotspots_data);
+                    const response = [...prevResp, ...hotspots_data['data']];
+                    let cursor = hotspots_data['cursor']
+                    if (cursor){
+                        return searchHotspotsByDistance(location, cursor, response);
+                    }
+                    
+                    return response;
+            })
+    };
     /*
     * Used by the geocoder component as a local supplemental search
     *  returns list of matching hotspot names
@@ -1014,7 +1124,7 @@ export const Map = (props) => {
                 return matchingFeatures;
             })
         ])
-        console.log(hotspots);
+        //console.log(hotspots);
         return hotspots;
         
         /*
