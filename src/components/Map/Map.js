@@ -76,6 +76,7 @@ export const Map = (props) => {
     const [locationHexData, setLocationHexData] = useState();
     const [locationHexCount, setLocationHexCount] = useState()
     const [nearbyHotspots, setNearbyHotspots] = useState();
+    //const [nearbydataLoading, setNearbyDataloading] = useState(true);
     const [hoveredFeature, setHoveredFeature] = useState();
 
     const updateLocation = (value) => {
@@ -135,6 +136,7 @@ export const Map = (props) => {
         //console.log("res8Data:", value);
         if (typeof value != "undefined") {
             setLocationHexCount(value);
+            props.updateHexCounts(value);
         }
     };
 
@@ -1064,11 +1066,26 @@ export const Map = (props) => {
         [handleViewportChange]
     );
 
-    const searchHotspotsByDistance = (location) => {
-        return fetch('https://api.helium.io/v1/hotspots/location/distance?lat='+location.latitude+'&lon='+location.longitude+'&distance=20000')
+    const searchHotspotsByDistance = (location, cursor = null, prevResp = []) => {
+        props.setNearbyDataloading(true);
+        let url = 'https://api.helium.io/v1/hotspots/location/distance?'
+        if (cursor){
+            url = url + 'lat='+location.latitude+'&lon='+location.longitude+'&distance=50000&cursor='+cursor
+        }
+        else {
+            url = url+ 'lat='+location.latitude+'&lon='+location.longitude+'&distance=50000'
+        }
+        return fetch(url)
                 .then((response) => response.json())
                 .then((hotspots_data) => {
-                    return hotspots_data['data']
+                    console.log(hotspots_data);
+                    const response = [...prevResp, ...hotspots_data['data']];
+                    let cursor = hotspots_data['cursor']
+                    if (cursor){
+                        return searchHotspotsByDistance(location, cursor, response);
+                    }
+                    
+                    return response;
             })
     };
     /*
