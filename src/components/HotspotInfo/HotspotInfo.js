@@ -91,7 +91,7 @@ const HotSpotInfo = ({info, location}) => {
             </dd>
           </div>
           <div>
-            <dt>Reward Scale:</dt>
+            <dt>Transmit Scale:</dt>
             <dd>{hotspotInfo.reward_scale}</dd>
           </div>
           <div>
