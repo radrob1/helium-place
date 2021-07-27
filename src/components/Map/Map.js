@@ -480,7 +480,6 @@ export const Map = (props) => {
         //locationhexes.push(res8hex);
         //locationhexes.push(res9hex);
         //locationhexes.push(res10hex);
-        //locationhexes.push(h3ToParent(updatedlocation.res12hex, 4));
         let location4hex = h3ToParent(updatedlocation.res12hex, 4);
         let location5hex = h3ToParent(updatedlocation.res12hex, 5);
         let location6hex = h3ToParent(updatedlocation.res12hex, 6);
@@ -488,6 +487,7 @@ export const Map = (props) => {
         let location8hex = h3ToParent(updatedlocation.res12hex, 8);
         let location9hex = h3ToParent(updatedlocation.res12hex, 9);
         let location10hex = h3ToParent(updatedlocation.res12hex, 10);
+        locationhexes.push(location4hex);
         locationhexes.push(location5hex);
         locationhexes.push(location6hex);
         locationhexes.push(location7hex);
@@ -1070,10 +1070,10 @@ export const Map = (props) => {
         props.setNearbyDataloading(true);
         let url = 'https://api.helium.io/v1/hotspots/location/distance?'
         if (cursor){
-            url = url + 'lat='+location.latitude+'&lon='+location.longitude+'&distance=50000&cursor='+cursor
+            url = url + 'lat='+location.latitude+'&lon='+location.longitude+'&distance=65000&cursor='+cursor
         }
         else {
-            url = url+ 'lat='+location.latitude+'&lon='+location.longitude+'&distance=50000'
+            url = url+ 'lat='+location.latitude+'&lon='+location.longitude+'&distance=65000'
         }
         return fetch(url)
                 .then((response) => response.json())
