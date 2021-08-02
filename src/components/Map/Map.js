@@ -8,6 +8,10 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 //import { distance as turfDistance, point as turfPoint } from '@turf/turf'
 
+import Legend from '../Legends/Legend'
+import HexCountLegend from '../Legends/HexCountLegend';
+import RewardLegend from '../Legends/RewardLegend';
+
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import MapGL from "react-map-gl";
 import mapboxgl from "mapbox-gl"; // This is a dependency of react-map-gl even if you didn't explicitly install it
@@ -1162,144 +1166,147 @@ export const Map = (props) => {
         )
     }
     else {
-        return (
-            <div style={{ height: "94vh" }}>
-                <MapGL
+    return (
+    <div style={{ height: "94vh" }}>
+        <MapGL
+            mapboxApiAccessToken={MapConstants.MAPBOX_TOKEN}
+            ref={mapRef}
+            {...viewport}
+            width="100%"
+            height="100%"
+            onViewportChange={setViewport}
+            mapStyle={props.mapstyle}
+            onHover={_onHover}
+            onClick={mapClick}
+        >
+            {_renderTooltip()}
+
+            {hotspots && (
+                <Geocoder
+                    mapRef={mapRef}
+                    containerRef={props.geocoderContainerRef}
+                    onViewportChange={handleGeocoderViewportChange}
                     mapboxApiAccessToken={MapConstants.MAPBOX_TOKEN}
-                    ref={mapRef}
-                    {...viewport}
-                    width="100%"
-                    height="100%"
-                    onViewportChange={setViewport}
-                    mapStyle={props.mapstyle}
-                    onHover={_onHover}
-                    onClick={mapClick}
-                >
-                    {_renderTooltip()}
-
-                    {hotspots && (
-                        <Geocoder
-                            mapRef={mapRef}
-                            containerRef={props.geocoderContainerRef}
-                            onViewportChange={handleGeocoderViewportChange}
-                            mapboxApiAccessToken={MapConstants.MAPBOX_TOKEN}
-                            position="top-right"
-                            marker={false}
-                            minLength={12}
-                            //countries={"US,CA"}
-                            onResult={handleOnResult}
-                            reverseGeocode
-                            placeholder="Search for an address, GPS coords, or hotspot name"
-                            //localGeocoder={searchHotspots}
-                            externalGeocoder={searchHotspots}
-                            clearOnBlur={true}
-                            clearAndBlurOnEsc={true}
-                        />
-                    )}
-                    <div ref={props.geocoderContainerRef}>
-                        <GeolocateControl
-                            positionOptions={MapConstants.positionOptions}
-                            style={{
-                                flex: 1,
-                                right: 0,
-                                margin: 15,
-                                top: 0,
-                                position: 'absolute'
-                            }}
-                            trackUserLocation={props.trackuserToggle}
-                            onViewportChange={handleGeolocateViewportChange}
-                            onGeolocate={handleOnResult}
-                            captureClick={true}
-                            captureDoubleClick={true}
-                        />
-                    </div>
-
-                    {res12location && (
-                        <Source type="geojson" data={res12location}>
-                            <Layer id="searchedlocation" type="fill" paint={MapConstants.locationPaint} />
-                        </Source>
-                    )}
-
-                    {MapConstants.locationHexesPaint && props.locationHexToggle && (
-                        <Source type="geojson" data={locationHexData}>
-                            <Layer id="locationhexes" type="fill" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodeLocationHexPaint : MapConstants.locationHexesPaint} beforeId={"searchedlocation"} />
-                        </Source>
-                    )}
-
-                    {res4Data && props.res4toggle && (
-                        <Source type="geojson" data={res4Data}>
-                            <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
-                        </Source>
-                    )}
-
-                    {res5Data && props.res5toggle && (
-                        <Source type="geojson" data={res5Data}>
-                            <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
-                        </Source>
-                    )}
-
-                    {res6Data && props.res6toggle && (
-                        <Source type="geojson" data={res6Data}>
-                            <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
-                        </Source>
-                    )}
-
-                    {res7Data && props.res7toggle && (
-                        <Source type="geojson" data={res7Data}>
-                            <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
-                        </Source>
-                    )}
-
-                    {res8Data && props.res8toggle && (
-                        <Source type="geojson" data={res8Data}>
-                            <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
-                        </Source>
-                    )}
-
-                    {res9Data && props.res9toggle && (
-                        <Source type="geojson" data={res9Data}>
-                            <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
-                        </Source>
-                    )}
-
-                    {res10Data && props.res10toggle && (
-                        <Source type="geojson" data={res10Data}>
-                            <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
-                        </Source>
-                    )}
-
-                    {hotspotsGeojson && (
-                        <Source type="geojson" data={hotspotsGeojson}>
-                            <Layer id="hotspots" type="fill" paint={MapConstants.nearbyPaint} beforeId={"searchedlocation"} />
-                        </Source>
-                    )}
-
-                    {/*res11SafeRing && props.sweetspotToggle && (
-                        <Source type="geojson" data={res11SafeRing}>
-                            <Layer id="safedistance" type="fill" paint={MapConstants.safeRingPaint} beforeId={"hotspots"} />
-                        </Source>
-                    )*/}
-
-                    {res11TooClose && props.redzoneToggle && (
-                        <Source type="geojson" data={res11TooClose}>
-                            <Layer id="tooclose" type="fill" paint={MapConstants.tooClosePaint} beforeId={"hotspots"} />
-                        </Source>
-                    )}
-
-                    {locationTooClose && props.locationRedzoneToggle && (
-                        <Source type="geojson" data={locationTooClose}>
-                            <Layer id="tooclose" type="fill" paint={MapConstants.tooClosePaint} beforeId={"hotspots"} />
-                        </Source>
-                    )}
-
-                    {/*nearbyHotspots && (
-                        <Source type="geojson" data={nearbyHotspots}>
-                            <Layer id="nearbyhotspots" type="fill" paint={MapConstants.nearbyPaint}/>
-                        </Source>
-                    )*/}
-
-                </MapGL>
+                    position="top-right"
+                    marker={false}
+                    minLength={12}
+                    //countries={"US,CA"}
+                    onResult={handleOnResult}
+                    reverseGeocode
+                    placeholder="Search for an address, GPS coords, or hotspot name"
+                    //localGeocoder={searchHotspots}
+                    externalGeocoder={searchHotspots}
+                    clearOnBlur={true}
+                    clearAndBlurOnEsc={true}
+                />
+            )}
+            <div ref={props.geocoderContainerRef}>
+                <GeolocateControl
+                    positionOptions={MapConstants.positionOptions}
+                    style={{
+                        flex: 1,
+                        right: 0,
+                        margin: 15,
+                        top: 0,
+                        position: 'absolute'
+                    }}
+                    trackUserLocation={props.trackuserToggle}
+                    onViewportChange={handleGeolocateViewportChange}
+                    onGeolocate={handleOnResult}
+                    captureClick={true}
+                    captureDoubleClick={true}
+                />
             </div>
+
+            {res12location && (
+                <Source type="geojson" data={res12location}>
+                    <Layer id="searchedlocation" type="fill" paint={MapConstants.locationPaint} />
+                </Source>
+            )}
+
+            {MapConstants.locationHexesPaint && props.locationHexToggle && (
+                <Source type="geojson" data={locationHexData}>
+                    <Layer id="locationhexes" type="fill" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodeLocationHexPaint : MapConstants.locationHexesPaint} beforeId={"searchedlocation"} />
+                </Source>
+            )}
+
+            {res4Data && props.res4toggle && (
+                <Source type="geojson" data={res4Data}>
+                    <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
+                </Source>
+            )}
+
+            {res5Data && props.res5toggle && (
+                <Source type="geojson" data={res5Data}>
+                    <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
+                </Source>
+            )}
+
+            {res6Data && props.res6toggle && (
+                <Source type="geojson" data={res6Data}>
+                    <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
+                </Source>
+            )}
+
+            {res7Data && props.res7toggle && (
+                <Source type="geojson" data={res7Data}>
+                    <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
+                </Source>
+            )}
+
+            {res8Data && props.res8toggle && (
+                <Source type="geojson" data={res8Data}>
+                    <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
+                </Source>
+            )}
+
+            {res9Data && props.res9toggle && (
+                <Source type="geojson" data={res9Data}>
+                    <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
+                </Source>
+            )}
+
+            {res10Data && props.res10toggle && (
+                <Source type="geojson" data={res10Data}>
+                    <Layer type="line" paint={props.mapstyle.includes('dark') ? MapConstants.darkmodePolygonPaint : MapConstants.polygonPaint} />
+                </Source>
+            )}
+
+            {hotspotsGeojson && (
+                <Source type="geojson" data={hotspotsGeojson}>
+                    <Layer id="hotspots" type="fill" paint={MapConstants.nearbyPaint} beforeId={"searchedlocation"} />
+                </Source>
+            )}
+
+            {/*res11SafeRing && props.sweetspotToggle && (
+                <Source type="geojson" data={res11SafeRing}>
+                    <Layer id="safedistance" type="fill" paint={MapConstants.safeRingPaint} beforeId={"hotspots"} />
+                </Source>
+            )*/}
+
+            {res11TooClose && props.redzoneToggle && (
+                <Source type="geojson" data={res11TooClose}>
+                    <Layer id="tooclose" type="fill" paint={MapConstants.tooClosePaint} beforeId={"hotspots"} />
+                </Source>
+            )}
+
+            {locationTooClose && props.locationRedzoneToggle && (
+                <Source type="geojson" data={locationTooClose}>
+                    <Layer id="tooclose" type="fill" paint={MapConstants.tooClosePaint} beforeId={"hotspots"} />
+                </Source>
+            )}
+
+            {/*nearbyHotspots && (
+                <Source type="geojson" data={nearbyHotspots}>
+                    <Layer id="nearbyhotspots" type="fill" paint={MapConstants.nearbyPaint}/>
+                </Source>
+            )*/}
+
+        </MapGL>
+        <Legend/>
+        <RewardLegend/>
+        <HexCountLegend hexcounts={props.locationHexCounts} toggle={props.locationHexToggle}/>
+    </div>
         );
     }
 };
