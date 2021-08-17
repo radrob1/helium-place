@@ -1,4 +1,4 @@
-.sidebar {
+.donatebar {
   position: fixed;
   top: 0px;
   right: 0px;
@@ -6,31 +6,31 @@
   left: 0px;
   overflow: hidden;
   z-index: -1;
-  height: 90vh;
+  height: 100vh;
   margin-top: 5.075rem;
-  font-size: 16px;
+  font-size: 18px;
 }
 
-.sidebar .wrap {
+.donatebar .wrap {
   position: absolute;
   top: 0px;
   right: 0px;
   bottom: 0px;
   left: -450px;
   overflow: hidden;
-  transition: left 0.3s ease-in-out;
+  transition: right 0.3s ease-in-out;
 }
 
-.sidebar.open {
+.donatebar.open {
   z-index: 10;
 }
 
-.sidebar.open .wrap {
+.donatebar.open .wrap {
   left: 0rem;
   z-index: 100;
 }
 
-.sidebar section {
+.donatebar section {
   position: absolute;
   top: 0px;
   bottom: 0px;
@@ -41,13 +41,13 @@
   z-index: 2;
 }
 
-.sidebar section .wrap {
+.donatebar section .wrap {
   width: 100vw;
-  max-width: 32rem;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+  max-width: 28rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 10%)
 }
 
-.sidebar section .content {
+.donatebar section .content {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -58,11 +58,11 @@
   border: 1px solid rgba(229, 231, 235, 1);
 }
 
-.sidebar section .content-header-wrap {
+.donatebar section .content-header-wrap {
   padding: 0 1rem;
 }
 
-.sidebar section .content-header {
+.donatebar section .content-header {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -104,13 +104,13 @@
   height: 1.5rem;
 }
 
-.sidebar section .content-body-wrap {
+.donatebar section .content-body-wrap {
   position: relative;
   flex: 1;
   padding: 0 1rem;
 }
 
-.sidebar section .content-body {
+.donatebar section .content-body {
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -122,7 +122,7 @@
   gap: 1rem;
 }
 
-.sidebar .option .option-header {
+.donatebar .option .option-header {
   font-weight: 650;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -131,34 +131,34 @@
   letter-spacing: 0.05em;
 }
 
-.sidebar .option .option-header label {
+.donatebar .option .option-header label {
   margin: 0.1rem 0 0 0.5rem;
 }
 
-.sidebar .option .option-header.toggle {
+.donatebar .option .option-header.toggle {
   display: flex;
   align-items: center;
 }
 
-.sidebar .option .option-description {
+.donatebar .option .option-description {
   color: rgba(107, 114, 128, 1);
   margin: -0.5rem 0 0;
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-.sidebar .map-styles,
-.sidebar .res-toggles {
+.donatebar .map-styles,
+.donatebar .res-toggles {
   display: flex;
   flex-direction: column;
   margin-top: 0.5rem;
 }
 
-.sidebar .map-styles input {
+.donatebar .map-styles input {
   margin: 0;
 }
 
-.sidebar .map-styles label {
+.donatebar .map-styles label {
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -166,7 +166,7 @@
   cursor: pointer;
 }
 
-.sidebar .switch-text {
+.donatebar .switch-text {
   font-weight: 500;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -175,7 +175,7 @@
   letter-spacing: 0.05em;
 }
 
-.sidebar .ad {
+.donatebar .ad {
   background: #ffffff;
   border: 1px solid #dedede;
   display: flex;
@@ -184,45 +184,45 @@
   padding: 0.5rem;
 }
 
-.sidebar .ad .ad-content {
+.donatebar .ad .ad-content {
   padding: 0.5rem;
   align-items: center;
 }
 
-.sidebar .ad .logo {
+.donatebar .ad .logo {
   background: #162646;
   padding: 1.5rem;
   border-radius: 0.375rem;
   width: 30%;
 }
 
-.sidebar .ad .logo image {
+.donatebar .ad .logo image {
   width: 50px;
 }
 
-.sidebar .ad .title {
+.donatebar .ad .title {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.sidebar .ad .description {
+.donatebar .ad .description {
   margin: 0;
   font-size: 0.75rem;
   line-height: 1rem;
 }
 
-.sidebar .donate {
+.donatebar .donate {
   margin-bottom: 1rem;
 }
 
-.sidebar .donate h4 {
+.donatebar .donate h4 {
   margin: 0;
   font-size: 0.875rem;
   line-height: 1.25rem;
 }
 
-.sidebar .donate p {
+.donatebar .donate p {
   display: none;
   margin: 0 0 1rem;
   font-size: 0.75rem;
@@ -230,7 +230,7 @@
   color: rgba(107, 114, 128, 1);
 }
 
-.sidebar .donate button {
+.donatebar .donate button {
   width: 80px;
   height: 20px;
   border-radius: 8px;
@@ -241,21 +241,21 @@
   font-size: 10px;
 }
 
-@media screen and (min-width: 640px) {
-  .sidebar.open .wrap {
+@media screen and (min-width: 300px) {
+  .donatebar.open .wrap {
     left: 0.5rem;
     z-index: 100;
   }
 
-  .sidebar section .content {
+  .donatebar section .content {
     border-radius: 0.375rem;
   }
 
-  .sidebar section .content-body {
+  .donatebar section .content-body {
     gap: 1.5rem;
   }
 
-  .sidebar .donate p {
+  .donatebar .donate p {
     display: block;
   }
 }

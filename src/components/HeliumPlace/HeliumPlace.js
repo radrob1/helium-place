@@ -8,7 +8,6 @@ import Donatebar from '../Sidebar/Donatebar';
 import Map from '../Map';
 // TODO these should live in Map
 
-
 let mapstyles = require('../../mapstyles.json');
 
 export const HeliumPlace = () => {
@@ -221,7 +220,7 @@ const handleLocationHexCounts = useCallback(
 
   return (
     <>
-  <Header
+      <Header
         geocoderContainerRef={geocoderContainerRef}
         device={device} 
       />
@@ -230,6 +229,7 @@ const handleLocationHexCounts = useCallback(
         redzoneToggle={redzoneToggle}
         locationRedzoneToggle={locationRedzoneToggle}
         locationHexToggle={locationHexToggle}
+        locationHexCounts={locationHexCounts}
         res4toggle={res4toggle}
         res5toggle={res5toggle}
         res6toggle={res6toggle}
@@ -242,8 +242,6 @@ const handleLocationHexCounts = useCallback(
         trackuserToggle={trackuserToggle}
         updateHexCounts={handleLocationHexCounts}
         setNearbyDataloading={setNearbyDataloading}
-        locationHexCounts={locationHexCounts}
-        locationHexToggle={locationHexToggle}
       />
       <SidebarControls
         //sweetspotToggle={sweetspotToggle}

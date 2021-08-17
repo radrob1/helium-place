@@ -1,6 +1,6 @@
 import React from "react";
 import HeliumPlace from "./components/HeliumPlace/HeliumPlace";
-import "./index.css";
+import "./index.scss";
 
 const App = () => {
   return (

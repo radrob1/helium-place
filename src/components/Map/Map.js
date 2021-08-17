@@ -32,6 +32,7 @@ import HotSpotInfo from "../HotspotInfo/HotspotInfo";
 
 import MapConstants from '../../constants/MapConstants'
 import { createHotspotsGeojson } from './MapUtils';
+import './Map.scss';
 
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
@@ -1169,6 +1170,7 @@ export const Map = (props) => {
     return (
     <div style={{ height: "94vh" }}>
         <MapGL
+            className="map"
             mapboxApiAccessToken={MapConstants.MAPBOX_TOKEN}
             ref={mapRef}
             {...viewport}

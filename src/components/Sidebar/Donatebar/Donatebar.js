@@ -1,6 +1,6 @@
 import React from "react";
 import QRCode from "react-qr-code";
-import './Donatebar.css';
+import './Donatebar.scss';
 
 export const Donatebar = () => {
 
