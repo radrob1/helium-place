@@ -3,21 +3,22 @@
   flex-direction: column;
   z-index: -1;
   overflow: hidden;
-  padding: 0.25rem;
-  margin-top: 4.5rem;
-  margin-left: 0.35rem;
-  border-radius: 0.5rem;
-  background: #ffffff;
-
-  position: fixed;
-  top: 0px;
-  // bottom: 0px;
-  height: 94vh;
-  min-width: 25rem;
-  max-width: 35rem;
+  width: 0;
+  height: 0;
 
   &.open {
     z-index: 1;
+    padding: 0.25rem;
+    margin-top: 4.5rem;
+    margin-left: 0.35rem;
+    border-radius: 0.5rem;
+    background: #ffffff;
+
+    position: fixed;
+    top: 0px;
+    height: 90vh;
+    min-width: 25rem;
+    max-width: 35rem;
   }
 
   .content {
@@ -61,12 +62,9 @@
         height: 1rem;
       }
     }
-
   }
 
   .content-body {
-    display: flex;
-    flex-direction: column;
     height: 100%;
 
     .option {
