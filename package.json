@@ -28,6 +28,7 @@
     "react-scripts": "4.0.3",
     "react-switch": "^6.0.0",
     "react-tooltip": "^4.2.15",
+    "sass": "^1.38.2",
     "web-vitals": "^0.2.4",
     "worker-loader": "^3.0.7",
     "ws": "^7.4.6",
