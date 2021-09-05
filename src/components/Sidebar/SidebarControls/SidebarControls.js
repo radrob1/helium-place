@@ -266,9 +266,6 @@ export const SidebarControls = ({
               <p className="description">Try this awesome hotspot planning tool!</p>
             </div>
           </a>
-          <div className="ad">
-            <iframe data-aa="1620569" src="//ad.a-ads.com/1620569?size=468x60" scrolling="no" style={{ width: "468px", height: "60px", border: "0px", padding: 0, overflow: "hidden" }} allowtransparency="true"></iframe>               
-          </div>
         </div>
     </div>
   </div >
