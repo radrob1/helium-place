@@ -96,7 +96,7 @@ const positionOptions = { enableHighAccuracy: true };
 // Ways to set Mapbox token: https://uber.github.io/react-map-gl/#/Documentation/getting-started/about-mapbox-tokens
 
 const MAPBOX_TOKEN =
-    "pk.eyJ1IjoicmFkcm9iIiwiYSI6ImNrYndpYTJ4ZjBnYWkzNG5zMzFhYnVoN2IifQ.gE5y3Jl_13TTk6Q71wLNnQ";
+    "";
 
 export default  {
   MAPBOX_TOKEN, 
