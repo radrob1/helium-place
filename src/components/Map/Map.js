@@ -983,7 +983,7 @@ export const Map = (props) => {
     // Fetch all the hotspot data and convert to geojson
     //console.log(props);
     useEffect(() => {
-        fetch("")
+        fetch("<FILL ME IN WITH HOTSPOTS DATA URL>")
             .then((response) => response.json())
             .then((hotspots_data) => {
                 //console.log("First hotspot: ", hotspots[0]);
