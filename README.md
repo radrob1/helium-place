@@ -1,6 +1,9 @@
 # Getting Started with Helium Place
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). In order to run on your own infrastructure, you will need the following:
+1) A method to generate the most recent list of hotspots and a URL to host that json file. An example json file can be found at hotspots.json. The URL needs to be provided on line 986 of src/components/Map/Map.js.
+2) A Mapbox API key provided on line 99 of src/constants/MapConstants.js
+3) Rename src/App-real.js to App.js
 
 ## Available Scripts
 
