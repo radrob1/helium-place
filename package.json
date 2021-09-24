@@ -8,7 +8,7 @@
     "@testing-library/user-event": "^12.1.10",
     "@turf/distance": "^6.3.0",
     "@turf/turf": "^6.3.0",
-    "axios": "^0.21.1",
+    "axios": "^0.21.2",
     "h3-js": "^3.7.0",
     "immutable": "^4.0.0-rc.12",
     "is-svg": "4.2.2",
