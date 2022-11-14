@@ -25,7 +25,7 @@
     "react-modal": "^3.12.1",
     "react-qr-code": "^1.0.5",
     "react-responsive-modal": "^6.0.1",
-    "react-scripts": "4.0.3",
+    "react-scripts": "5.0.1",
     "react-switch": "^6.0.0",
     "react-tooltip": "^4.2.15",
     "sass": "^1.38.2",
